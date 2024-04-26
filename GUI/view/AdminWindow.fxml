@@ -14,26 +14,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1055.0" style=": ;" stylesheets="/gui/view/styles/adminWindowStyles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.AdminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1055.0" style=": ;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.AdminController">
    <children>
-      <ScrollPane layoutX="2.0" prefHeight="749.0" prefWidth="1053.0" style=": ;">
+      <ScrollPane layoutX="2.0" prefHeight="762.0" prefWidth="1061.0" style=": ;">
          <content>
-            <VBox id="VBox" prefHeight="747.0" prefWidth="1050.0" style="-fx-background-color: #90EE90;">
+            <VBox id="VBox" prefHeight="760.0" prefWidth="1059.0" style="-fx-background-color: #7CCD7C;">
                <children>
-                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="59.0" prefWidth="1051.0">
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="1057.0" style="-fx-background-color: #90EE90; -fx-border-color: white;">
                      <children>
-                        <ImageView fitHeight="85.0" fitWidth="362.0">
-                           <image>
-                              <Image url="@images/Logo2.png" />
-                           </image>
-                        </ImageView>
-                     </children></AnchorPane>
-                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="1051.0">
-                     <VBox.margin>
-                        <Insets top="44.0" />
-                     </VBox.margin>
-                     <children>
-                        <MFXButton prefHeight="33.0" prefWidth="118.0" style="-fx-background-color: #90EE90;" text="Employee">
+                        <MFXButton layoutX="451.0" layoutY="55.0" prefHeight="36.0" prefWidth="131.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;" text="Employee">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="28.0">
                                  <image>
@@ -42,15 +31,35 @@
                               </ImageView>
                            </graphic>
                            <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font></MFXButton>
-                        <MFXButton prefHeight="46.0" prefWidth="100.0" style="-fx-background-color: #90EE90;">
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton layoutX="582.0" layoutY="55.0" prefHeight="36.0" prefWidth="131.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;">
                            <font>
-                              <Font name="System Bold Italic" size="13.0" />
+                              <Font name="System Bold Italic" size="14.0" />
                            </font></MFXButton>
-                     </children>
+                        <MFXButton layoutX="912.0" layoutY="55.0" prefHeight="36.0" prefWidth="131.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;" text="Log out" AnchorPane.rightAnchor="14.0">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font>
+                        </MFXButton>
+                        <ImageView fitHeight="92.0" fitWidth="416.0" layoutX="14.0">
+                           <image>
+                              <Image url="@images/Logo2_2-removebg-preview.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="26.0" fitWidth="22.0" layoutX="1006.0" layoutY="60.0">
+                           <image>
+                              <Image url="@images/LogOut.png" />
+                           </image>
+                        </ImageView>
+                     </children></AnchorPane>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="1051.0">
+                     <VBox.margin>
+                        <Insets top="44.0" />
+                     </VBox.margin>
                   </HBox>
-                  <GridPane fx:id="gridPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="998.0" style="-fx-background-color: transparent;" VBox.vgrow="NEVER">
+                  <GridPane fx:id="gridPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="998.0" style="-fx-background-color: transparent;" VBox.vgrow="NEVER">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -69,7 +78,7 @@
                         </Pane>
                      </children>
                      <VBox.margin>
-                        <Insets left="25.0" top="100.0" />
+                        <Insets left="25.0" />
                      </VBox.margin>
                   </GridPane>
                </children>
