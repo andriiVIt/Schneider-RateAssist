@@ -9,15 +9,15 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<Pane id="Pane" fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="122.0" prefWidth="479.0" style="-fx-background-color: Greey;"   xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.EmployeeCardController">
+<Pane id="Pane" fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="122.0" prefWidth="479.0" style="-fx-background-color: #CCFFCC;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.EmployeeCardController">
    <children>
       <ImageView fx:id="eventImage" fitHeight="120.0" fitWidth="149.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="NameTitle" layoutX="202.0" layoutY="14.0" prefHeight="30.0" prefWidth="200.0" text="Name">
+      <Label fx:id="NameTitle" layoutX="155.0" layoutY="14.0" prefHeight="30.0" prefWidth="200.0" text="Name">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <MFXButton fx:id="deleteButton" ellipsisString="" layoutX="418.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#deleteEmployee" prefHeight="30.0" prefWidth="49.0" styleClass="mfx-button" text="Button" textFill="WHITE">
+      <MFXButton fx:id="deleteButton" ellipsisString="" layoutX="418.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#deleteEmployee" prefHeight="30.0" prefWidth="49.0" style="-fx-background-color: #CCFFCC;" styleClass="mfx-button" text="Button" textFill="WHITE">
          <graphic>
             <ImageView fitHeight="26.0" fitWidth="27.0">
                <image>
@@ -26,7 +26,7 @@
             </ImageView>
          </graphic>
       </MFXButton>
-      <MFXButton fx:id="employeeView" ellipsisString="" layoutX="369.0" layoutY="81.0" onAction="#viewEmployee" prefHeight="20.0" prefWidth="42.0" styleClass="mfx-button" textFill="WHITE">
+      <MFXButton fx:id="employeeView" ellipsisString="" layoutX="369.0" layoutY="81.0" onAction="#viewEmployee" prefHeight="20.0" prefWidth="42.0" style="-fx-background-color: #CCFFCC;" styleClass="mfx-button" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -38,6 +38,8 @@
             </ImageView>
          </graphic>
       </MFXButton>
+      <Label fx:id="countryTitle" layoutX="155.0" layoutY="44.0" text="Country" />
+      <Label fx:id="teamTitle" layoutX="155.0" layoutY="61.0" text="Team" />
    </children>
    <effect>
       <DropShadow>
