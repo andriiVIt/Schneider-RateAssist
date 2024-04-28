@@ -14,6 +14,7 @@ public class CreateEmployeeController {
     public MFXTextField utilizationField;
     public MFXTextField resourceTypeField;
     public Label namePhoto;
+    public MFXTextField nameField;
 
     public void selectPhotoButton(ActionEvent actionEvent) {
     }
