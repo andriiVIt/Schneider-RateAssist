@@ -15,7 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL fxmlUrl = getClass().getResource("GUI/view/AdminWindow.fxml");
+        URL fxmlUrl = getClass().getResource("GUI/view/LoginWindow.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(fxmlUrl));
         Scene scene = new Scene(root);
         primaryStage.setTitle("Rate Assist");

@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="GUI.Controller.LoginController"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<VBox id="Vbox" fx:id="loginVbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #90EE90; -fx-border-color: #7CCD7C; -fx-border-width: 44;"  xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.LoginController">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="594.0">
+         <children>
+            <MFXTextField id="UserName" fx:id="userNameField" layoutX="155.0" layoutY="157.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="202.0" promptText="Username" />
+            <MFXPasswordField id="Password" fx:id="passwordField" layoutX="154.0" layoutY="200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="202.0" promptText="Password" />
+            <MFXButton id="mfx-button" fx:id="loginButton" layoutX="208.0" layoutY="267.0" onAction="#logIn" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: #7CCD7C;" text="Log-in" />
+            <ImageView fitHeight="107.0" fitWidth="452.0" layoutX="30.0" layoutY="8.0">
+               <image>
+                  <Image url="@images/Logo2_2-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="118.0" layoutY="159.0">
+               <image>
+                  <Image url="@images/user.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="29.0" fitWidth="32.0" layoutX="115.0" layoutY="200.0">
+               <image>
+                  <Image url="@images/lock.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

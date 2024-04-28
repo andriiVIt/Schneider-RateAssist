@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="GUI.Controller.CreateEmployeeController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="445.0" prefWidth="342.0" style="-fx-background-color: #7CCD7C;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.CreateEmployeeController">
+   <children>
+      <MFXButton layoutX="245.0" layoutY="405.0" text="Create" />
+      <MFXButton layoutX="45.0" layoutY="405.0" text="Cancel" />
+      <VBox alignment="CENTER" layoutY="44.0" prefHeight="336.0" prefWidth="342.0" spacing="10.0">
+         <children>
+            <MFXTextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Annual salary " />
+            <MFXTextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Overhead multiplier percentage ">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </MFXTextField>
+            <MFXTextField graphicTextGap="12.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Configurable fixed annual amount" text=" ">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </MFXTextField>
+            <MFXTextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" />
+            <MFXTextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText=" Team " />
+            <MFXTextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" text="Annual effective working hours " />
+            <MFXTextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" />
+            <MFXTextField minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" />
+            <MFXButton prefHeight="26.0" prefWidth="95.0" text="Select Photo" />
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="138.0" text="NamePhoto" />
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>
