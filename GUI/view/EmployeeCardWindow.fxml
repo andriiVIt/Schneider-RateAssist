@@ -9,7 +9,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<Pane id="Pane" fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="122.0" prefWidth="479.0" style="-fx-background-color: #CCFFCC;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.EmployeeCardController">
+<Pane id="Pane" fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="122.0" prefWidth="479.0" style="-fx-background-color: #CCFFCC; -fx-background-radius: 15; -fx-border-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.EmployeeCardController">
    <children>
       <ImageView fx:id="eventImage" fitHeight="120.0" fitWidth="149.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="NameTitle" layoutX="155.0" layoutY="14.0" prefHeight="30.0" prefWidth="200.0" text="Name">
