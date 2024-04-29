@@ -11,25 +11,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="750.0" prefWidth="1055.0" style="-fx-background-color: #7CCD7C;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.EmployeeController">
    <children>
       <VBox layoutY="93.0" prefHeight="657.0" prefWidth="256.0">
          <children>
-            <ImageView fitHeight="238.0" fitWidth="256.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="workerImage" fitHeight="238.0" fitWidth="256.0" pickOnBounds="true" preserveRatio="true" />
             <VBox alignment="CENTER" prefHeight="301.0" prefWidth="256.0">
                <children>
-                  <Label prefHeight="46.0" prefWidth="161.0" text="Name">
+                  <Label fx:id="name" prefHeight="46.0" prefWidth="161.0" text="Name">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="46.0" prefWidth="161.0" text="Team">
+                  <Label fx:id="team" prefHeight="46.0" prefWidth="161.0" text="Team">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="46.0" prefWidth="161.0" text="Country" textAlignment="CENTER">
+                  <Label fx:id="country" prefHeight="46.0" prefWidth="161.0" text="Country" textAlignment="CENTER">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -40,7 +39,7 @@
       </VBox>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="1057.0" style="-fx-background-color: #90EE90; -fx-border-color: white;">
          <children>
-            <MFXButton layoutX="912.0" layoutY="55.0" prefHeight="36.0" prefWidth="131.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;" text="Log out" AnchorPane.rightAnchor="14.0">
+            <MFXButton fx:id="logOutButton" layoutX="912.0" layoutY="55.0" onAction="#clickLogOut" prefHeight="36.0" prefWidth="131.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;" text="Log out" AnchorPane.rightAnchor="14.0">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -73,7 +72,7 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label prefHeight="48.0" prefWidth="168.0" text="0" GridPane.columnIndex="1">
+            <Label fx:id="salery" prefHeight="48.0" prefWidth="168.0" text="0" GridPane.columnIndex="1">
                <font>
                   <Font size="22.0" />
                </font>
@@ -88,12 +87,12 @@
                   <Font name="System Bold Italic" size="22.0" />
                </font>
             </Label>
-            <Label prefHeight="48.0" prefWidth="168.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="calculation" prefHeight="48.0" prefWidth="168.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label prefHeight="48.0" prefWidth="168.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label fx:id="ratePerHour" prefHeight="48.0" prefWidth="168.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="22.0" />
                </font>

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<Pane id="Pane" fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="122.0" prefWidth="479.0" style="-fx-background-color: #CCFFCC; -fx-background-radius: 15; -fx-border-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.EmployeeCardController">
+<Pane id="Pane" fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="122.0" prefWidth="479.0" style="-fx-background-color: #CCFFCC; -fx-background-radius: 15; -fx-border-radius: 15;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.EmployeeCardController">
    <children>
-      <ImageView fx:id="eventImage" fitHeight="120.0" fitWidth="149.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="NameTitle" layoutX="155.0" layoutY="14.0" prefHeight="30.0" prefWidth="200.0" text="Name">
+      <ImageView fx:id="workerImage" fitHeight="120.0" fitWidth="149.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="nameTitle" layoutX="155.0" layoutY="14.0" prefHeight="30.0" prefWidth="200.0" text="Name">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

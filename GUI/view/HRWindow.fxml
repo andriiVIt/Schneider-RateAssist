@@ -16,18 +16,18 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1055.0" style=": ;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.HRController">
    <children>
-      <ScrollPane layoutX="2.0" prefHeight="762.0" prefWidth="1061.0" style=": ;">
+      <ScrollPane fx:id="scrollPane" layoutX="2.0" prefHeight="762.0" prefWidth="1061.0" style=": ;">
          <content>
             <VBox id="VBox" prefHeight="760.0" prefWidth="1059.0" style="-fx-background-color: #7CCD7C;">
                <children>
                   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="1057.0" style="-fx-background-color: #90EE90; -fx-border-color: white;">
                      <children>
-                        <MFXButton layoutX="454.0" layoutY="55.0" prefHeight="36.0" prefWidth="149.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;" text="Reports and analytics">
+                        <MFXButton layoutX="454.0" layoutY="55.0" onAction="#repAndAnalyticsBut" prefHeight="36.0" prefWidth="149.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;" text="Reports and analytics">
                            <font>
                               <Font name="System Bold Italic" size="14.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton layoutX="912.0" layoutY="55.0" prefHeight="36.0" prefWidth="131.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;" text="Log out" AnchorPane.rightAnchor="14.0">
+                        <MFXButton fx:id="logOutButton" layoutX="912.0" layoutY="55.0" onAction="#clickLogOut" prefHeight="36.0" prefWidth="131.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;" text="Log out" AnchorPane.rightAnchor="14.0">
                            <font>
                               <Font name="System Bold Italic" size="14.0" />
                            </font>
@@ -49,7 +49,7 @@
                         <Insets top="44.0" />
                      </VBox.margin>
                   </HBox>
-                  <GridPane fx:id="gridPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="998.0" style="-fx-background-color: transparent;" VBox.vgrow="NEVER">
+                  <GridPane fx:id="employeeGridPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="998.0" style="-fx-background-color: transparent;" VBox.vgrow="NEVER">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -75,8 +75,8 @@
             </VBox>
          </content>
       </ScrollPane>
-      <MFXButton fx:id="leftBut" layoutX="1.0" layoutY="276.0" minWidth="-Infinity" onAction="#previousPage" prefHeight="85.0" prefWidth="24.0" style="-fx-background-color: #90EE90;"  text=" " AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="276.0" />
-      <MFXButton fx:id="rightBut" alignment="CENTER" contentDisplay="CENTER" layoutX="1027.0" layoutY="254.0" minWidth="-Infinity" onAction="#nextPage" prefHeight="85.0" prefWidth="24.0" style="-fx-background-color: #90EE90;" text=" " AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="276.0" />
+      <MFXButton fx:id="leftButton" layoutX="1.0" layoutY="276.0" minWidth="-Infinity" onAction="#previousPage" prefHeight="85.0" prefWidth="24.0" style="-fx-background-color: #90EE90;" text=" " AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="276.0" />
+      <MFXButton fx:id="rightButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1027.0" layoutY="254.0" minWidth="-Infinity" onAction="#nextPage" prefHeight="85.0" prefWidth="24.0" style="-fx-background-color: #90EE90;" text=" " AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="276.0" />
       <ImageView fitHeight="19.0" fitWidth="18.0" layoutX="5.0" layoutY="312.0">
          <image>
             <Image url="@images/img.png" />

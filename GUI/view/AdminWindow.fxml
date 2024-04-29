@@ -16,13 +16,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1055.0" style=": ;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.AdminController">
    <children>
-      <ScrollPane layoutX="2.0" prefHeight="762.0" prefWidth="1061.0" style=": ;">
+      <ScrollPane fx:id="scrollPane" layoutX="2.0" prefHeight="762.0" prefWidth="1061.0" style=": ;">
          <content>
             <VBox id="VBox" prefHeight="760.0" prefWidth="1059.0" style="-fx-background-color: #7CCD7C;">
                <children>
                   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="1057.0" style="-fx-background-color: #90EE90; -fx-border-color: white;">
                      <children>
-                        <MFXButton layoutX="451.0" layoutY="55.0" prefHeight="36.0" prefWidth="131.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;" text="Employee">
+                        <MFXButton layoutX="451.0" layoutY="55.0" onAction="#createEmployee" prefHeight="36.0" prefWidth="131.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;" text="Employee">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="28.0">
                                  <image>
@@ -38,7 +38,7 @@
                            <font>
                               <Font name="System Bold Italic" size="14.0" />
                            </font></MFXButton>
-                        <MFXButton layoutX="912.0" layoutY="55.0" prefHeight="36.0" prefWidth="131.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;" text="Log out" AnchorPane.rightAnchor="14.0">
+                        <MFXButton fx:id="logOutButton" layoutX="912.0" layoutY="55.0" onAction="#clickLogOut" prefHeight="36.0" prefWidth="131.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;" text="Log out" AnchorPane.rightAnchor="14.0">
                            <font>
                               <Font name="System Bold Italic" size="14.0" />
                            </font>
