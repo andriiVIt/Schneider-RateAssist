@@ -67,12 +67,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="80.0" prefWidth="206.0" text="Salery :" textAlignment="CENTER">
+            <Label prefHeight="80.0" prefWidth="206.0" text="Salary :" textAlignment="CENTER">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label fx:id="salery" prefHeight="48.0" prefWidth="168.0" text="0" GridPane.columnIndex="1">
+            <Label fx:id="salary" prefHeight="48.0" prefWidth="168.0" text="0" GridPane.columnIndex="1">
                <font>
                   <Font size="22.0" />
                </font>

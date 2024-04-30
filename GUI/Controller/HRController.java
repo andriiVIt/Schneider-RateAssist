@@ -5,13 +5,21 @@ import javafx.event.ActionEvent;
 import javafx.scene.layout.GridPane;
 
 public class HRController {
-    public GridPane gridPane;
-    public MFXButton leftBut;
-    public MFXButton rightBut;
+
+    public MFXButton logOutButton;
+    public GridPane employeeGridPane;
+    public MFXButton leftButton;
+    public MFXButton rightButton;
 
     public void previousPage(ActionEvent actionEvent) {
     }
 
     public void nextPage(ActionEvent actionEvent) {
+    }
+
+    public void repAndAnalyticsBut(ActionEvent actionEvent) {
+    }
+
+    public void clickLogOut(ActionEvent actionEvent) {
     }
 }
