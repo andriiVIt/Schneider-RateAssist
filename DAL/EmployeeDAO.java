@@ -66,19 +66,19 @@ public class EmployeeDAO {
             // Assuming there might be tables like EmployeeProjects, EmployeeBenefits etc. Adjust these to your actual use case
 
             // Example: Delete from EmployeeProjects where the employee ID matches
-            try (PreparedStatement pstEmployeeProjects = con.prepareStatement("DELETE FROM EmployeeProjects WHERE employeeid = ?")) {
-                pstEmployeeProjects.setInt(1, employee.getId());
-                pstEmployeeProjects.executeUpdate();
+            try (PreparedStatement pstEmployee = con.prepareStatement("DELETE FROM Employee WHERE  id = ?")) {
+                pstEmployee.setInt(1, employee.getId());
+                pstEmployee.executeUpdate();
             }
 
             // Example: Delete from EmployeeBenefits where the employee ID matches
-            try (PreparedStatement pstEmployeeBenefits = con.prepareStatement("DELETE FROM EmployeeBenefits WHERE employeeid = ?")) {
-                pstEmployeeBenefits.setInt(1, employee.getId());
-                pstEmployeeBenefits.executeUpdate();
+            try (PreparedStatement pstEmployee = con.prepareStatement("DELETE FROM Employee WHERE  id = ?")) {
+                pstEmployee.setInt(1, employee.getId());
+                pstEmployee.executeUpdate();
             }
 
             // Finally, delete the employee from the Employee table
-            try (PreparedStatement pstEmployee = con.prepareStatement("DELETE FROM Employee WHERE EmployeeID = ?")) {
+            try (PreparedStatement pstEmployee = con.prepareStatement("DELETE FROM Employee WHERE  id = ?")) {
                 pstEmployee.setInt(1, employee.getId());
                 pstEmployee.executeUpdate();
             }

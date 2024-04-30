@@ -44,7 +44,7 @@ public class AdminController implements Initializable {
         }
     }
 
-    private void refreshEmployeeCards() {
+    void refreshEmployeeCards() {
         try {
             gridPane.getChildren().clear(); // Clear existing content
             populateGridPane();

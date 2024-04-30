@@ -2,16 +2,28 @@ package GUI.Controller;
 
 import BE.Employee;
 import GUI.Model.EmployeeModel;
+import GUI.util.BlurEffectUtil;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
@@ -47,9 +59,43 @@ public class EmployeeCardController implements Initializable {
     }
 
     public void deleteEmployee(ActionEvent actionEvent) {
+        try {
+            employeeModel.deleteEmployee(employee);
+            adminController.refreshEmployeeCards();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void viewEmployee(ActionEvent actionEvent) {
+        BlurEffectUtil.applyBlurEffect(scrollPane, 10);
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/EmployeeInfo.fxml"));
+            Parent createEventParent = fxmlLoader.load();
+
+            EmployeeInfoController employeeInfoController = fxmlLoader.getController();
+            employeeInfoController.setModel(new EmployeeModel(), scrollPane);
+            employeeInfoController.setEmployee(employee);
+            employeeInfoController.setOnDeleteEmployeeCallback(deletedEmployee -> {
+                if (onDeleteEmployeeCallback != null)
+                    onDeleteEmployeeCallback.accept(deletedEmployee);
+            });
+
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.setTitle(employee.getName());
+            Scene scene = new Scene(createEventParent);
+            scene.setFill(Color.TRANSPARENT);
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void setOnDeleteEmployeeCallback(Consumer<Employee>onDeleteEmployeeCallback) {
@@ -58,6 +104,16 @@ public class EmployeeCardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        nameTitle.setText(employee.getName());
+        countryTitle.setText(employee.getLocation());
+        teamTitle.setText(employee.getTeam());
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(employee.getImageData());
+        Image image = new Image(inputStream);
+        workerImage.setImage(image);
+        workerImage.setFitWidth(120);
+        workerImage.setFitHeight(120);
+        workerImage.setPreserveRatio(false);
 
     }
 
