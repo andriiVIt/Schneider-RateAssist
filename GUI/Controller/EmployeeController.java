@@ -11,8 +11,8 @@ public class EmployeeController {
     public Label team;
     public Label country;
     public MFXButton logOutButton;
-    public Label salery;
     public Label salary;
+
     public Label calculation;
     public Label ratePerHour;
 

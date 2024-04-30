@@ -34,10 +34,6 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton layoutX="582.0" layoutY="55.0" prefHeight="36.0" prefWidth="131.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;">
-                           <font>
-                              <Font name="System Bold Italic" size="14.0" />
-                           </font></MFXButton>
                         <MFXButton fx:id="logOutButton" layoutX="912.0" layoutY="55.0" onAction="#clickLogOut" prefHeight="36.0" prefWidth="131.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;" text="Log out" AnchorPane.rightAnchor="14.0">
                            <font>
                               <Font name="System Bold Italic" size="14.0" />
