@@ -14,7 +14,7 @@ public class EmployeeModel {
     private static final ObservableList<Employee> employees = FXCollections.observableArrayList();
 
     public static ObservableList<Employee> getEmployees() throws SQLException {
-        employees.addAll(employeeLogic.getAllEmployees());
+        employees.addAll(EmployeeLogic.getAllEmployees());
         return employees;
     }
 

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="445.0" prefWidth="342.0" style="-fx-background-color: #7CCD7C;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.CreateEmployeeController">
+<AnchorPane fx:id="createEmployeeAnchorPane" prefHeight="445.0" prefWidth="342.0" style="-fx-background-color: #7CCD7C;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.CreateEmployeeController">
    <children>
       <MFXButton layoutX="245.0" layoutY="405.0" onAction="#createEmployee" text="Create" />
       <MFXButton layoutX="45.0" layoutY="405.0" onAction="#cancel" text="Cancel" />

@@ -28,7 +28,7 @@ public class EmployeeDAO {
             if (statement.execute(sql)) {
                 ResultSet resultSet = statement.getResultSet();
                 while (resultSet.next()) {
-                    int id = resultSet.getInt("EmployeeID");
+                    int id = resultSet.getInt("ID");
                     String name = resultSet.getString("Name");
                     String location = resultSet.getString("Location");
                     double salary = resultSet.getDouble("Salary");

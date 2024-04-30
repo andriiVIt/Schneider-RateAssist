@@ -13,7 +13,7 @@ public class Employee {
     private double fixedAmount;
     private byte[] imageData;
 
-    // Constructor
+    // Constructor with ID (typically used when retrieving from database)
     public Employee(int id, String name, String location, double salary, double overheadPercentage, String team,
                     double workHours, double utilization, String resourceType, double fixedAmount, byte[] imageData) {
         this.id = id;
@@ -26,6 +26,20 @@ public class Employee {
         this.utilization = utilization;
         this.resourceType = resourceType;
         this.fixedAmount = fixedAmount;
+        this.imageData = imageData;
+    }
+
+    // Constructor without ID (typically used when creating a new employee)
+    public Employee(String name, String location, double salary, double overhead, String team, double workHours, double utilization, String resourceType, String note, byte[] imageData) {
+        this.name = name;
+        this.location = location;
+        this.salary = salary;
+        this.overheadPercentage = overhead;
+        this.team = team;
+        this.workHours = workHours;
+        this.utilization = utilization;
+        this.resourceType = resourceType;
+        this.fixedAmount = 0; // Assume that fixed amount can be optional or derived
         this.imageData = imageData;
     }
 

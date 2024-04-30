@@ -99,7 +99,7 @@ public class AdminController implements Initializable {
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // Set the window modality
-            stage.setTitle("Create Event");
+            stage.setTitle("Add employee");
             stage.setResizable(false); // Make the window not resizable
             stage.setScene(new Scene(createEmployeeParent));
 
@@ -133,7 +133,7 @@ public class AdminController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        currentPage = 1;  // Initialization correction, assuming paging starts at index 0
+        currentPage = 0;  // Initialization correction, assuming paging starts at index 0
         try {
             populateGridPane();
         } catch (IOException e) {
