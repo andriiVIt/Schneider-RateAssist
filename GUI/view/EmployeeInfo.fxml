@@ -1,14 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="GUI.Controller.EmployeeInfoController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane fx:id="employeeInfoAnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #CCFFCC; -fx-border-color: Black;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.EmployeeInfoController">
+   <children>
+      <Label fx:id="nameField" layoutX="22.0" layoutY="182.0" prefHeight="36.0" prefWidth="194.0" text="Name">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="workerImage" fitHeight="164.0" fitWidth="183.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="annualSalaryField" layoutX="118.0" layoutY="238.0" prefHeight="17.0" prefWidth="110.0" text="-" />
+      <Label layoutX="22.0" layoutY="237.0" prefHeight="18.0" prefWidth="97.0" text="Annual Salary :">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="21.0" layoutY="264.0" prefHeight="18.0" prefWidth="124.0" text="Overhead Multiplier :">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="overheadMultiplierField" layoutX="145.0" layoutY="264.0" prefHeight="17.0" prefWidth="110.0" text="-" />
+      <Label layoutX="22.0" layoutY="286.0" prefHeight="18.0" prefWidth="207.0" text="Configurable fixed annual amount :">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font></Label>
+      <Label fx:id="configurableFixedAnnualAmountField" layoutX="229.0" layoutY="286.0" prefHeight="17.0" prefWidth="110.0" text="-" />
+      <Label layoutX="21.0" layoutY="312.0" prefHeight="18.0" prefWidth="194.0" text="Annual effective working hours :">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font></Label>
+      <Label fx:id="annualEffectiveWorkingHoursField" layoutX="215.0" layoutY="313.0" prefHeight="17.0" prefWidth="110.0" text="-" />
+      <Label layoutX="21.0" layoutY="335.0" prefHeight="18.0" prefWidth="138.0" text="Utilization percentage :">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font></Label>
+      <Label fx:id="utilizationPercentageField" layoutX="160.0" layoutY="336.0" prefHeight="17.0" prefWidth="110.0" text="-" />
+      <MFXButton layoutX="483.0" layoutY="360.0" onAction="#Cancel" prefHeight="26.0" prefWidth="83.0" text="Cancel" />
+   </children>
 </AnchorPane>

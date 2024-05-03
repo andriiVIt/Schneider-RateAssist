@@ -57,7 +57,7 @@ public class Employee {
     }
 
     public double getSalary() {
-        return salary;
+        return  salary;
     }
 
     public double getOverheadPercentage() {
@@ -91,5 +91,9 @@ public class Employee {
     // Setter
     public void setId(int id) {
         this.id = id;
+    }
+    @Override
+    public String toString() {
+        return name;
     }
 }
