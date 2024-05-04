@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="employeeInfoAnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #CCFFCC; -fx-border-color: Black;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.EmployeeInfoController">
@@ -42,5 +46,61 @@
          </font></Label>
       <Label fx:id="utilizationPercentageField" layoutX="160.0" layoutY="336.0" prefHeight="17.0" prefWidth="110.0" text="-" />
       <MFXButton layoutX="483.0" layoutY="360.0" onAction="#Cancel" prefHeight="26.0" prefWidth="83.0" text="Cancel" />
+      <VBox layoutX="348.0" layoutY="45.0" prefHeight="219.0" prefWidth="207.0" style="-fx-border-color: black;">
+         <children>
+            <Label prefHeight="18.0" prefWidth="70.0" text="Base Rate:">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <Label prefHeight="17.0" prefWidth="117.0" text="Markup Multipllier :">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <Slider>
+               <VBox.margin>
+                  <Insets top="3.0" />
+               </VBox.margin>
+            </Slider>
+            <Label prefHeight="17.0" prefWidth="88.0" text="GM Multiplier :">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <Slider>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Slider>
+            <Label text="Total Rate :">
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <Label text="-">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

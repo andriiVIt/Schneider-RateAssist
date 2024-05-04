@@ -4,6 +4,7 @@ import BE.Employee;
 import GUI.Model.EmployeeModel;
 import GUI.util.BlurEffectUtil;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.controlsfx.control.CheckComboBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +25,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
-    public MFXButton logOutButton;
+    @FXML
+    private CheckComboBox countryComboBox;
+    @FXML
+    private CheckComboBox teamComboBox;
+    @FXML
+    private MFXButton logOutButton;
+    @FXML
+    private MFXButton group;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -141,6 +150,11 @@ public class AdminController implements Initializable {
         }
 
     }
+
+    public void groupButton(ActionEvent actionEvent) {
+    }
+
+
 }
 
 

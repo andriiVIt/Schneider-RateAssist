@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.CheckComboBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1055.0" style=": ;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.AdminController">
    <children>
@@ -49,6 +50,20 @@
                               <Image url="@images/LogOut.png" />
                            </image>
                         </ImageView>
+                        <MFXButton fx:id="group" ellipsisString="" layoutX="753.0" layoutY="55.0" onAction="#groupButton" prefHeight="36.0" prefWidth="34.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;">
+                           <font>
+                              <Font name="System Bold Italic" size="1.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="28.0" fitWidth="29.0">
+                                 <image>
+                                    <Image url="@images/searcher.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MFXButton>
+                        <CheckComboBox fx:id="countryComboBox" layoutX="582.0" layoutY="56.0" prefHeight="35.0" prefWidth="92.0" style="-fx-background-color: #7CCD7C;" title="Country" />
+                        <CheckComboBox fx:id="teamComboBox" layoutX="674.0" layoutY="56.0" prefHeight="35.0" prefWidth="79.0" style="-fx-background-color: #7CCD7C;" title="Team" />
                      </children></AnchorPane>
                   <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="1051.0">
                      <VBox.margin>
