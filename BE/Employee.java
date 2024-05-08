@@ -39,7 +39,7 @@ public class Employee {
         this.workHours = workHours;
         this.utilization = utilization;
         this.resourceType = resourceType;
-        this.fixedAmount = 0; // Assume that fixed amount can be optional or derived
+        this.fixedAmount = fixedAmount; // Assume that fixed amount can be optional or derived
         this.imageData = imageData;
     }
 
@@ -95,5 +95,13 @@ public class Employee {
     @Override
     public String toString() {
         return name;
+    }
+
+    public int getCountryID() {
+        return 0;
+    }
+
+    public int getTeamID() {
+        return 0;
     }
 }

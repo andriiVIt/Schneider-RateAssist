@@ -1,10 +1,13 @@
 package GUI.Controller;
 
+import BE.Country;
 import BE.Employee;
+import BLL.CountryLogic;
 import GUI.Model.EmployeeModel;
 import GUI.util.BlurEffectUtil;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,12 +24,13 @@ import org.controlsfx.control.CheckComboBox;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.stream.Collectors;
+
 
 public class AdminController implements Initializable {
     @FXML
-    private CheckComboBox countryComboBox;
+    private CheckComboBox <Country> countryComboBox;
     @FXML
     private CheckComboBox teamComboBox;
     @FXML
@@ -37,6 +41,9 @@ public class AdminController implements Initializable {
     private ScrollPane scrollPane;
     @FXML
     private GridPane gridPane;
+
+    private CountryLogic countryLogic = new CountryLogic();
+    List<Country> selectedCountries = null;
 
     private int currentPage, totalPages;
     public void previousPage(ActionEvent actionEvent) {
@@ -63,11 +70,26 @@ public class AdminController implements Initializable {
 
     }
 
-    private void populateGridPane()throws IOException {
+    public List<Integer> mapCountriesToIds(List<Country> selectedCountries) {
+        List<Integer> listIds = selectedCountries.stream()
+                .map(Country::getId)  // Using method reference to get country IDs
+                .collect(Collectors.toList()); // Collecting the results into a List
+        return listIds;
+    }
+
+    void populateGridPane() throws IOException {
         EmployeeModel employeeModel = new EmployeeModel();
         List<Employee> employees;
         try {
-            employees = EmployeeModel.getEmployees();
+            if (this.selectedCountries != null){
+                var listIds = mapCountriesToIds(selectedCountries);
+                employees = employeeModel.getEmployeesByListIds(listIds);
+                selectedCountries = null;
+            } else {
+
+            employees = employeeModel.getEmployees(); // Викликати метод getEmployees() замість EmployeeModel.getEmployees()
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException("Failed to fetch events from the database.", e);
         }
@@ -87,8 +109,9 @@ public class AdminController implements Initializable {
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/EmployeeCardWindow.fxml"));
 
+                List<Employee> finalEmployees = employees;
                 fxmlLoader.setControllerFactory(clazz -> {
-                    EmployeeCardController controller = new EmployeeCardController(scrollPane, employees.get(employeeIndex), employeeModel, this);
+                    EmployeeCardController controller = new EmployeeCardController(scrollPane, finalEmployees.get(employeeIndex), employeeModel, this);
                     controller.setOnDeleteEmployeeCallback(deletedEmployee -> refreshEmployeeCards());
                     return controller;
                 });
@@ -114,7 +137,7 @@ public class AdminController implements Initializable {
 
             CreateEmployeeController createEmployeeController = fxmlLoader.getController();
             createEmployeeController.setEmployeeModel(new EmployeeModel());
-            createEmployeeController.setEmployeeModel(new EmployeeModel());
+
             createEmployeeController.setRefreshCallback(this::refreshEmployeeCards);
             createEmployeeController.setScrollPane(scrollPane);
             createEmployeeController.setOnCloseRequestHandler(stage);
@@ -143,15 +166,53 @@ public class AdminController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         currentPage = 0;  // Initialization correction, assuming paging starts at index 0
+//        countryComboBox();
         try {
             populateGridPane();
+           countryComboBox();
         } catch (IOException e) {
             // Better error handling should be considered
         }
 
     }
-
+    private void countryComboBox() {
+        EmployeeModel employeeModel = new EmployeeModel();
+        ObservableList<Employee> getEmployeesByLocation;
+        try {
+            getEmployeesByLocation = employeeModel.getEmployees();
+            Set<String> uniqueLocations = new HashSet<>();
+            for (Employee employee : getEmployeesByLocation) {
+                uniqueLocations.add(employee.getLocation());
+            }
+            for (String location : uniqueLocations) {
+                List<Country> listCountries = countryLogic.getAllCountries();
+                countryComboBox.getItems().addAll(listCountries); // Передбачаючи, що потрібно передати об'єкт Employee, але деякі поля можуть бути пустими
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Обробка помилок
+        }
+    }
     public void groupButton(ActionEvent actionEvent) {
+        var test = countryComboBox.getItemBooleanProperty(0);
+        var value = test.getValue();
+
+
+        List<Country> listSelectedCountries = new ArrayList<>();
+        for (int i = 0; i < countryComboBox.getItems().size(); i++) {
+            countryComboBox.getItemBooleanProperty(i);
+            if (countryComboBox.getItemBooleanProperty(i).getValue() == true) {
+                var test1 = countryComboBox.getItemBooleanProperty(i);
+                listSelectedCountries.add(countryComboBox.getItems().get(i));
+            }
+        }
+
+        if (!listSelectedCountries.isEmpty()) {
+            selectedCountries = listSelectedCountries;
+        }
+
+        this.refreshEmployeeCards();
+
+
     }
 
 

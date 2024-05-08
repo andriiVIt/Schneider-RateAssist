@@ -1,7 +1,9 @@
 package DAL;
-
+import BE.Country;
 import BE.Employee;
+import BE.Team;
 import DAL.db.ConnectionManager;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -10,19 +12,16 @@ import java.util.List;
 
 public class EmployeeDAO {
 
-
     private ConnectionManager connectionManager;
 
-    public EmployeeDAO(){
-
+    public EmployeeDAO() {
         connectionManager = new ConnectionManager();
-
     }
 
-    public List<Employee> getAllEmployees()throws SQLException{
+    public List<Employee> getAllEmployees() throws SQLException {
         List<Employee> allEmployees = new ArrayList<>();
         try (Connection con = connectionManager.getConnection()) {
-            String sql = "SELECT * FROM Employee";
+            String sql = "SELECT * FROM Employee JOIN dbo.Country C ON C.id = Employee.CountryID ";
             Statement statement = con.createStatement();
 
             if (statement.execute(sql)) {
@@ -30,7 +29,7 @@ public class EmployeeDAO {
                 while (resultSet.next()) {
                     int id = resultSet.getInt("ID");
                     String name = resultSet.getString("Name");
-                    String location = resultSet.getString("Location");
+                    String location = resultSet.getString("countryName");
                     double salary = resultSet.getDouble("Salary");
                     double overheadPercentage = resultSet.getDouble("OverheadPercentage");
                     String team = resultSet.getString("Team");
@@ -40,122 +39,146 @@ public class EmployeeDAO {
                     double fixedAmount = resultSet.getDouble("FixedAmount");
                     byte[] imageData = resultSet.getBytes("imageData");
 
-                    Employee employee = new Employee(id, name, location, salary, overheadPercentage, team,workHours,utilization,resourceType,fixedAmount, imageData);
+                    Employee employee = new Employee(id, name, location, salary, overheadPercentage, team, workHours, utilization, resourceType, fixedAmount, imageData);
                     allEmployees.add(employee);
                 }
             }
-        } return allEmployees;
-
-
-
+        } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        }
+        return allEmployees;
     }
 
-
-    public void deleteEmployee(Employee employee)throws SQLException {
-        Connection con = null;
-
-        try {
-            // Obtain a connection from the connection manager
-            con = connectionManager.getConnection();
-            // Manage transactions manually
+    public void deleteEmployee(Employee employee) throws SQLException {
+        try (Connection con = connectionManager.getConnection()) {
             con.setAutoCommit(false);
-            // Set the transaction isolation level
-            con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-
-            // If there are related tables where the employee ID is a foreign key, delete these entries first
-            // Assuming there might be tables like EmployeeProjects, EmployeeBenefits etc. Adjust these to your actual use case
-
-            // Example: Delete from EmployeeProjects where the employee ID matches
             try (PreparedStatement pstEmployee = con.prepareStatement("DELETE FROM Employee WHERE  id = ?")) {
                 pstEmployee.setInt(1, employee.getId());
                 pstEmployee.executeUpdate();
             }
-
-            // Example: Delete from EmployeeBenefits where the employee ID matches
-            try (PreparedStatement pstEmployee = con.prepareStatement("DELETE FROM Employee WHERE  id = ?")) {
-                pstEmployee.setInt(1, employee.getId());
-                pstEmployee.executeUpdate();
-            }
-
-            // Finally, delete the employee from the Employee table
-            try (PreparedStatement pstEmployee = con.prepareStatement("DELETE FROM Employee WHERE  id = ?")) {
-                pstEmployee.setInt(1, employee.getId());
-                pstEmployee.executeUpdate();
-            }
-
-            // Commit the transaction if all operations were successful
             con.commit();
         } catch (SQLException e) {
-            // Rollback any changes made during the transaction on the same connection
-            if (con != null) {
-                try {
-                    con.rollback();
-                } catch (SQLException ex) {
-                    // Log the exception or handle the rollback failure
-                    ex.printStackTrace();
-                }
-            }
-            // Rethrow the original SQLException
             throw e;
-        } finally {
-            // Attempt to reset the connection's auto-commit mode to true if it's not null
-            if (con != null) {
-                try {
-                    con.setAutoCommit(true);
-                } catch (SQLException ex) {
-                    // Handle or log this exception
-                    ex.printStackTrace();
-                }
-            }
-            // Since we didn't use try-with-resources for the connection (to access it in the catch block),
-            // we need to ensure it's closed here
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException ex) {
-                    // Handle or log this exception
-                    ex.printStackTrace();
-                }
-            }
         }
     }
 
+    public Employee createEmployee(Employee employee, Team team,Country country) throws SQLException {
+        String insertEmployeeSql = "INSERT INTO Employee (Name, Salary, OverheadPercentage, WorkHours, Utilization, ResourceType, FixedAmount, ImageData, CountryID, TeamID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertCountrySql = "INSERT INTO Country (countryName) VALUES (?)";
+        String insertTeamSql = "INSERT INTO Team (teamName) VALUES (?)";
 
+        try (Connection con = connectionManager.getConnection();
+             PreparedStatement insertEmployeePst = con.prepareStatement(insertEmployeeSql, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement insertCountryPst = con.prepareStatement(insertCountrySql, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement insertTeamPst = con.prepareStatement(insertTeamSql, Statement.RETURN_GENERATED_KEYS)) {
 
-    public Employee createEmployee(Employee employee)throws SQLException {
+            // Inserting country
+            insertCountryPst.setString(1, country.getCountryName());
+            int countryAffectedRows = insertCountryPst.executeUpdate();
+            if (countryAffectedRows == 0) {
+                throw new SQLException("Creating country failed, no rows affected.");
+            }
+            ResultSet countryKeys = insertCountryPst.getGeneratedKeys();
+            int countryId;
+            if (countryKeys.next()) {
+                countryId = countryKeys.getInt(1);
+            } else {
+                throw new SQLException("Creating country failed, no ID obtained.");
+            }
 
-        try (Connection con = connectionManager.getConnection()){
-            con.setAutoCommit(false);
-            con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-            PreparedStatement pst = con.prepareStatement("INSERT INTO Employee (Name, Location, Salary, OverheadPercentage, Team, WorkHours, Utilization, ResourceType, FixedAmount, ImageData) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            // Inserting team
+            insertTeamPst.setString(1, team.getTeamName());
+            int teamAffectedRows = insertTeamPst.executeUpdate();
+            if (teamAffectedRows == 0) {
+                throw new SQLException("Creating team failed, no rows affected.");
+            }
+            ResultSet teamKeys = insertTeamPst.getGeneratedKeys();
+            int teamId;
+            if (teamKeys.next()) {
+                teamId = teamKeys.getInt(1);
+            } else {
+                throw new SQLException("Creating team failed, no ID obtained.");
+            }
 
-            pst.setString(1, employee.getName());
-            pst.setString(2, employee.getLocation());
-            pst.setDouble(3, employee.getSalary());  // Using as 'budget' or 'cost' perhaps
-            pst.setDouble(4, employee.getOverheadPercentage());
-            pst.setString(5, employee.getTeam());  // Could denote a team involved in the event
-            pst.setDouble(6, employee.getWorkHours());  // Hours dedicated to the event
-            pst.setDouble(7, employee.getUtilization());  // Utilization of resources
-            pst.setString(8, employee.getResourceType());  // Type of resource, could be venue type etc.
-            pst.setDouble(9, employee.getFixedAmount());  // Fixed cost related to the event
-            pst.setBytes(10, employee.getImageData());
+            // Inserting employee
+            insertEmployeePst.setString(1, employee.getName());
+            insertEmployeePst.setDouble(2, employee.getSalary());
+            insertEmployeePst.setDouble(3, employee.getOverheadPercentage());
+            insertEmployeePst.setDouble(4, employee.getWorkHours());
+            insertEmployeePst.setDouble(5, employee.getUtilization());
+            insertEmployeePst.setString(6, employee.getResourceType());
+            insertEmployeePst.setDouble(7, employee.getFixedAmount());
+            insertEmployeePst.setBytes(8, employee.getImageData());
+            insertEmployeePst.setInt(9, countryId);
+            insertEmployeePst.setInt(10, teamId);
 
-            pst.execute();
-            if (pst.getGeneratedKeys().next()) {
-                int id = pst.getGeneratedKeys().getInt(1);
-                employee.setId(id);
-                con.commit();
-                return employee;
+            insertEmployeePst.executeUpdate();
+
+            // Getting the generated ID
+            ResultSet rs = insertEmployeePst.getGeneratedKeys();
+            if (rs.next()) {
+                employee.setId(rs.getInt(1));
             } else {
                 con.rollback();
-                throw new RuntimeException("Id not set");
+                throw new RuntimeException("Creating employee failed, no ID obtained.");
             }
+            con.commit();
         } catch (SQLException e) {
-            try (Connection con = connectionManager.getConnection()) {
-                con.rollback();
-            }
             throw e;
         }
-        }
+        return employee;
     }
 
+    public List<Employee> getAllEmployeesByFilters(List<Integer> listCountryIds) {
+        List<Employee> allEmployees = new ArrayList<>();
+        String inClause = listCountryIds.toString().replace("[", "(").replace("]", ")");
+        String sql = "SELECT E.*, C.countryName FROM dbo.Employee E "
+                + "JOIN dbo.Country C ON C.id = E.CountryID "
+                + "WHERE C.id IN " + inClause;
+
+        try (Connection con = connectionManager.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String name = resultSet.getString("Name");
+                String location = resultSet.getString("countryName");
+                double salary = resultSet.getDouble("Salary");
+                double overheadPercentage = resultSet.getDouble("OverheadPercentage");
+                String teamId = resultSet.getString("Team");
+                double workHours = resultSet.getDouble("WorkHours");
+                double utilization = resultSet.getDouble("Utilization");
+                String resourceType = resultSet.getString("ResourceType");
+                double fixedAmount = resultSet.getDouble("FixedAmount");
+                byte[] imageData = resultSet.getBytes("ImageData");
+
+                Employee employee = new Employee(id, name, location, salary, overheadPercentage, teamId, workHours, utilization, resourceType, fixedAmount, imageData);
+                allEmployees.add(employee);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return allEmployees;
+    }
+
+    public Country createCountry(Country country) throws SQLException {
+        try (Connection con = connectionManager.getConnection();
+             PreparedStatement pst = con.prepareStatement("INSERT INTO Country (countryName) VALUES (?)", Statement.RETURN_GENERATED_KEYS)) {
+            con.setAutoCommit(false);
+            pst.setString(1, country.getCountryName());
+            pst.executeUpdate();
+
+            ResultSet rs = pst.getGeneratedKeys();
+            if (rs.next()) {
+                country.setId(rs.getInt(1));
+            } else {
+                con.rollback();
+                throw new RuntimeException("Creating country failed, no ID obtained.");
+            }
+            con.commit();
+        } catch (SQLException e) {
+            throw e;
+        }
+        return country;
+    }
+}

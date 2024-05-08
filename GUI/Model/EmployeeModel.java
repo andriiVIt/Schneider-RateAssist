@@ -1,6 +1,8 @@
 package GUI.Model;
 
+import BE.Country;
 import BE.Employee;
+import BE.Team;
 import BLL.EmployeeLogic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,15 +13,18 @@ import java.util.List;
 public class EmployeeModel {
     static EmployeeLogic employeeLogic = new EmployeeLogic();
 
-    private static final ObservableList<Employee> employees = FXCollections.observableArrayList();
+    private  ObservableList<Employee> employees = FXCollections.observableArrayList();
 
-    public static ObservableList<Employee> getEmployees() throws SQLException {
+
+    public ObservableList<Employee> getEmployees() throws SQLException {
+        employees.clear(); // Очистити список перед завантаженням нових даних
         employees.addAll(EmployeeLogic.getAllEmployees());
         return employees;
     }
 
-    public Employee createEmployee(Employee employee) throws SQLException {
-        Employee e = EmployeeLogic.createEmployee(employee);
+
+    public Employee createEmployee(Employee employee, Team team, Country country) throws SQLException {
+        Employee e = EmployeeLogic.createEmployee(employee , team, country);
         employees.add(e);
         return e;
     }
@@ -28,4 +33,10 @@ public class EmployeeModel {
         employees.remove(employee);
     }
 
+
+    public List<Employee> getEmployeesByListIds(List<Integer> listCountryIds) throws SQLException {
+        employees.clear();
+        employees.addAll(EmployeeLogic.getAllEmployeesByFilters(listCountryIds));
+        return employees;
+    }
 }

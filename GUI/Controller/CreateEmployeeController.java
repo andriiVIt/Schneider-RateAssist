@@ -103,8 +103,6 @@ public class CreateEmployeeController implements Initializable {
 
             // Закриття вікна створення співробітника
             Stage stage = (Stage) createEmployeeAnchorPane.getScene().getWindow();
-            BlurEffectUtil.removeBlurEffect(scrollPane);
-
             stage.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -146,8 +144,6 @@ public class CreateEmployeeController implements Initializable {
         bos.close();
         return bos.toByteArray();
     }
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
