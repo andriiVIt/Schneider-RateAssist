@@ -3,6 +3,8 @@ package GUI.Controller;
 import BE.Employee;
 import GUI.Model.EmployeeModel;
 import GUI.util.BlurEffectUtil;
+import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.controlsfx.control.CheckComboBox;
 
 import java.io.ByteArrayInputStream;
 import java.net.URL;
@@ -19,7 +22,26 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 public class EmployeeInfoController implements Initializable {
-
+    @FXML
+    private MFXTextField changeNameField;
+    @FXML
+    private MFXTextField changeSalaryField;
+    @FXML
+    private MFXTextField changeOverheadField;
+    @FXML
+    private MFXTextField changeFixedAnnualAmountField;
+    @FXML
+    private MFXTextField changeAnEffectWorkHoursField;
+    @FXML
+    private MFXTextField changeUtilizationPercentageField;
+    @FXML
+    private MFXTextField changeResourceTypeField;
+    @FXML
+    private CheckComboBox countryBox;
+    @FXML
+    private CheckComboBox teamBox;
+    @FXML
+    private MFXButton saveInformation;
     @FXML
     private ImageView workerImage;
     @FXML
@@ -92,5 +114,11 @@ public class EmployeeInfoController implements Initializable {
 
     public void saveNewInformation(ActionEvent actionEvent) {
 
+    }
+
+    public void AddCountry(ActionEvent actionEvent) {
+    }
+
+    public void AddTeam(ActionEvent actionEvent) {
     }
 }

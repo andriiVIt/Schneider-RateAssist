@@ -12,17 +12,18 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -168,21 +169,62 @@ public class CreateEmployeeController implements Initializable {
     public void setOnCloseRequestHandler(Stage stage) {
         stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(scrollPane));
     }
-    private static byte[] readBytesFromFile(File file) throws Exception {
-        InputStream is = new FileInputStream(file);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        while ((bytesRead = is.read(buffer)) != -1) {
-            bos.write(buffer, 0, bytesRead);
-        }
 
-        is.close();
-        bos.close();
-        return bos.toByteArray();
+    private static byte[] readBytesFromFile(File file) throws Exception {
+        return null;
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
+
+    public void createCountry(ActionEvent actionEvent) {
+        BlurEffectUtil.applyBlurEffect(scrollPane, 10); // Apply blur effect to the scroll pane
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/CreteCountryWindow.fxml"));
+            Parent createCountryParent = fxmlLoader.load();
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // Set window modality
+            stage.setResizable(false); // Window is not resizable
+            stage.setTitle("Create Country");
+            stage.setScene(new Scene(createCountryParent));
+
+            CreateCountryController createCountryController = fxmlLoader.getController();
+            createCountryController.setModel(new CountryModel());
+            createCountryController.setScrollPane(scrollPane);
+            createCountryController.setOnCloseRequestHandler(stage);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Proper error handling should be implemented
+        }
+    }
+
+
+    public void createTeam(ActionEvent actionEvent) {
+        BlurEffectUtil.applyBlurEffect(scrollPane, 10); // Apply blur effect to the scroll pane
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/CreateTeamWindow.fxml"));
+            Parent createTeamParent = fxmlLoader.load();
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // Set window modality
+            stage.setResizable(false); // Window is not resizable
+            stage.setTitle("Create Team");
+            stage.setScene(new Scene(createTeamParent));
+
+            CreateTeamController createTeamController = fxmlLoader.getController();
+            createTeamController.setModel(new TeamModel());
+            createTeamController.setScrollPane(scrollPane);
+            createTeamController.setOnCloseRequestHandler(stage);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Proper error handling should be implemented
+        }
+    }
+
 }
+
+
