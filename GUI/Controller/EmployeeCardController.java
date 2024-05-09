@@ -106,8 +106,8 @@ public class EmployeeCardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         nameTitle.setText(employee.getName());
-        countryTitle.setText(employee.getLocation());
-        teamTitle.setText(employee.getTeam());
+
+
         ByteArrayInputStream inputStream = new ByteArrayInputStream(employee.getImageData());
         Image image = new Image(inputStream);
         workerImage.setImage(image);

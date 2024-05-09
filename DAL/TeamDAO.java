@@ -36,11 +36,11 @@ public class TeamDAO {
     }
 
     // Метод для створення нової команди в базі даних і повернення її згенерованого ID
-    public int createTeam(String teamName) throws SQLException {
+    public Team createTeam(Team team) throws SQLException {
         String sql = "INSERT INTO Team (teamName) VALUES (?)";
         try (Connection conn = connectionManager.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            pstmt.setString(1, teamName);
+            pstmt.setString(1, team.getTeamName());
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Створення команди не вдалося, жодного рядка не змінено.");
@@ -48,7 +48,8 @@ public class TeamDAO {
 
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    return generatedKeys.getInt(1); // Повертає згенерований ID команди
+                    team.setId(generatedKeys.getInt(1)); // Встановлення ID команди
+                    return team; // Повертаємо обновлений об'єкт команди
                 } else {
                     throw new SQLException("Створення команди не вдалося, ID не отримано.");
                 }
@@ -58,4 +59,6 @@ public class TeamDAO {
             throw e;
         }
     }
+
 }
+

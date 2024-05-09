@@ -23,8 +23,8 @@ public class EmployeeModel {
     }
 
 
-    public Employee createEmployee(Employee employee, Team team, Country country) throws SQLException {
-        Employee e = EmployeeLogic.createEmployee(employee , team, country);
+    public Employee createEmployee(Employee employee) throws SQLException {
+        Employee e = EmployeeLogic.createEmployee(employee);
         employees.add(e);
         return e;
     }

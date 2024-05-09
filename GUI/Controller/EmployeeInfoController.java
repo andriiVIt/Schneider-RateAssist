@@ -89,4 +89,8 @@ public class EmployeeInfoController implements Initializable {
         Stage stage = (Stage) employeeInfoAnchorPane.getScene().getWindow();
         stage.close();
     }
+
+    public void saveNewInformation(ActionEvent actionEvent) {
+
+    }
 }

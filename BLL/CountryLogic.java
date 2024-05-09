@@ -1,12 +1,9 @@
 package BLL;
 
 import BE.Country;
-import BE.Employee;
 import DAL.CountryDAO;
-import DAL.EmployeeDAO;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CountryLogic {
@@ -18,6 +15,6 @@ public class CountryLogic {
     }
 
     public List<Country> getAllCountries() throws SQLException {
-        return countryDAO.getAllCountries();
+        return countryDAO.getAllCountries(); // Переконайтесь, що цей метод повертає List<Country>
     }
 }

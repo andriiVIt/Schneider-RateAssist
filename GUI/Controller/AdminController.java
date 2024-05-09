@@ -3,7 +3,9 @@ package GUI.Controller;
 import BE.Country;
 import BE.Employee;
 import BLL.CountryLogic;
+import GUI.Model.CountryModel;
 import GUI.Model.EmployeeModel;
+import GUI.Model.TeamModel;
 import GUI.util.BlurEffectUtil;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.FXCollections;
@@ -137,7 +139,8 @@ public class AdminController implements Initializable {
 
             CreateEmployeeController createEmployeeController = fxmlLoader.getController();
             createEmployeeController.setEmployeeModel(new EmployeeModel());
-
+            createEmployeeController.setCountryModel(new CountryModel());
+            createEmployeeController.setTeamModel(new TeamModel());
             createEmployeeController.setRefreshCallback(this::refreshEmployeeCards);
             createEmployeeController.setScrollPane(scrollPane);
             createEmployeeController.setOnCloseRequestHandler(stage);
@@ -176,46 +179,46 @@ public class AdminController implements Initializable {
 
     }
     private void countryComboBox() {
-        EmployeeModel employeeModel = new EmployeeModel();
-        ObservableList<Employee> getEmployeesByLocation;
-        try {
-            getEmployeesByLocation = employeeModel.getEmployees();
-            Set<String> uniqueLocations = new HashSet<>();
-            for (Employee employee : getEmployeesByLocation) {
-                uniqueLocations.add(employee.getLocation());
-            }
-            for (String location : uniqueLocations) {
-                List<Country> listCountries = countryLogic.getAllCountries();
-                countryComboBox.getItems().addAll(listCountries); // Передбачаючи, що потрібно передати об'єкт Employee, але деякі поля можуть бути пустими
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Обробка помилок
-        }
+//        EmployeeModel employeeModel = new EmployeeModel();
+//        ObservableList<Employee> getEmployeesByLocation;
+//        try {
+//            getEmployeesByLocation = employeeModel.getEmployees();
+//            Set<String> uniqueLocations = new HashSet<>();
+//
+//            for (String location : uniqueLocations) {
+//                List<Country> listCountries = countryLogic.getAllCountries();
+//                countryComboBox.getItems().addAll(listCountries); // Передбачаючи, що потрібно передати об'єкт Employee, але деякі поля можуть бути пустими
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace(); // Обробка помилок
+//        }
+//    }
+//    public void groupButton(ActionEvent actionEvent) {
+//        var test = countryComboBox.getItemBooleanProperty(0);
+//        var value = test.getValue();
+//
+//
+//        List<Country> listSelectedCountries = new ArrayList<>();
+//        for (int i = 0; i < countryComboBox.getItems().size(); i++) {
+//            countryComboBox.getItemBooleanProperty(i);
+//            if (countryComboBox.getItemBooleanProperty(i).getValue() == true) {
+//                var test1 = countryComboBox.getItemBooleanProperty(i);
+//                listSelectedCountries.add(countryComboBox.getItems().get(i));
+//            }
+//        }
+//
+//        if (!listSelectedCountries.isEmpty()) {
+//            selectedCountries = listSelectedCountries;
+//        }
+//
+//        this.refreshEmployeeCards();
+
+
     }
+
+
     public void groupButton(ActionEvent actionEvent) {
-        var test = countryComboBox.getItemBooleanProperty(0);
-        var value = test.getValue();
-
-
-        List<Country> listSelectedCountries = new ArrayList<>();
-        for (int i = 0; i < countryComboBox.getItems().size(); i++) {
-            countryComboBox.getItemBooleanProperty(i);
-            if (countryComboBox.getItemBooleanProperty(i).getValue() == true) {
-                var test1 = countryComboBox.getItemBooleanProperty(i);
-                listSelectedCountries.add(countryComboBox.getItems().get(i));
-            }
-        }
-
-        if (!listSelectedCountries.isEmpty()) {
-            selectedCountries = listSelectedCountries;
-        }
-
-        this.refreshEmployeeCards();
-
-
     }
-
-
 }
 
 

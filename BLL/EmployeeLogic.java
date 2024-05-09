@@ -2,7 +2,6 @@ package BLL;
 
 import BE.Country;
 import BE.Employee;
-import BE.Team;
 import DAL.CountryDAO;
 import DAL.EmployeeDAO;
 import javafx.collections.ObservableList;
@@ -13,8 +12,8 @@ import java.util.List;
 public class EmployeeLogic {
     static EmployeeDAO employeeDAO = new EmployeeDAO();
 
-    public static Employee createEmployee(Employee employee, Team team, Country country) throws SQLException {
-        return employeeDAO.createEmployee(employee ,team, country);
+    public static Employee createEmployee(Employee employee) throws SQLException {
+        return employeeDAO.createEmployee(employee);
     }
 
     // Повертає список працівників, а не одного працівника
