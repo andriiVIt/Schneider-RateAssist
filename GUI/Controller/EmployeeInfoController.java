@@ -121,4 +121,11 @@ public class EmployeeInfoController implements Initializable {
 
     public void AddTeam(ActionEvent actionEvent) {
     }
+
+    public void deleteCountry(ActionEvent actionEvent) {
+    }
+
+    public void deleteTeam(ActionEvent actionEvent) {
+
+    }
 }

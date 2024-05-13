@@ -2,6 +2,7 @@ package DAL;
 
 import BE.Country;
 import BE.Employee;
+import BE.Team;
 import DAL.db.ConnectionManager;
 
 import java.sql.*;
@@ -55,19 +56,18 @@ public class EmployeeDAO {
     }
 
     public Employee createEmployee(Employee employee) throws SQLException {
-        String sql = "INSERT INTO Employee (Name, Salary, OverheadPercentage, WorkHours, Utilization, ResourceType, FixedAmount, ImageData) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Employee (Name, Salary, OverheadPercentage, WorkHours, Utilization, ResourceType, FixedAmount, ImageData) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection con = connectionManager.getConnection();
              PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, employee.getName());
+            pst.setDouble(2, employee.getSalary());
+            pst.setDouble(3, employee.getOverheadPercentage());
+            pst.setDouble(4, employee.getWorkHours());
+            pst.setDouble(5, employee.getUtilization());
+            pst.setString(6, employee.getResourceType());
+            pst.setDouble(7, employee.getFixedAmount());
+            pst.setBytes(8, employee.getImageData());
 
-            pst.setDouble(3, employee.getSalary());
-            pst.setDouble(4, employee.getOverheadPercentage());
-
-            pst.setDouble(6, employee.getWorkHours());
-            pst.setDouble(7, employee.getUtilization());
-            pst.setString(8, employee.getResourceType());
-            pst.setDouble(9, employee.getFixedAmount());
-            pst.setBytes(10, employee.getImageData());
             pst.executeUpdate();
 
             ResultSet rs = pst.getGeneratedKeys();
@@ -79,6 +79,7 @@ public class EmployeeDAO {
             return employee;
         }
     }
+
 
     public List<Employee> getAllEmployeesByFilters(List<Integer> listCountryIds) {
         List<Employee> allEmployees = new ArrayList<>();
@@ -92,10 +93,10 @@ public class EmployeeDAO {
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
                 String name = resultSet.getString("Name");
-                String location = resultSet.getString("CountryName");
+
                 double salary = resultSet.getDouble("Salary");
                 double overheadPercentage = resultSet.getDouble("OverheadPercentage");
-                String team = resultSet.getString("Team");
+
                 double workHours = resultSet.getDouble("WorkHours");
                 double utilization = resultSet.getDouble("Utilization");
                 String resourceType = resultSet.getString("ResourceType");
@@ -109,5 +110,37 @@ public class EmployeeDAO {
             throw new RuntimeException(e);
         }
         return allEmployees;
+    }
+    public void assignCountryEmployee(Employee employee, Country country) throws SQLException {
+        try (Connection con = connectionManager.getConnection()) {
+            con.setAutoCommit(false);
+            con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            PreparedStatement pst = con.prepareStatement("INSERT INTO EmployeeCountry(employeeid, countryid) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
+            pst.setInt(1, employee.getId());
+            pst.setInt(2, country.getId());
+            pst.executeUpdate();
+            con.commit();
+        } catch (SQLException e) {
+            try (Connection con = connectionManager.getConnection()) {
+                con.rollback();
+            }
+            throw e;
+        }
+    }
+    public void assignTeamEmployee(Employee employee, Team team) throws SQLException {
+        try (Connection con = connectionManager.getConnection()) {
+            con.setAutoCommit(false);
+            con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            PreparedStatement pst = con.prepareStatement("INSERT INTO EmployeeTeam(employeeid, teamid) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
+            pst.setInt(1, employee.getId());
+            pst.setInt(2, team.getId());
+            pst.executeUpdate();
+            con.commit();
+        } catch (SQLException e) {
+            try (Connection con = connectionManager.getConnection()) {
+                con.rollback();
+            }
+            throw e;
+        }
     }
 }

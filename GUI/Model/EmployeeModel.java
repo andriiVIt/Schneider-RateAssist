@@ -15,14 +15,27 @@ public class EmployeeModel {
 
     private  ObservableList<Employee> employees = FXCollections.observableArrayList();
 
+    private  ObservableList<Country> countries = FXCollections.observableArrayList();
+    private  ObservableList<Team> teams = FXCollections.observableArrayList();
+
 
     public ObservableList<Employee> getEmployees() throws SQLException {
         employees.clear(); // Очистити список перед завантаженням нових даних
         employees.addAll(EmployeeLogic.getAllEmployees());
         return employees;
     }
+    public void assignCountryEmployee(Country country, Employee employee) throws SQLException {
 
+        employeeLogic.assignCountryEmployee(country, employee);
+        countries.add(country);
 
+    }
+    public void assignTeamEmployee(Team team, Employee employee) throws SQLException {
+
+        employeeLogic.assignTeamEmployee(team, employee);
+        teams.add(team);
+
+    }
     public Employee createEmployee(Employee employee) throws SQLException {
         Employee e = EmployeeLogic.createEmployee(employee);
         employees.add(e);

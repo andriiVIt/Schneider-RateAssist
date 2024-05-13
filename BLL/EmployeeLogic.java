@@ -2,6 +2,7 @@ package BLL;
 
 import BE.Country;
 import BE.Employee;
+import BE.Team;
 import DAL.CountryDAO;
 import DAL.EmployeeDAO;
 import javafx.collections.ObservableList;
@@ -31,5 +32,10 @@ public class EmployeeLogic {
         employeeDAO.deleteEmployee(employee);
     }
 
-
+    public void assignCountryEmployee(Country country, Employee employee) throws SQLException {
+        employeeDAO.assignCountryEmployee(employee, country);
+    }
+    public void assignTeamEmployee(Team team, Employee employee) throws SQLException {
+        employeeDAO.assignTeamEmployee(employee, team);
+    }
 }

@@ -30,7 +30,7 @@ public class Employee {
     }
 
     // Constructor without ID (typically used when creating a new employee)
-    public Employee(String name,  double salary, double overhead,  double workHours, double utilization, String resourceType, String note, byte[] imageData) {
+    public Employee(String name, double  fixedAmount, double salary, double overhead,  double workHours, double utilization, String resourceType, String note, byte[] imageData) {
         this.name = name;
 
         this.salary = salary;

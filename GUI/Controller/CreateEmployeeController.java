@@ -26,6 +26,7 @@ import org.controlsfx.control.CheckComboBox;
 import java.io.*;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -49,11 +50,12 @@ public class CreateEmployeeController implements Initializable {
     @FXML
     private AnchorPane createEmployeeAnchorPane;
     @FXML
-    private CheckComboBox locationBox;
+    private CheckComboBox<Country> locationBox;
     @FXML
-    private CheckComboBox teamBox;
+    private CheckComboBox<Team> teamBox;
 
     // instance variables
+    private TeamModel teamModel;
     private CountryModel countryModel;
     private EmployeeModel employeeModel;
     private byte[] imageData;
@@ -61,25 +63,26 @@ public class CreateEmployeeController implements Initializable {
     private Runnable refreshCallback;
 
 
-    public void  setTeamModel(TeamModel teamModel){
-        teamBox.setTitle("Team");
-        teamBox.getItems().addAll(teamModel.getTeams());
-
-        teamModel.getTeams().addListener((ListChangeListener<? super Team>) obs->{
-            teamBox.getItems().clear();
-            teamBox.getItems().addAll(teamModel .getTeams());
-        });
-    }
     public void setCountryModel(CountryModel countryModel) {
+        this.countryModel = countryModel;
         locationBox.setTitle("Country");
         locationBox.getItems().addAll(countryModel.getCountries());
 
-        countryModel.getCountries().addListener((ListChangeListener<? super Country>) obs->{
+        countryModel.getCountries().addListener((ListChangeListener<? super Country>) obs -> {
             locationBox.getItems().clear();
-            locationBox.getItems().addAll(countryModel .getCountries());
+            locationBox.getItems().addAll(countryModel.getCountries());
         });
+    }
 
+    public void setTeamModel(TeamModel teamModel) {
+        this.teamModel = teamModel;
+        teamBox.setTitle("Team");
+        teamBox.getItems().addAll(teamModel.getTeams());
 
+        teamModel.getTeams().addListener((ListChangeListener<? super Team>) obs -> {
+            teamBox.getItems().clear();
+            teamBox.getItems().addAll(teamModel.getTeams());
+        });
     }
 
     public void selectPhotoButton(ActionEvent actionEvent) throws Exception {
@@ -99,18 +102,15 @@ public class CreateEmployeeController implements Initializable {
 
     public void createEmployee(ActionEvent actionEvent) {
         String name = nameField.getText();
-
+        double fixedAmount = Double.parseDouble(fixedAmountField.getText());
         double salary = Double.parseDouble(salaryField.getText());
         double overhead = Double.parseDouble(overheadField.getText());
-
         double workHours = Double.parseDouble(workHoursField.getText());
         double utilization = Double.parseDouble(utilizationField.getText());
         String resourceType = resourceTypeField.getText();
-        String note = " "; // Додаткове поле для нотатків
+        String note = ""; // Додаткове поле для приміток
 
-
-
-        // Додавання можливості написати нотатку
+        // Додавання можливості написати примітку
         TextArea textArea = new TextArea();
         textArea.setPromptText("Write a note here...");
         textArea.setWrapText(true);
@@ -120,33 +120,43 @@ public class CreateEmployeeController implements Initializable {
         alert.setHeaderText("Please write any special notes here:");
         alert.getDialogPane().setContent(textArea);
 
-        ButtonType skipButtonType = new ButtonType("Skip", ButtonBar.ButtonData.CANCEL_CLOSE);
-        ButtonType writeNoteButtonType = new ButtonType("Write Note", ButtonBar.ButtonData.OK_DONE);
-        alert.getButtonTypes().setAll(writeNoteButtonType, skipButtonType);
-
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == writeNoteButtonType) {
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             note = textArea.getText();
         }
 
         try {
-            // Створення нового співробітника та додавання його до бази даних
-            Employee newEmployee = new Employee(name, salary, overhead, workHours, utilization, resourceType, note, imageData);
+            // Створення нового працівника з отриманими даними
+            Employee newEmployee = new Employee(name, salary, fixedAmount, overhead, workHours, utilization, resourceType, note, imageData);
             employeeModel.createEmployee(newEmployee);
 
-            // Виклик зворотного виклику для оновлення GUI
+            // Отримання обраних країн для працівника та їх призначення
+            List<Country> selectedCountry = locationBox.getCheckModel().getCheckedItems();
+            for (Country item : selectedCountry) {
+                employeeModel.assignCountryEmployee(item, newEmployee);
+            }
+
+            // Отримання обраних команд для працівника та їх призначення
+            List<Team> selectedTeam = teamBox.getCheckModel().getCheckedItems();
+            for (Team item : selectedTeam) {
+                employeeModel.assignTeamEmployee(item, newEmployee);
+            }
+
+            // Виклик зворотного виклику для оновлення сторінки з працівниками
             if (refreshCallback != null) {
                 refreshCallback.run();
             }
 
-            // Закриття вікна створення співробітника
+            // Закриття вікна створення працівника
             Stage stage = (Stage) createEmployeeAnchorPane.getScene().getWindow();
+            BlurEffectUtil.removeBlurEffect(scrollPane);
             stage.close();
         } catch (SQLException e) {
             e.printStackTrace();
             Message.showAlert("Error", "Failed to create the employee in the database.", Alert.AlertType.ERROR);
         }
     }
+
 
     public void cancel(ActionEvent actionEvent) {
         Stage stage = (Stage) createEmployeeAnchorPane.getScene().getWindow();
@@ -171,7 +181,17 @@ public class CreateEmployeeController implements Initializable {
     }
 
     private static byte[] readBytesFromFile(File file) throws Exception {
-        return null;
+        InputStream is = new FileInputStream(file);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = is.read(buffer)) != -1) {
+            bos.write(buffer, 0, bytesRead);
+        }
+
+        is.close();
+        bos.close();
+        return bos.toByteArray();
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -193,8 +213,8 @@ public class CreateEmployeeController implements Initializable {
 
             CreateCountryController createCountryController = fxmlLoader.getController();
             createCountryController.setModel(new CountryModel());
-            createCountryController.setScrollPane(scrollPane);
-            createCountryController.setOnCloseRequestHandler(stage);
+
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace(); // Proper error handling should be implemented

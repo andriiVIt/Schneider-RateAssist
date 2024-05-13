@@ -15,11 +15,15 @@ public class CountryModel {
 
     public CountryModel() {
         try {
-            List<Country> countryList = countryLogic.getAllCountries(); // Отримуємо список
-            countries.addAll(countryList);
-        } catch (Exception e) {
+            countries.addAll(countryLogic.getAllCountries());
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+//            List<Country> countryList = countryLogic.getAllCountries(); // Отримуємо список
+//            countries.addAll(countryList);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
 

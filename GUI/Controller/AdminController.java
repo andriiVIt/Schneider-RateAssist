@@ -88,10 +88,8 @@ public class AdminController implements Initializable {
                 employees = employeeModel.getEmployeesByListIds(listIds);
                 selectedCountries = null;
             } else {
-
-            employees = employeeModel.getEmployees(); // Викликати метод getEmployees() замість EmployeeModel.getEmployees()
+                employees = employeeModel.getEmployees();
             }
-
         } catch (SQLException e) {
             throw new RuntimeException("Failed to fetch events from the database.", e);
         }
@@ -101,10 +99,13 @@ public class AdminController implements Initializable {
         int employeesPerPage = numRows * numColumns;
         totalPages = (int) Math.ceil((double) employees.size() / employeesPerPage);
 
+        int startEmployeeIndex = currentPage * employeesPerPage;
+        int endEmployeeIndex = Math.min(startEmployeeIndex + employeesPerPage, employees.size());
+
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numColumns; col++) {
-                int employeeIndex = currentPage * employeesPerPage + row * numColumns + col;
-                if (employeeIndex >= employees.size()) {
+                int employeeIndex = startEmployeeIndex + row * numColumns + col;
+                if (employeeIndex >= endEmployeeIndex) {
                     break;
                 }
                 Pane pane = new Pane();
@@ -123,6 +124,7 @@ public class AdminController implements Initializable {
             }
         }
     }
+
 
     public void createEmployee(ActionEvent actionEvent) {
         BlurEffectUtil.applyBlurEffect(scrollPane, 10); // Apply a blur effect to the scroll pane
