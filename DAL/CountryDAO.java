@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CountryDAO {
 
-    private ConnectionManager connectionManager;
+    private static ConnectionManager connectionManager;
 
     public CountryDAO(){
 
@@ -64,5 +64,12 @@ public class CountryDAO {
         }
         return country;
     }
-
+    public static void deleteCountry(Country country) throws SQLException {
+        String sql = "DELETE FROM Country WHERE ID = ?";
+        try (Connection con = connectionManager.getConnection();
+             PreparedStatement pst = con.prepareStatement(sql)) {
+            pst.setInt(1, country.getId());
+            pst.executeUpdate();
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package DAL;
 
+import BE.Country;
 import BE.Team;
 import DAL.db.ConnectionManager;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class TeamDAO {
 
-    private ConnectionManager connectionManager;
+    private static ConnectionManager connectionManager;
 
     public TeamDAO() {
         connectionManager = new ConnectionManager();
@@ -59,6 +60,13 @@ public class TeamDAO {
             throw e;
         }
     }
-
+    public static void deleteTeam(Team team) throws SQLException {
+        String sql = "DELETE FROM Team WHERE ID = ?";
+        try (Connection con = connectionManager.getConnection();
+             PreparedStatement pst = con.prepareStatement(sql)) {
+            pst.setInt(1, team.getId());
+            pst.executeUpdate();
+        }
+    }
 }
 

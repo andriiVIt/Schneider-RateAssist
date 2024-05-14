@@ -6,6 +6,8 @@ public class Team {
     private String teamName;
 
     // Constructor with ID (typically used when retrieving from database)
+    public Team() {}
+
     public Team(int id, String name) {
         this.id = id;
         this.teamName = name;

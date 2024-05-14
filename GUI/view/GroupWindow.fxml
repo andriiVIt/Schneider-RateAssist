@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="282.0" prefWidth="198.0" style="-fx-background-color: #CCFFCC;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.GroupWindowController">
+   <children>
+      <MFXButton layoutX="108.0" layoutY="234.0" onAction="#saveRate" prefHeight="26.0" prefWidth="70.0" text="Save" />
+      <ComboBox fx:id="countryBox" layoutX="33.0" layoutY="54.0" prefWidth="150.0" promptText="Country" />
+      <ComboBox fx:id="teamBox" layoutX="33.0" layoutY="96.0" prefWidth="150.0" promptText="Team" />
+      <ComboBox fx:id="rateBox" layoutX="33.0" layoutY="141.0" prefWidth="150.0" promptText="Rate" />
+      <MFXButton layoutX="26.0" layoutY="234.0" text="Cancel" />
+   </children>
+</AnchorPane>

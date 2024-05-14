@@ -85,5 +85,7 @@
             </ImageView>
          </graphic>
       </MFXButton>
+      <Label layoutX="22.0" layoutY="360.0" prefHeight="17.0" prefWidth="36.0" text="Rate:" />
+      <Label fx:id="rateTitle" layoutX="56.0" layoutY="360.0" prefHeight="17.0" prefWidth="147.0" text="-" />
    </children>
 </AnchorPane>

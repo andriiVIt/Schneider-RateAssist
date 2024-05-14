@@ -199,10 +199,10 @@ public class CreateEmployeeController implements Initializable {
     }
 
     public void createCountry(ActionEvent actionEvent) {
-        BlurEffectUtil.applyBlurEffect(scrollPane, 10); // Apply blur effect to the scroll pane
+
 
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/CreteCountryWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/CreateCountryWindow.fxml"));
             Parent createCountryParent = fxmlLoader.load();
 
             Stage stage = new Stage();
@@ -223,7 +223,7 @@ public class CreateEmployeeController implements Initializable {
 
 
     public void createTeam(ActionEvent actionEvent) {
-        BlurEffectUtil.applyBlurEffect(scrollPane, 10); // Apply blur effect to the scroll pane
+
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/CreateTeamWindow.fxml"));

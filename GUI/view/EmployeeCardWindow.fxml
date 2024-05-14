@@ -50,6 +50,7 @@
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
+      <Label fx:id="rateTitle" layoutX="177.0" layoutY="90.0" text="Label" />
    </children>
    <effect>
       <DropShadow>

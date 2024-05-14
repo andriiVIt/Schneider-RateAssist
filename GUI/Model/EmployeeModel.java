@@ -47,7 +47,7 @@ public class EmployeeModel {
     }
 
 
-    public List<Employee> getEmployeesByListIds(List<Integer> listCountryIds) throws SQLException {
+    public List<Employee> getEmployeesByListIds(List<Integer> listCountryIds, List<Integer> teamIds) throws SQLException {
         employees.clear();
         employees.addAll(EmployeeLogic.getAllEmployeesByFilters(listCountryIds));
         return employees;

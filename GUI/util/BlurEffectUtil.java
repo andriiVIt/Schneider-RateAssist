@@ -8,6 +8,8 @@ public class BlurEffectUtil {public static void applyBlurEffect(Node node, doubl
 }
 
     public static void removeBlurEffect(Node node) {
-        node.setEffect(null);
+        if (node != null) {
+            node.setEffect(null);
+        }
     }
 }

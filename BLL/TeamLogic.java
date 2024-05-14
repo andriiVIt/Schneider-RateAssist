@@ -16,4 +16,8 @@ public class TeamLogic {
     public List<Team> getAllTeams() throws SQLException {
         return teamDAO.getAllTeams(); // Переконайтесь, що цей метод повертає List<Team>
     }
+    public static void  deleteTeam(Team team)throws  SQLException{
+
+        TeamDAO.deleteTeam(team);
+    }
 }

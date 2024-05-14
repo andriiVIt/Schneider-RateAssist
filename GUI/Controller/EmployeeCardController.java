@@ -1,7 +1,12 @@
 package GUI.Controller;
 
+import BE.Country;
 import BE.Employee;
+import BE.Rate;
+import BLL.RateLogic;
+import GUI.Model.CountryModel;
 import GUI.Model.EmployeeModel;
+import GUI.Model.TeamModel;
 import GUI.util.BlurEffectUtil;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
@@ -24,10 +29,13 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 public class EmployeeCardController implements Initializable {
+    @FXML
+    private Label rateTitle;
     @FXML
     private Pane gridPane;
     @FXML
@@ -47,9 +55,8 @@ public class EmployeeCardController implements Initializable {
     private final Employee employee;
     private final EmployeeModel employeeModel;
     private final AdminController adminController;
-    private Consumer<Employee>onDeleteEmployeeCallback;
-
-
+    private final RateLogic rateLogic = new RateLogic(); // Додано
+    private Consumer<Employee> onDeleteEmployeeCallback;
 
     public EmployeeCardController(ScrollPane scrollPane, Employee employee, EmployeeModel employeeModel, AdminController adminController) {
         this.scrollPane = scrollPane;
@@ -75,7 +82,7 @@ public class EmployeeCardController implements Initializable {
             Parent createEventParent = fxmlLoader.load();
 
             EmployeeInfoController employeeInfoController = fxmlLoader.getController();
-            employeeInfoController.setModel(new EmployeeModel(), scrollPane);
+            employeeInfoController.setModel(new EmployeeModel(), scrollPane, new TeamModel(), new CountryModel()); // Передача всіх чотирьох аргументів
             employeeInfoController.setEmployee(employee);
             employeeInfoController.setOnDeleteEmployeeCallback(deletedEmployee -> {
                 if (onDeleteEmployeeCallback != null)
@@ -95,18 +102,15 @@ public class EmployeeCardController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    public void setOnDeleteEmployeeCallback(Consumer<Employee>onDeleteEmployeeCallback) {
+    public void setOnDeleteEmployeeCallback(Consumer<Employee> onDeleteEmployeeCallback) {
         this.onDeleteEmployeeCallback = onDeleteEmployeeCallback;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         nameTitle.setText(employee.getName());
-
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(employee.getImageData());
         Image image = new Image(inputStream);
@@ -115,7 +119,34 @@ public class EmployeeCardController implements Initializable {
         workerImage.setFitHeight(120);
         workerImage.setPreserveRatio(false);
 
+        // Додано: Отримання та відображення ставок працівника
+        try {
+            List<Rate> rates = rateLogic.getListRatesEmployee(employee.getId());
+            if (rates != null && !rates.isEmpty()) {
+                StringBuilder ratesText = new StringBuilder("Rates: ");
+                for (Rate rate : rates) {
+                    ratesText.append(rate.getRate()).append(", ");
+                }
+                // Видалення останньої коми та пробілу
+                if (ratesText.length() > 7) {
+                    ratesText.setLength(ratesText.length() - 2);
+                }
+                rateTitle.setText(ratesText.toString());
+
+                // Додано: Відображення країни працівника
+                Country country = rates.get(0).getCountry(); // Візьмемо країну з першої ставки
+                countryTitle.setText(country.getCountryName());
+            } else {
+                rateTitle.setText("No rates available.");
+                countryTitle.setText("Not available");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            rateTitle.setText("Failed to load rates.");
+            countryTitle.setText("Failed to load country.");
+        }
     }
+
 
     public Consumer<Employee> getOnDeleteEmployeeCallback() {
         return onDeleteEmployeeCallback;

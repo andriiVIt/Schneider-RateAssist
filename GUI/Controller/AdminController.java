@@ -2,14 +2,16 @@ package GUI.Controller;
 
 import BE.Country;
 import BE.Employee;
+import BE.Team;
 import BLL.CountryLogic;
+import BLL.RateLogic;
+import BLL.TeamLogic;
 import GUI.Model.CountryModel;
 import GUI.Model.EmployeeModel;
+import GUI.Model.RateModel;
 import GUI.Model.TeamModel;
 import GUI.util.BlurEffectUtil;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,18 +36,20 @@ public class AdminController implements Initializable {
     @FXML
     private CheckComboBox <Country> countryComboBox;
     @FXML
-    private CheckComboBox teamComboBox;
+    private CheckComboBox <Team> teamComboBox;
     @FXML
     private MFXButton logOutButton;
     @FXML
-    private MFXButton group;
+    private MFXButton SearchButton;
     @FXML
     private ScrollPane scrollPane;
     @FXML
     private GridPane gridPane;
 
     private CountryLogic countryLogic = new CountryLogic();
+    private TeamLogic teamLogic = new TeamLogic();
     List<Country> selectedCountries = null;
+    List<Team> selectedTeams = null;
 
     private int currentPage, totalPages;
     public void previousPage(ActionEvent actionEvent) {
@@ -78,20 +82,28 @@ public class AdminController implements Initializable {
                 .collect(Collectors.toList()); // Collecting the results into a List
         return listIds;
     }
-
+    public List<Integer> mapTeamsToIds(List<Team> selectedTeams) {
+        return selectedTeams.stream()
+                .map(Team::getId)  // Using method reference to get team IDs
+                .collect(Collectors.toList()); // Collecting the results into a List
+    }
     void populateGridPane() throws IOException {
         EmployeeModel employeeModel = new EmployeeModel();
         List<Employee> employees;
+
         try {
-            if (this.selectedCountries != null){
-                var listIds = mapCountriesToIds(selectedCountries);
-                employees = employeeModel.getEmployeesByListIds(listIds);
+            List<Integer> countryIds = selectedCountries != null ? mapCountriesToIds(selectedCountries) : null;
+            List<Integer> teamIds = selectedTeams != null ? mapTeamsToIds(selectedTeams) : null;
+
+            if (countryIds != null || teamIds != null) {
+                employees = employeeModel.getEmployeesByListIds(countryIds, teamIds);
                 selectedCountries = null;
+                selectedTeams = null;
             } else {
                 employees = employeeModel.getEmployees();
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Failed to fetch events from the database.", e);
+            throw new RuntimeException("Failed to fetch employees from the database.", e);
         }
 
         int numRows = 4;
@@ -124,6 +136,7 @@ public class AdminController implements Initializable {
             }
         }
     }
+
 
 
     public void createEmployee(ActionEvent actionEvent) {
@@ -174,53 +187,83 @@ public class AdminController implements Initializable {
 //        countryComboBox();
         try {
             populateGridPane();
-           countryComboBox();
+            countryComboBox();
+            TeamComboBox();
         } catch (IOException e) {
             // Better error handling should be considered
         }
 
     }
+
+
+
+
+
+    public void groupWindowButton(ActionEvent actionEvent) {
+        BlurEffectUtil.applyBlurEffect(scrollPane, 10);
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/GroupWindow.fxml"));
+            Parent groupParent = fxmlLoader.load();
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // Set window modality
+            stage.setResizable(false); // Window is not resizable
+            stage.setTitle("Group Window");
+            stage.setScene(new Scene(groupParent));
+
+            GroupWindowController groupWindowController = fxmlLoader.getController();
+            groupWindowController.setModel(new RateModel());
+            groupWindowController.setCountryModel(new CountryModel());
+            groupWindowController.setTeamModel(new TeamModel());
+            groupWindowController.setRateModel(new RateLogic());
+
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Proper error handling should be implemented
+        }
+    }
     private void countryComboBox() {
-//        EmployeeModel employeeModel = new EmployeeModel();
-//        ObservableList<Employee> getEmployeesByLocation;
-//        try {
-//            getEmployeesByLocation = employeeModel.getEmployees();
-//            Set<String> uniqueLocations = new HashSet<>();
-//
-//            for (String location : uniqueLocations) {
-//                List<Country> listCountries = countryLogic.getAllCountries();
-//                countryComboBox.getItems().addAll(listCountries); // Передбачаючи, що потрібно передати об'єкт Employee, але деякі поля можуть бути пустими
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace(); // Обробка помилок
-//        }
-//    }
-//    public void groupButton(ActionEvent actionEvent) {
-//        var test = countryComboBox.getItemBooleanProperty(0);
-//        var value = test.getValue();
-//
-//
-//        List<Country> listSelectedCountries = new ArrayList<>();
-//        for (int i = 0; i < countryComboBox.getItems().size(); i++) {
-//            countryComboBox.getItemBooleanProperty(i);
-//            if (countryComboBox.getItemBooleanProperty(i).getValue() == true) {
-//                var test1 = countryComboBox.getItemBooleanProperty(i);
-//                listSelectedCountries.add(countryComboBox.getItems().get(i));
-//            }
-//        }
-//
-//        if (!listSelectedCountries.isEmpty()) {
-//            selectedCountries = listSelectedCountries;
-//        }
-//
-//        this.refreshEmployeeCards();
-
-
+        try {
+            List<Country> listCountries = countryLogic.getAllCountries();
+            countryComboBox.getItems().addAll(listCountries);
+        } catch (SQLException e) {
+            e.printStackTrace(); // Proper error handling should be implemented
+        }
     }
-
-
-    public void groupButton(ActionEvent actionEvent) {
+    private void TeamComboBox() {
+        try {
+            List<Team> listTeams = teamLogic.getAllTeams();
+            teamComboBox.getItems().addAll(listTeams);
+        } catch (SQLException e) {
+            e.printStackTrace(); // Proper error handling should be implemented
+        }
     }
+    public void SearchButton(ActionEvent actionEvent) {
+        List<Country> listSelectedCountries = new ArrayList<>();
+        for (int i = 0; i < countryComboBox.getItems().size(); i++) {
+            if (countryComboBox.getItemBooleanProperty(i).getValue()) {
+                listSelectedCountries.add(countryComboBox.getItems().get(i));
+            }
+        }
+
+        if (!listSelectedCountries.isEmpty()) {
+            selectedCountries = listSelectedCountries;
+        }
+
+        List<Team> listSelectedTeams = new ArrayList<>();
+        for (int i = 0; i < teamComboBox.getItems().size(); i++) {
+            if (teamComboBox.getItemBooleanProperty(i).getValue()) {
+                listSelectedTeams.add(teamComboBox.getItems().get(i));
+            }
+        }
+
+        if (!listSelectedTeams.isEmpty()) {
+            selectedTeams = listSelectedTeams;
+        }
+
+        this.refreshEmployeeCards();
+}
 }
 
 

@@ -1,7 +1,9 @@
 package GUI.Model;
 
 import BE.Country;
+import BE.Team;
 import BLL.CountryLogic;
+import BLL.TeamLogic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -35,5 +37,8 @@ public class CountryModel {
         Country c = countryLogic.createCountry(country);
         countries.add(c);
         return c;
+    }
+    public void  deleteCountry(Country country) throws SQLException {
+        CountryLogic.deleteCountry(country);
     }
 }

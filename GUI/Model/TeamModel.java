@@ -33,4 +33,7 @@ public class TeamModel {
         teams.add(c);
         return c;
     }
+    public void  deleteTeam(Team team) throws SQLException {
+        TeamLogic.deleteTeam(team);
+    }
 }

@@ -2,6 +2,9 @@ package BE;
 
 public class Country {
 
+    public Country(){
+
+    }
     public int getId() {
         return id;
     }
