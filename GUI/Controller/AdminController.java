@@ -202,22 +202,18 @@ public class AdminController implements Initializable {
     public void groupWindowButton(ActionEvent actionEvent) {
         BlurEffectUtil.applyBlurEffect(scrollPane, 10);
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/GroupWindow.fxml"));
-            Parent groupParent = fxmlLoader.load();
-
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/RateWindow.fxml"));
+            Parent rateWindowParent = fxmlLoader.load();
+            RateWindowController rateWindowController = fxmlLoader.getController();
+            rateWindowController.setScrollPane(scrollPane); // Передаємо ScrollPane
+            rateWindowController.setCountryModel(new CountryModel());
+            rateWindowController.setTeamModel(new TeamModel());
+            rateWindowController.setRateModel(new RateLogic());
             Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL); // Set window modality
-            stage.setResizable(false); // Window is not resizable
-            stage.setTitle("Group Window");
-            stage.setScene(new Scene(groupParent));
-
-            GroupWindowController groupWindowController = fxmlLoader.getController();
-            groupWindowController.setModel(new RateModel());
-            groupWindowController.setCountryModel(new CountryModel());
-            groupWindowController.setTeamModel(new TeamModel());
-            groupWindowController.setRateModel(new RateLogic());
-
-
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.setTitle("Rate Window");
+            stage.setScene(new Scene(rateWindowParent));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace(); // Proper error handling should be implemented

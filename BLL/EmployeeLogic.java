@@ -38,4 +38,7 @@ public class EmployeeLogic {
     public void assignTeamEmployee(Team team, Employee employee) throws SQLException {
         employeeDAO.assignTeamEmployee(employee, team);
     }
+    public void updateEmployee(Employee employee) throws SQLException {
+        employeeDAO.updateEmployee(employee);
+    }
 }

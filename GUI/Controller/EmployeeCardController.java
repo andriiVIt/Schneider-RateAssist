@@ -3,6 +3,7 @@ package GUI.Controller;
 import BE.Country;
 import BE.Employee;
 import BE.Rate;
+import BE.Team;
 import BLL.RateLogic;
 import GUI.Model.CountryModel;
 import GUI.Model.EmployeeModel;
@@ -49,13 +50,13 @@ public class EmployeeCardController implements Initializable {
     @FXML
     private Label countryTitle;
     @FXML
-    private Label teamTitle;
+    private Label teamTitle; // Додано для відображення команди
 
     private final ScrollPane scrollPane;
     private final Employee employee;
     private final EmployeeModel employeeModel;
     private final AdminController adminController;
-    private final RateLogic rateLogic = new RateLogic(); // Додано
+    private final RateLogic rateLogic = new RateLogic();
     private Consumer<Employee> onDeleteEmployeeCallback;
 
     public EmployeeCardController(ScrollPane scrollPane, Employee employee, EmployeeModel employeeModel, AdminController adminController) {
@@ -136,17 +137,22 @@ public class EmployeeCardController implements Initializable {
                 // Додано: Відображення країни працівника
                 Country country = rates.get(0).getCountry(); // Візьмемо країну з першої ставки
                 countryTitle.setText(country.getCountryName());
+
+                // Додано: Відображення команди працівника
+                Team team = rates.get(0).getTeam(); // Візьмемо команду з першої ставки
+                teamTitle.setText(team.getTeamName());
             } else {
                 rateTitle.setText("No rates available.");
                 countryTitle.setText("Not available");
+                teamTitle.setText("Not available");
             }
         } catch (SQLException e) {
             e.printStackTrace();
             rateTitle.setText("Failed to load rates.");
             countryTitle.setText("Failed to load country.");
+            teamTitle.setText("Failed to load team.");
         }
     }
-
 
     public Consumer<Employee> getOnDeleteEmployeeCallback() {
         return onDeleteEmployeeCallback;

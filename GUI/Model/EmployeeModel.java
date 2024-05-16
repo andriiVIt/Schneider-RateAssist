@@ -52,4 +52,11 @@ public class EmployeeModel {
         employees.addAll(EmployeeLogic.getAllEmployeesByFilters(listCountryIds));
         return employees;
     }
+    public void updateEmployee(Employee employee) throws SQLException {
+        employeeLogic.updateEmployee(employee);
+        int index = employees.indexOf(employee);
+        if (index >= 0) {
+            employees.set(index, employee);
+        }
+    }
 }

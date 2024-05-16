@@ -1,14 +1,11 @@
 package GUI.Model;
 
 import BE.Country;
-import BE.Team;
 import BLL.CountryLogic;
-import BLL.TeamLogic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class CountryModel {
 
@@ -21,13 +18,7 @@ public class CountryModel {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-//            List<Country> countryList = countryLogic.getAllCountries(); // Отримуємо список
-//            countries.addAll(countryList);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
     }
-
 
     public ObservableList<Country> getCountries() {
         return countries;
@@ -38,7 +29,12 @@ public class CountryModel {
         countries.add(c);
         return c;
     }
-    public void  deleteCountry(Country country) throws SQLException {
+
+    public void deleteCountry(Country country) throws SQLException {
         CountryLogic.deleteCountry(country);
+        countries.remove(country);
+    }
+    public void updateCountryEmployee(int employeeId, int countryId) throws SQLException {
+        countryLogic.updateCountryEmployee(employeeId, countryId);
     }
 }

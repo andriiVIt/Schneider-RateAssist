@@ -68,5 +68,14 @@ public class TeamDAO {
             pst.executeUpdate();
         }
     }
+    public void updateTeamEmployee(int employeeId, int teamId) throws SQLException {
+        String sql = "UPDATE EmployeeTeam SET teamid = ? WHERE employeeid = ?";
+        try (Connection con = connectionManager.getConnection();
+             PreparedStatement pst = con.prepareStatement(sql)) {
+            pst.setInt(1, teamId);
+            pst.setInt(2, employeeId);
+            pst.executeUpdate();
+        }
+    }
 }
 

@@ -20,4 +20,7 @@ public class TeamLogic {
 
         TeamDAO.deleteTeam(team);
     }
+    public void updateTeamEmployee(int employeeId, int teamId) throws SQLException {
+        teamDAO.updateTeamEmployee(employeeId, teamId);
+    }
 }

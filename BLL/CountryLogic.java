@@ -1,10 +1,7 @@
 package BLL;
 
 import BE.Country;
-import BE.Employee;
-import BE.Team;
 import DAL.CountryDAO;
-import DAL.TeamDAO;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -18,10 +15,13 @@ public class CountryLogic {
     }
 
     public List<Country> getAllCountries() throws SQLException {
-        return countryDAO.getAllCountries(); // Переконайтесь, що цей метод повертає List<Country>
+        return countryDAO.getAllCountries();
     }
-    public static void  deleteCountry(Country country)throws  SQLException{
 
-        CountryDAO.deleteCountry(country);
+    public static void deleteCountry(Country country) throws SQLException {
+        countryDAO.deleteCountry(country);
+    }
+    public void updateCountryEmployee(int employeeId, int countryId) throws SQLException {
+        countryDAO.updateCountryEmployee(employeeId, countryId);
     }
 }

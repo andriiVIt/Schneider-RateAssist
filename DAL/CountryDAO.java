@@ -1,11 +1,15 @@
 package DAL;
 
 import BE.Country;
-import BE.Employee;
-import BLL.CountryLogic;
+import BE.Rate;
+import BE.Team;
 import DAL.db.ConnectionManager;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +17,7 @@ public class CountryDAO {
 
     private static ConnectionManager connectionManager;
 
-    public CountryDAO(){
-
+    public CountryDAO() {
         connectionManager = new ConnectionManager();
     }
 
@@ -31,17 +34,14 @@ public class CountryDAO {
                 countries.add(country);
             }
         } catch (SQLException e) {
-            // Handle exceptions or throw them to be handled at a higher level
             e.printStackTrace();
             throw e;
         }
         return countries;
     }
 
-    // Method to create a new country in the database
     public Country createCountry(Country country) throws SQLException {
         String query = "INSERT INTO Country (countryName) VALUES (?)";
-        // This SQL returns the generated ID
         try (Connection conn = connectionManager.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, country.getCountryName());
@@ -49,7 +49,6 @@ public class CountryDAO {
             if (affectedRows == 0) {
                 throw new SQLException("Creating country failed, no rows affected.");
             }
-
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     country.setId(generatedKeys.getInt(1));
@@ -58,18 +57,38 @@ public class CountryDAO {
                 }
             }
         } catch (SQLException e) {
-            // Handle exceptions or throw them to be handled at a higher level
             e.printStackTrace();
             throw e;
         }
         return country;
     }
-    public static void deleteCountry(Country country) throws SQLException {
+
+    public void deleteRatesByCountryId(int countryId) throws SQLException {
+        String sql = "DELETE FROM Rate WHERE countryId = ?";
+        try (Connection con = connectionManager.getConnection();
+             PreparedStatement pst = con.prepareStatement(sql)) {
+            pst.setInt(1, countryId);
+            pst.executeUpdate();
+        }
+    }
+
+    public void deleteCountry(Country country) throws SQLException {
         String sql = "DELETE FROM Country WHERE ID = ?";
         try (Connection con = connectionManager.getConnection();
              PreparedStatement pst = con.prepareStatement(sql)) {
+            deleteRatesByCountryId(country.getId());
             pst.setInt(1, country.getId());
             pst.executeUpdate();
         }
     }
+    public void updateCountryEmployee(int employeeId, int countryId) throws SQLException {
+        String sql = "UPDATE EmployeeCountry SET countryid = ? WHERE employeeid = ?";
+        try (Connection con = connectionManager.getConnection();
+             PreparedStatement pst = con.prepareStatement(sql)) {
+            pst.setInt(1, countryId);
+            pst.setInt(2, employeeId);
+            pst.executeUpdate();
+        }
+    }
+
 }

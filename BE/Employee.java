@@ -43,6 +43,38 @@ public class Employee {
         this.imageData = imageData;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public void setOverheadPercentage(double overheadPercentage) {
+        this.overheadPercentage = overheadPercentage;
+    }
+
+    public void setWorkHours(double workHours) {
+        this.workHours = workHours;
+    }
+
+    public void setUtilization(double utilization) {
+        this.utilization = utilization;
+    }
+
+    public void setResourceType(String resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    public void setFixedAmount(double fixedAmount) {
+        this.fixedAmount = fixedAmount;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
+
     // Getters
     public int getId() {
         return id;

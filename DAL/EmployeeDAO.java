@@ -47,11 +47,30 @@ public class EmployeeDAO {
     }
 
     public void deleteEmployee(Employee employee) throws SQLException {
-        String sql = "DELETE FROM Employee WHERE ID = ?";
-        try (Connection con = connectionManager.getConnection();
-             PreparedStatement pst = con.prepareStatement(sql)) {
-            pst.setInt(1, employee.getId());
-            pst.executeUpdate();
+        String sqlDeleteFromEmployeeCountry = "DELETE FROM EmployeeCountry WHERE employeeid = ?";
+        String sqlDeleteFromEmployeeTeam = "DELETE FROM EmployeeTeam WHERE employeeid = ?";
+        String sqlDeleteEmployee = "DELETE FROM Employee WHERE ID = ?";
+
+        try (Connection con = connectionManager.getConnection()) {
+            con.setAutoCommit(false);
+            try (PreparedStatement pstDeleteFromEmployeeCountry = con.prepareStatement(sqlDeleteFromEmployeeCountry);
+                 PreparedStatement pstDeleteFromEmployeeTeam = con.prepareStatement(sqlDeleteFromEmployeeTeam);
+                 PreparedStatement pstDeleteEmployee = con.prepareStatement(sqlDeleteEmployee)) {
+
+                pstDeleteFromEmployeeCountry.setInt(1, employee.getId());
+                pstDeleteFromEmployeeCountry.executeUpdate();
+
+                pstDeleteFromEmployeeTeam.setInt(1, employee.getId());
+                pstDeleteFromEmployeeTeam.executeUpdate();
+
+                pstDeleteEmployee.setInt(1, employee.getId());
+                pstDeleteEmployee.executeUpdate();
+
+                con.commit();
+            } catch (SQLException e) {
+                con.rollback();
+                throw e;
+            }
         }
     }
 
@@ -141,6 +160,24 @@ public class EmployeeDAO {
                 con.rollback();
             }
             throw e;
+        }
+    }
+    public void updateEmployee(Employee employee) throws SQLException {
+        String sql = "UPDATE Employee SET Name = ?, Salary = ?, OverheadPercentage = ?, WorkHours = ?, Utilization = ?, ResourceType = ?, FixedAmount = ? WHERE ID = ?";
+
+        try (Connection con = connectionManager.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, employee.getName());
+            pstmt.setDouble(2, employee.getSalary());
+            pstmt.setDouble(3, employee.getOverheadPercentage());
+            pstmt.setDouble(4, employee.getWorkHours());
+            pstmt.setDouble(5, employee.getUtilization());
+            pstmt.setString(6, employee.getResourceType());
+            pstmt.setDouble(7, employee.getFixedAmount());
+
+            pstmt.setInt(8, employee.getId());
+
+            pstmt.executeUpdate();
         }
     }
 }

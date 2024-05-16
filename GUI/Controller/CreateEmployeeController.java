@@ -62,7 +62,6 @@ public class CreateEmployeeController implements Initializable {
     private ScrollPane scrollPane;
     private Runnable refreshCallback;
 
-
     public void setCountryModel(CountryModel countryModel) {
         this.countryModel = countryModel;
         locationBox.setTitle("Country");
@@ -138,7 +137,9 @@ public class CreateEmployeeController implements Initializable {
 
             // Отримання обраних команд для працівника та їх призначення
             List<Team> selectedTeam = teamBox.getCheckModel().getCheckedItems();
+            System.out.println("Selected teams: " + selectedTeam.size()); // Додано діагностичне повідомлення
             for (Team item : selectedTeam) {
+                System.out.println("Assigning team: " + item.getTeamName()); // Додано діагностичне повідомлення
                 employeeModel.assignTeamEmployee(item, newEmployee);
             }
 
@@ -156,7 +157,6 @@ public class CreateEmployeeController implements Initializable {
             Message.showAlert("Error", "Failed to create the employee in the database.", Alert.AlertType.ERROR);
         }
     }
-
 
     public void cancel(ActionEvent actionEvent) {
         Stage stage = (Stage) createEmployeeAnchorPane.getScene().getWindow();
@@ -193,14 +193,12 @@ public class CreateEmployeeController implements Initializable {
         bos.close();
         return bos.toByteArray();
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 
     public void createCountry(ActionEvent actionEvent) {
-
-
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/CreateCountryWindow.fxml"));
             Parent createCountryParent = fxmlLoader.load();
@@ -214,17 +212,13 @@ public class CreateEmployeeController implements Initializable {
             CreateCountryController createCountryController = fxmlLoader.getController();
             createCountryController.setModel(new CountryModel());
 
-
             stage.show();
         } catch (IOException e) {
             e.printStackTrace(); // Proper error handling should be implemented
         }
     }
 
-
     public void createTeam(ActionEvent actionEvent) {
-
-
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/CreateTeamWindow.fxml"));
             Parent createTeamParent = fxmlLoader.load();
@@ -244,7 +238,4 @@ public class CreateEmployeeController implements Initializable {
             e.printStackTrace(); // Proper error handling should be implemented
         }
     }
-
 }
-
-

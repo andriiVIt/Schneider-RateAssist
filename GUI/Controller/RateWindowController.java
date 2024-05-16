@@ -8,34 +8,38 @@ import GUI.Model.CountryModel;
 import GUI.Model.EmployeeModel;
 import GUI.Model.RateModel;
 import GUI.Model.TeamModel;
+import GUI.util.BlurEffectUtil;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
-
-public class GroupWindowController implements Initializable {
-
+public class RateWindowController implements Initializable {
 
     public ComboBox<Country> countryBox;
     public ComboBox<Team> teamBox;
     public ComboBox<String> rateBox;
+    public AnchorPane rateWindow;
     private EmployeeModel employeeModel;
     private RateModel groupModel;
     private RateLogic rateLogic;
+    private ScrollPane scrollPane;
 
-    public GroupWindowController() {
-
+    public RateWindowController() {
     }
 
     public void setRateModel(RateLogic rateLogic) {
         this.rateLogic = rateLogic;
     }
+
     public void setCountryModel(CountryModel countryModel) {
         countryBox.getItems().addAll(countryModel.getCountries());
 
@@ -47,7 +51,6 @@ public class GroupWindowController implements Initializable {
     }
 
     public void setTeamModel(TeamModel teamModel) {
-//        teamBox.setTitle("Team");
         teamBox.getItems().addAll(teamModel.getTeams());
 
         teamModel.getTeams().addListener((ListChangeListener<? super Team>) obs -> {
@@ -56,17 +59,20 @@ public class GroupWindowController implements Initializable {
         });
     }
 
-    public void setRateBox(){
+    public void setRateBox() {
         rateBox.getItems().addAll(Arrays.asList("Hourly", "Daily"));
     }
-    public void setModel(RateModel groupModel) {
 
+    public void setModel(RateModel groupModel) {
+        this.groupModel = groupModel;
     }
 
+    public void setScrollPane(ScrollPane scrollPane) {
+        this.scrollPane = scrollPane;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 
     public void saveRate(ActionEvent actionEvent) throws SQLException {
@@ -76,9 +82,17 @@ public class GroupWindowController implements Initializable {
 
         Rate rateModel = new Rate(c, t, rate);
 
-       rateLogic.createRate(rateModel);
+        rateLogic.createRate(rateModel);
 
         rateLogic.getListRatesEmployee(48);
-        System.out.println("Hello hyi");
+
+    }
+
+    public void cancel(ActionEvent actionEvent) {
+        Stage stage = (Stage) rateWindow.getScene().getWindow();
+        if (scrollPane != null) {
+            BlurEffectUtil.removeBlurEffect(scrollPane);
+        }
+        stage.close();
     }
 }
