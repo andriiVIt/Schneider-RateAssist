@@ -39,7 +39,7 @@
          </graphic>
       </MFXButton>
       <Label fx:id="countryTitle" layoutX="240.0" layoutY="53.0" text="Country" />
-      <Label fx:id="teamTitle" layoutX="224.0" layoutY="74.0" text="Team" />
+      <Label fx:id="teamTitle" layoutX="224.0" layoutY="74.0" prefHeight="17.0" prefWidth="149.0" text="Team" />
       <Label layoutX="177.0" layoutY="53.0" text="Location :">
          <font>
             <Font name="System Bold Italic" size="14.0" />

@@ -125,9 +125,9 @@ public class EmployeeInfoController implements Initializable {
             try {
                 List<Rate> rates = rateLogic.getListRatesEmployee(employee.getId());
                 if (rates != null && !rates.isEmpty()) {
-                    StringBuilder ratesText = new StringBuilder("Rates: ");
+                    StringBuilder ratesText = new StringBuilder("");
                     for (Rate rate : rates) {
-                        ratesText.append(rate.getRate()).append(", ");
+                        ratesText.append(rate.getRate()).append(" ");
                     }
                     // Remove the trailing comma and space
                     if (ratesText.length() > 7) {
@@ -192,14 +192,14 @@ public class EmployeeInfoController implements Initializable {
                 // Оновлення країни, якщо обрано
                 List<Country> selectedCountries = countryBox.getCheckModel().getCheckedItems();
                 if (!selectedCountries.isEmpty()) {
-                    Country selectedCountry = selectedCountries.get(0);
+                    Country selectedCountry = selectedCountries.getFirst();
                     countryModel.updateCountryEmployee(employee.getId(), selectedCountry.getId());
                 }
 
                 // Оновлення команди, якщо обрано
                 List<Team> selectedTeams = teamBox.getCheckModel().getCheckedItems();
                 if (!selectedTeams.isEmpty()) {
-                    Team selectedTeam = selectedTeams.get(0);
+                    Team selectedTeam = selectedTeams.getFirst();
                     teamModel.updateTeamEmployee(employee.getId(), selectedTeam.getId());
                 }
 
@@ -315,7 +315,7 @@ public class EmployeeInfoController implements Initializable {
     }
 
     public void deleteCountry(ActionEvent actionEvent) {
-        Country selectedCountry = countryBox.getCheckModel().getCheckedItems().get(0);
+        Country selectedCountry = countryBox.getCheckModel().getCheckedItems().getFirst();
         if (selectedCountry != null) {
             try {
                 countryModel.deleteCountry(selectedCountry);
@@ -330,7 +330,7 @@ public class EmployeeInfoController implements Initializable {
     }
 
     public void deleteTeam(ActionEvent actionEvent) {
-        Team selectedTeam = teamBox.getCheckModel().getCheckedItems().get(0);
+        Team selectedTeam = teamBox.getCheckModel().getCheckedItems().getFirst();
         if (selectedTeam != null) {
             try {
                 teamModel.deleteTeam(selectedTeam);

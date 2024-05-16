@@ -100,14 +100,32 @@ public class EmployeeDAO {
     }
 
 
-    public List<Employee> getAllEmployeesByFilters(List<Integer> listCountryIds) {
+    public List<Employee> getAllEmployeesByFilters(List<Integer> listCountryIds, List<Integer> listTeamIds) throws SQLException {
         List<Employee> allEmployees = new ArrayList<>();
-        String inClause = listCountryIds.toString().replace("[", "(").replace("]", ")");
+        String countryInClause = listCountryIds != null ? listCountryIds.toString().replace("[", "(").replace("]", ")") : null;
+        String teamInClause = listTeamIds != null ? listTeamIds.toString().replace("[", "(").replace("]", ")") : null;
 
-        String sql = "SELECT E.*, C.CountryName FROM Employee E JOIN Country C ON C.ID = E.CountryID WHERE C.ID IN " + inClause;
+        StringBuilder sql = new StringBuilder("SELECT E.*, C.CountryName, T.TeamName FROM Employee E ")
+                .append("LEFT JOIN EmployeeCountry EC ON E.ID = EC.EmployeeID ")
+                .append("LEFT JOIN Country C ON EC.CountryID = C.ID ")
+                .append("LEFT JOIN EmployeeTeam ET ON E.ID = ET.EmployeeID ")
+                .append("LEFT JOIN Team T ON ET.TeamID = T.ID ");
+
+        if (countryInClause != null || teamInClause != null) {
+            sql.append("WHERE ");
+            if (countryInClause != null) {
+                sql.append("C.ID IN ").append(countryInClause);
+            }
+            if (teamInClause != null) {
+                if (countryInClause != null) {
+                    sql.append(" AND ");
+                }
+                sql.append("T.ID IN ").append(teamInClause);
+            }
+        }
 
         try (Connection con = connectionManager.getConnection();
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
+             PreparedStatement pstmt = con.prepareStatement(sql.toString())) {
             ResultSet resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
@@ -115,7 +133,6 @@ public class EmployeeDAO {
 
                 double salary = resultSet.getDouble("Salary");
                 double overheadPercentage = resultSet.getDouble("OverheadPercentage");
-
                 double workHours = resultSet.getDouble("WorkHours");
                 double utilization = resultSet.getDouble("Utilization");
                 String resourceType = resultSet.getString("ResourceType");
@@ -130,6 +147,8 @@ public class EmployeeDAO {
         }
         return allEmployees;
     }
+
+
     public void assignCountryEmployee(Employee employee, Country country) throws SQLException {
         try (Connection con = connectionManager.getConnection()) {
             con.setAutoCommit(false);

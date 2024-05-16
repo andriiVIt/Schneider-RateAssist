@@ -2,23 +2,23 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.CheckComboBox?>
 
-<AnchorPane fx:id="employeeInfoAnchorPane" prefHeight="400.0" prefWidth="674.0" style="-fx-background-color: #CCFFCC; -fx-border-color: Black;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.EmployeeInfoController">
+<AnchorPane fx:id="employeeInfoAnchorPane" prefHeight="477.0" prefWidth="706.0" style="-fx-background-color: #CCFFCC; -fx-border-color: Black;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.EmployeeInfoController">
    <children>
       <Label fx:id="nameField" layoutX="22.0" layoutY="182.0" prefHeight="36.0" prefWidth="194.0" text="Name">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ImageView fx:id="workerImage" fitHeight="164.0" fitWidth="183.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="annualSalaryField" layoutX="118.0" layoutY="238.0" prefHeight="17.0" prefWidth="50.0" text="-" />
+      <ImageView fx:id="workerImage" fitHeight="179.0" fitWidth="194.0" layoutX="22.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="annualSalaryField" layoutX="118.0" layoutY="238.0" prefHeight="17.0" prefWidth="59.0" text="-" />
       <Label layoutX="22.0" layoutY="237.0" prefHeight="18.0" prefWidth="97.0" text="Annual Salary :">
          <font>
             <Font name="System Bold Italic" size="14.0" />
@@ -34,40 +34,27 @@
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font></Label>
-      <Label fx:id="configurableFixedAnnualAmountField" layoutX="229.0" layoutY="286.0" prefHeight="17.0" prefWidth="37.0" text="-" />
+      <Label fx:id="configurableFixedAnnualAmountField" layoutX="229.0" layoutY="286.0" prefHeight="17.0" prefWidth="50.0" text="-" />
       <Label layoutX="21.0" layoutY="312.0" prefHeight="18.0" prefWidth="194.0" text="Annual effective working hours :">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font></Label>
-      <Label fx:id="annualEffectiveWorkingHoursField" layoutX="215.0" layoutY="313.0" prefHeight="17.0" prefWidth="37.0" text="-" />
+      <Label fx:id="annualEffectiveWorkingHoursField" layoutX="215.0" layoutY="313.0" prefHeight="17.0" prefWidth="50.0" text="-" />
       <Label layoutX="21.0" layoutY="335.0" prefHeight="18.0" prefWidth="138.0" text="Utilization percentage :">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font></Label>
       <Label fx:id="utilizationPercentageField" layoutX="160.0" layoutY="336.0" prefHeight="17.0" prefWidth="50.0" text="-" />
-      <MFXButton layoutX="465.0" layoutY="360.0" onAction="#Cancel" prefHeight="26.0" prefWidth="83.0" text="Cancel" />
-      <MFXButton fx:id="saveInformation" layoutX="573.0" layoutY="360.0" onAction="#saveNewInformation" prefHeight="26.0" prefWidth="74.0" text="Save" />
-      <VBox layoutX="429.0" layoutY="59.0" prefHeight="274.0" prefWidth="219.0" spacing="5.0" style=": ; : ;">
-         <children>
-            <MFXTextField fx:id="changeNameField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="219.0" promptText="Name" />
-            <MFXTextField fx:id="changeSalaryField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="219.0" promptText="Annual Salary" />
-            <MFXTextField fx:id="changeOverheadField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="219.0" promptText="Overhead Multiplier" />
-            <MFXTextField fx:id="changeFixedAnnualAmountField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="219.0" promptText="Configurable fixed annual amount " />
-            <MFXTextField fx:id="changeAnEffectWorkHoursField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="219.0" promptText="Annual effective working hours " />
-            <MFXTextField fx:id="changeUtilizationPercentageField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="219.0" promptText="Utilization percentage " />
-            <MFXTextField fx:id="changeResourceTypeField" minHeight="-Infinity" prefHeight="26.0" prefWidth="218.0" promptText="Resource Type" />
-            <CheckComboBox fx:id="countryBox" prefHeight="25.0" prefWidth="219.0" title="Country" />
-            <CheckComboBox fx:id="teamBox" prefHeight="25.0" prefWidth="219.0" title="Team" />
-         </children>
-      </VBox>
-      <Label alignment="CENTER" layoutX="429.0" layoutY="22.0" prefHeight="17.0" prefWidth="219.0" text="Edit information" textAlignment="JUSTIFY">
+      <MFXButton layoutX="517.0" layoutY="437.0" onAction="#Cancel" prefHeight="26.0" prefWidth="83.0" text="Cancel" />
+      <MFXButton fx:id="saveInformation" layoutX="611.0" layoutY="437.0" onAction="#saveNewInformation" prefHeight="26.0" prefWidth="74.0" text="Save" />
+      <Label alignment="CENTER" layoutX="402.0" layoutY="14.0" prefHeight="17.0" prefWidth="219.0" text="Edit information" textAlignment="JUSTIFY">
          <font>
             <Font name="System Bold Italic" size="16.0" />
          </font>
       </Label>
-      <MFXButton layoutX="352.0" layoutY="360.0" onAction="#AddCountry" text="Add Country" />
-      <MFXButton layoutX="255.0" layoutY="360.0" onAction="#AddTeam" text="Add Team" />
-      <MFXButton ellipsisString="" layoutX="388.0" layoutY="273.0" onAction="#deleteCountry" prefHeight="11.0" prefWidth="0.0" style="-fx-background-color: #CCFFCC;" text="Button">
+      <MFXButton layoutX="415.0" layoutY="437.0" onAction="#AddCountry" text="Add Country" />
+      <MFXButton layoutX="327.0" layoutY="437.0" onAction="#AddTeam" text="Add Team" />
+      <MFXButton ellipsisString="" layoutX="473.0" layoutY="224.0" onAction="#deleteCountry" prefHeight="11.0" prefWidth="0.0" style="-fx-background-color: #CCFFCC;" text="Button">
          <graphic>
             <ImageView fitHeight="16.0" fitWidth="14.0">
                <image>
@@ -76,7 +63,7 @@
             </ImageView>
          </graphic>
       </MFXButton>
-      <MFXButton ellipsisString="" layoutX="388.0" layoutY="308.0" onAction="#deleteTeam" prefHeight="26.0" prefWidth="21.0" style="-fx-background-color: #CCFFCC;" text="Button">
+      <MFXButton ellipsisString="" layoutX="473.0" layoutY="188.0" onAction="#deleteTeam" prefHeight="26.0" prefWidth="21.0" style="-fx-background-color: #CCFFCC;" text="Button">
          <graphic>
             <ImageView fitHeight="16.0" fitWidth="14.0">
                <image>
@@ -86,6 +73,17 @@
          </graphic>
       </MFXButton>
       <Label layoutX="22.0" layoutY="360.0" prefHeight="17.0" prefWidth="36.0" text="Rate:" />
-      <Label fx:id="rateTitle" layoutX="56.0" layoutY="360.0" prefHeight="17.0" prefWidth="147.0" text="-" />
+      <Label fx:id="rateTitle" layoutX="56.0" layoutY="360.0" prefHeight="17.0" prefWidth="80.0" text="-" />
+      <MFXButton layoutX="279.0" layoutY="437.0" prefHeight="26.0" prefWidth="19.0" />
+      <MFXTextField fx:id="changeNameField" layoutX="327.0" layoutY="48.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="176.0" promptText="Name" />
+      <MFXTextField fx:id="changeOverheadField" layoutX="327.0" layoutY="83.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="176.0" promptText="Overhead Multiplier" />
+      <MFXTextField fx:id="changeAnEffectWorkHoursField" layoutX="327.0" layoutY="116.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="176.0" promptText="Annual effective working hours " />
+      <MFXTextField fx:id="changeResourceTypeField" layoutX="327.0" layoutY="152.0" minHeight="-Infinity" prefHeight="26.0" prefWidth="176.0" promptText="Resource Type" />
+      <CheckComboBox fx:id="teamBox" layoutX="512.0" layoutY="188.0" prefHeight="25.0" prefWidth="176.0" title="Team" />
+      <CheckComboBox fx:id="countryBox" layoutX="512.0" layoutY="225.0" prefHeight="25.0" prefWidth="176.0" title="Country" />
+      <MFXTextField fx:id="changeUtilizationPercentageField" layoutX="511.0" layoutY="116.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="176.0" promptText="Utilization percentage " />
+      <MFXTextField fx:id="changeFixedAnnualAmountField" layoutX="509.0" layoutY="83.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="176.0" promptText="Configurable fixed annual amount " />
+      <MFXTextField fx:id="changeSalaryField" layoutX="509.0" layoutY="48.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="176.0" promptText="Annual Salary" />
+      <ComboBox fx:id="chengeRate" layoutX="512.0" layoutY="153.0" prefHeight="25.0" prefWidth="176.0" />
    </children>
 </AnchorPane>

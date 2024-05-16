@@ -49,9 +49,10 @@ public class EmployeeModel {
 
     public List<Employee> getEmployeesByListIds(List<Integer> listCountryIds, List<Integer> teamIds) throws SQLException {
         employees.clear();
-        employees.addAll(EmployeeLogic.getAllEmployeesByFilters(listCountryIds));
+        employees.addAll(EmployeeLogic.getAllEmployeesByFilters(listCountryIds, teamIds));
         return employees;
     }
+
     public void updateEmployee(Employee employee) throws SQLException {
         employeeLogic.updateEmployee(employee);
         int index = employees.indexOf(employee);

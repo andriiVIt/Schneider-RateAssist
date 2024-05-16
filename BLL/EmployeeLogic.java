@@ -23,10 +23,10 @@ public class EmployeeLogic {
 
     }
 
-    public static List<Employee> getAllEmployeesByFilters(List<Integer> listCountryIds) throws SQLException {
-        return employeeDAO.getAllEmployeesByFilters(listCountryIds);
-
+    public static List<Employee> getAllEmployeesByFilters(List<Integer> listCountryIds, List<Integer> listTeamIds) throws SQLException {
+        return employeeDAO.getAllEmployeesByFilters(listCountryIds, listTeamIds);
     }
+
 
     public void deleteEmployee(Employee employee) throws SQLException {
         employeeDAO.deleteEmployee(employee);

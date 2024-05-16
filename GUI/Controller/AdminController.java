@@ -105,7 +105,6 @@ public class AdminController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException("Failed to fetch employees from the database.", e);
         }
-
         int numRows = 4;
         int numColumns = 2;
         int employeesPerPage = numRows * numColumns;
@@ -130,13 +129,17 @@ public class AdminController implements Initializable {
                     controller.setOnDeleteEmployeeCallback(deletedEmployee -> refreshEmployeeCards());
                     return controller;
                 });
-                Pane contentPane = fxmlLoader.load();
-                pane.getChildren().add(contentPane);
-                gridPane.add(pane, col, row);
+                try {
+                    Pane contentPane = fxmlLoader.load();
+                    pane.getChildren().add(contentPane);
+                    gridPane.add(pane, col, row);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("Failed to load EmployeeCardWindow.fxml for employee: " + finalEmployees.get(employeeIndex).getName());
+                }
             }
         }
     }
-
 
 
     public void createEmployee(ActionEvent actionEvent) {
@@ -243,10 +246,6 @@ public class AdminController implements Initializable {
             }
         }
 
-        if (!listSelectedCountries.isEmpty()) {
-            selectedCountries = listSelectedCountries;
-        }
-
         List<Team> listSelectedTeams = new ArrayList<>();
         for (int i = 0; i < teamComboBox.getItems().size(); i++) {
             if (teamComboBox.getItemBooleanProperty(i).getValue()) {
@@ -254,12 +253,11 @@ public class AdminController implements Initializable {
             }
         }
 
-        if (!listSelectedTeams.isEmpty()) {
-            selectedTeams = listSelectedTeams;
-        }
+        selectedCountries = listSelectedCountries.isEmpty() ? null : listSelectedCountries;
+        selectedTeams = listSelectedTeams.isEmpty() ? null : listSelectedTeams;
 
         this.refreshEmployeeCards();
-}
+    }
 }
 
 

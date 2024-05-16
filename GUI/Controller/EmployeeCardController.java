@@ -50,7 +50,7 @@ public class EmployeeCardController implements Initializable {
     @FXML
     private Label countryTitle;
     @FXML
-    private Label teamTitle; // Додано для відображення команди
+    private Label teamTitle;
 
     private final ScrollPane scrollPane;
     private final Employee employee;
@@ -83,7 +83,7 @@ public class EmployeeCardController implements Initializable {
             Parent createEventParent = fxmlLoader.load();
 
             EmployeeInfoController employeeInfoController = fxmlLoader.getController();
-            employeeInfoController.setModel(new EmployeeModel(), scrollPane, new TeamModel(), new CountryModel()); // Передача всіх чотирьох аргументів
+            employeeInfoController.setModel(employeeModel, scrollPane, new TeamModel(), new CountryModel()); // Передача всіх чотирьох аргументів
             employeeInfoController.setEmployee(employee);
             employeeInfoController.setOnDeleteEmployeeCallback(deletedEmployee -> {
                 if (onDeleteEmployeeCallback != null)
@@ -120,7 +120,6 @@ public class EmployeeCardController implements Initializable {
         workerImage.setFitHeight(120);
         workerImage.setPreserveRatio(false);
 
-        // Додано: Отримання та відображення ставок працівника
         try {
             List<Rate> rates = rateLogic.getListRatesEmployee(employee.getId());
             if (rates != null && !rates.isEmpty()) {
@@ -128,19 +127,24 @@ public class EmployeeCardController implements Initializable {
                 for (Rate rate : rates) {
                     ratesText.append(rate.getRate()).append(", ");
                 }
-                // Видалення останньої коми та пробілу
                 if (ratesText.length() > 7) {
                     ratesText.setLength(ratesText.length() - 2);
                 }
                 rateTitle.setText(ratesText.toString());
 
-                // Додано: Відображення країни працівника
-                Country country = rates.get(0).getCountry(); // Візьмемо країну з першої ставки
-                countryTitle.setText(country.getCountryName());
+                Country country = rates.getFirst().getCountry(); // Візьмемо країну з першої ставки
+                if (country != null) {
+                    countryTitle.setText(country.getCountryName());
+                } else {
+                    countryTitle.setText("Not available");
+                }
 
-                // Додано: Відображення команди працівника
-                Team team = rates.get(0).getTeam(); // Візьмемо команду з першої ставки
-                teamTitle.setText(team.getTeamName());
+                Team team = rates.getFirst().getTeam(); // Візьмемо команду з першої ставки
+                if (team != null) {
+                    teamTitle.setText(team.getTeamName());
+                } else {
+                    teamTitle.setText("Not available");
+                }
             } else {
                 rateTitle.setText("No rates available.");
                 countryTitle.setText("Not available");
