@@ -1,4 +1,4 @@
-package GUI.Controller;
+package GUI.Controller.Create;
 
 import BE.Team;
 import GUI.Model.TeamModel;
@@ -9,8 +9,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.util.function.Consumer;
 
 public class CreateTeamController {
 

@@ -5,6 +5,9 @@ import BE.Employee;
 import BE.Team;
 import BE.Rate;
 import BLL.RateLogic;
+import GUI.Controller.Create.CreateCountryController;
+import GUI.Controller.Create.CreateTeamController;
+import GUI.Model.CalculationModel;
 import GUI.Model.CountryModel;
 import GUI.Model.EmployeeModel;
 import GUI.Model.TeamModel;
@@ -18,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -35,6 +39,7 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 public class EmployeeInfoController implements Initializable {
+    public ComboBox chengeRate;
     @FXML
     private Label rateTitle;
     @FXML
@@ -85,7 +90,7 @@ public class EmployeeInfoController implements Initializable {
     private EmployeeModel employeeModel;
     private RateLogic rateLogic = new RateLogic(); // Initialize RateLogic
     private Runnable refreshCallback;
-
+    private Employee selectedEmployee;
 
     public void setModel(EmployeeModel employeeModel, ScrollPane scrollPane, TeamModel teamModel, CountryModel countryModel) {
         this.scrollPane = scrollPane;
@@ -372,5 +377,25 @@ public class EmployeeInfoController implements Initializable {
             teamBox.getItems().clear();
             teamBox.getItems().addAll(teamModel.getTeams());
         });
+    }
+
+    public void calculatorButton(ActionEvent actionEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/CalculatorWindow.fxml"));
+            Parent calculatorParent = fxmlLoader.load();
+
+            CalculatorController controller = fxmlLoader.getController();
+            controller.setEmployee(this.employee); // Встановлюємо вибраного працівника з поточного об'єкта
+            controller.setCalculationModel(new CalculationModel()); // Встановлюємо модель
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.setTitle("Rate Calculator");
+            stage.setScene(new Scene(calculatorParent));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Proper error handling should be implemented
+        }
     }
 }

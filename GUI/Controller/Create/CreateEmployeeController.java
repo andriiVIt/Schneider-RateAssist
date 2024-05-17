@@ -1,4 +1,4 @@
-package GUI.Controller;
+package GUI.Controller.Create;
 
 import BE.Country;
 import BE.Employee;

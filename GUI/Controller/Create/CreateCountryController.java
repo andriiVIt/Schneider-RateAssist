@@ -1,4 +1,4 @@
-package GUI.Controller;
+package GUI.Controller.Create;
 
 import BE.Country;
 import GUI.Model.CountryModel;
@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 public class CreateCountryController implements Initializable {
 

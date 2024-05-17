@@ -6,9 +6,9 @@ import BE.Team;
 import BLL.CountryLogic;
 import BLL.RateLogic;
 import BLL.TeamLogic;
+import GUI.Controller.Create.CreateEmployeeController;
 import GUI.Model.CountryModel;
 import GUI.Model.EmployeeModel;
-import GUI.Model.RateModel;
 import GUI.Model.TeamModel;
 import GUI.util.BlurEffectUtil;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -32,7 +32,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class AdminController implements Initializable {
+public class MainWindowController implements Initializable {
     @FXML
     private CheckComboBox <Country> countryComboBox;
     @FXML

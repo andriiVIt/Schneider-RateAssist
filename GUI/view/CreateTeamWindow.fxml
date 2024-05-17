@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="createTeamPane" prefHeight="137.0" prefWidth="335.0" style="-fx-background-color: #7CCD7C;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.CreateTeamController">
+<AnchorPane fx:id="createTeamPane" prefHeight="137.0" prefWidth="335.0" style="-fx-background-color: #7CCD7C;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.Create.CreateTeamController">
    <children>
       <MFXTextField fx:id="newTeamField" layoutX="86.0" layoutY="57.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="180.0" />
       <MFXButton layoutX="266.0" layoutY="97.0" onAction="#saveNewTeam" style="-fx-background-color: #90EE90;" text="Save" />

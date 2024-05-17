@@ -55,11 +55,11 @@ public class EmployeeCardController implements Initializable {
     private final ScrollPane scrollPane;
     private final Employee employee;
     private final EmployeeModel employeeModel;
-    private final AdminController adminController;
+    private final MainWindowController adminController;
     private final RateLogic rateLogic = new RateLogic();
     private Consumer<Employee> onDeleteEmployeeCallback;
 
-    public EmployeeCardController(ScrollPane scrollPane, Employee employee, EmployeeModel employeeModel, AdminController adminController) {
+    public EmployeeCardController(ScrollPane scrollPane, Employee employee, EmployeeModel employeeModel, MainWindowController adminController) {
         this.scrollPane = scrollPane;
         this.employee = employee;
         this.employeeModel = employeeModel;
