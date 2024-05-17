@@ -30,16 +30,14 @@ public class Employee {
     }
 
     // Constructor without ID (typically used when creating a new employee)
-    public Employee(String name, double  fixedAmount, double salary, double overhead,  double workHours, double utilization, String resourceType, String note, byte[] imageData) {
+    public Employee(String name, double salary, double overheadPercentage, double workHours, double utilization, String resourceType, double fixedAmount, byte[] imageData) {
         this.name = name;
-
         this.salary = salary;
-        this.overheadPercentage = overhead;
-
+        this.overheadPercentage = overheadPercentage;
         this.workHours = workHours;
         this.utilization = utilization;
         this.resourceType = resourceType;
-        this.fixedAmount = fixedAmount; // Assume that fixed amount can be optional or derived
+        this.fixedAmount = fixedAmount;
         this.imageData = imageData;
     }
 

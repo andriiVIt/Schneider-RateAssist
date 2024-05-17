@@ -6,10 +6,7 @@ import javafx.scene.control.ButtonType;
 
 import java.util.Optional;
 
-/**
- *
- * @author tomdra01, mrtng1
- */
+
 public class Message {
 
     public static void showAlert(String title, String message, AlertType type) {

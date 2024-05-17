@@ -6,7 +6,6 @@ import GUI.Model.CalculationModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -26,12 +25,16 @@ public class CalculatorController {
     private Employee selectedEmployee;
     private CalculationModel calculationModel;
     private double calculatedRate;
+    private EmployeeInfoController employeeInfoController;
 
     // Метод для налаштування працівника
     public void setEmployee(Employee employee) {
         this.selectedEmployee = employee;
     }
 
+    public void setEmployeeInfoController(EmployeeInfoController employeeInfoController) {
+        this.employeeInfoController = employeeInfoController;
+    }
     public void setCalculationModel(CalculationModel calculationModel) {
         this.calculationModel = calculationModel;
     }
@@ -74,6 +77,11 @@ public class CalculatorController {
         try {
             Calculation calculation = new Calculation(selectedEmployee.getId(), calculatedRate);
             calculationModel.createCalculation(calculation);
+
+            if (employeeInfoController != null) {
+                employeeInfoController.updateCalculatedRate(calculatedRate);
+            }
+
             showInfo("Rate saved successfully.");
         } catch (SQLException e) {
             e.printStackTrace();

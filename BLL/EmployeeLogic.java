@@ -17,16 +17,13 @@ public class EmployeeLogic {
         return employeeDAO.createEmployee(employee);
     }
 
-    // Повертає список працівників, а не одного працівника
     public static List<Employee> getAllEmployees() throws SQLException {
         return employeeDAO.getAllEmployees();
-
     }
 
     public static List<Employee> getAllEmployeesByFilters(List<Integer> listCountryIds, List<Integer> listTeamIds) throws SQLException {
         return employeeDAO.getAllEmployeesByFilters(listCountryIds, listTeamIds);
     }
-
 
     public void deleteEmployee(Employee employee) throws SQLException {
         employeeDAO.deleteEmployee(employee);
@@ -35,9 +32,11 @@ public class EmployeeLogic {
     public void assignCountryEmployee(Country country, Employee employee) throws SQLException {
         employeeDAO.assignCountryEmployee(employee, country);
     }
+
     public void assignTeamEmployee(Team team, Employee employee) throws SQLException {
         employeeDAO.assignTeamEmployee(employee, team);
     }
+
     public void updateEmployee(Employee employee) throws SQLException {
         employeeDAO.updateEmployee(employee);
     }

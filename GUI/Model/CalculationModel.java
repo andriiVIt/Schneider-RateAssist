@@ -11,4 +11,7 @@ public class CalculationModel {
     public Calculation createCalculation(Calculation calculation) throws SQLException {
         return calculationLogic.createCalculation(calculation);
     }
+    public Calculation getCalculationByEmployeeId(int employeeId) throws SQLException {
+        return calculationLogic.getCalculationByEmployeeId(employeeId);
+    }
 }

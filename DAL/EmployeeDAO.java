@@ -49,12 +49,14 @@ public class EmployeeDAO {
     public void deleteEmployee(Employee employee) throws SQLException {
         String sqlDeleteFromEmployeeCountry = "DELETE FROM EmployeeCountry WHERE employeeid = ?";
         String sqlDeleteFromEmployeeTeam = "DELETE FROM EmployeeTeam WHERE employeeid = ?";
+        String sqlDeleteFromCalculatedRates = "DELETE FROM CalculatedRates WHERE employeeId = ?";
         String sqlDeleteEmployee = "DELETE FROM Employee WHERE ID = ?";
 
         try (Connection con = connectionManager.getConnection()) {
             con.setAutoCommit(false);
             try (PreparedStatement pstDeleteFromEmployeeCountry = con.prepareStatement(sqlDeleteFromEmployeeCountry);
                  PreparedStatement pstDeleteFromEmployeeTeam = con.prepareStatement(sqlDeleteFromEmployeeTeam);
+                 PreparedStatement pstDeleteFromCalculatedRates = con.prepareStatement(sqlDeleteFromCalculatedRates);
                  PreparedStatement pstDeleteEmployee = con.prepareStatement(sqlDeleteEmployee)) {
 
                 pstDeleteFromEmployeeCountry.setInt(1, employee.getId());
@@ -62,6 +64,9 @@ public class EmployeeDAO {
 
                 pstDeleteFromEmployeeTeam.setInt(1, employee.getId());
                 pstDeleteFromEmployeeTeam.executeUpdate();
+
+                pstDeleteFromCalculatedRates.setInt(1, employee.getId());
+                pstDeleteFromCalculatedRates.executeUpdate();
 
                 pstDeleteEmployee.setInt(1, employee.getId());
                 pstDeleteEmployee.executeUpdate();

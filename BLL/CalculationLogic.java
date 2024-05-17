@@ -13,4 +13,7 @@ public class CalculationLogic {
     public Calculation createCalculation(Calculation calculation) throws SQLException {
         return calculationDAO.createCalculation(calculation); // Calls createCalculation from CalculationDAO
     }
+    public Calculation getCalculationByEmployeeId(int employeeId) throws SQLException {
+        return calculationDAO.getCalculationByEmployeeId(employeeId);
+    }
 }

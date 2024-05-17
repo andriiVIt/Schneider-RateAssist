@@ -1,9 +1,6 @@
 package GUI.Controller;
 
-import BE.Country;
-import BE.Employee;
-import BE.Team;
-import BE.Rate;
+import BE.*;
 import BLL.RateLogic;
 import GUI.Controller.Create.CreateCountryController;
 import GUI.Controller.Create.CreateTeamController;
@@ -39,7 +36,8 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 public class EmployeeInfoController implements Initializable {
-    public ComboBox chengeRate;
+    @FXML
+    private Label calculatedRate;
     @FXML
     private Label rateTitle;
     @FXML
@@ -79,26 +77,26 @@ public class EmployeeInfoController implements Initializable {
     private Label utilizationPercentageField;
 
     private CountryModel countryModel;
-
-
-
-
     private TeamModel teamModel;
     private Employee employee;
-   private Consumer<Employee> onDeleteEmployeeCallback;
+    private Consumer<Employee> onDeleteEmployeeCallback;
     private ScrollPane scrollPane;
     private EmployeeModel employeeModel;
     private RateLogic rateLogic = new RateLogic(); // Initialize RateLogic
     private Runnable refreshCallback;
+    private CalculationModel calculationModel = new CalculationModel();
     private Employee selectedEmployee;
-
-    public void setModel(EmployeeModel employeeModel, ScrollPane scrollPane, TeamModel teamModel, CountryModel countryModel) {
+//    private CalculationModel calculationModel;
+    public void setModel(EmployeeModel employeeModel, ScrollPane scrollPane, TeamModel teamModel, CountryModel countryModel,CalculationModel calculationModel) {
+        this.calculationModel = calculationModel;
         this.scrollPane = scrollPane;
         this.employeeModel = employeeModel;
         this.teamModel = teamModel;
         this.countryModel = countryModel;
-        setTeamModel(teamModel); // Add this
-        setCountryModel(countryModel); // Add this
+        setTeamModel(teamModel);
+        setCountryModel(countryModel);
+
+
     }
 
     public void setEmployee(Employee employee) {
@@ -146,6 +144,19 @@ public class EmployeeInfoController implements Initializable {
                 e.printStackTrace();
                 rateTitle.setText("Failed to load rates.");
             }
+        }
+
+        // Завантаження та відображення розрахованої ставки
+        try {
+            Calculation calculation = calculationModel.getCalculationByEmployeeId(employee.getId());
+            if (calculation != null) {
+                calculatedRate.setText(String.format("%.2f", calculation.getRate()));
+            } else {
+                calculatedRate.setText("No rate calculated.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            calculatedRate.setText("Failed to load calculated rate.");
         }
     }
 
@@ -397,5 +408,13 @@ public class EmployeeInfoController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace(); // Proper error handling should be implemented
         }
+    }
+
+    public void updateCalculatedRate(double rate) {
+        if (calculatedRate != null) {
+            calculatedRate.setText(String.format("%.2f", rate));
+        }
+    }
+    public void changePhoto(ActionEvent actionEvent) {
     }
 }

@@ -5,6 +5,7 @@ import BE.Employee;
 import BE.Rate;
 import BE.Team;
 import BLL.RateLogic;
+import GUI.Model.CalculationModel;
 import GUI.Model.CountryModel;
 import GUI.Model.EmployeeModel;
 import GUI.Model.TeamModel;
@@ -83,7 +84,7 @@ public class EmployeeCardController implements Initializable {
             Parent createEventParent = fxmlLoader.load();
 
             EmployeeInfoController employeeInfoController = fxmlLoader.getController();
-            employeeInfoController.setModel(employeeModel, scrollPane, new TeamModel(), new CountryModel()); // Передача всіх чотирьох аргументів
+            employeeInfoController.setModel(new EmployeeModel(), scrollPane, new TeamModel(), new CountryModel(), new CalculationModel());// Передача всіх чотирьох аргументів
             employeeInfoController.setEmployee(employee);
             employeeInfoController.setOnDeleteEmployeeCallback(deletedEmployee -> {
                 if (onDeleteEmployeeCallback != null)

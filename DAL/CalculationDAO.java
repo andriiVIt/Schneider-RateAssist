@@ -5,6 +5,7 @@ import DAL.db.ConnectionManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CalculationDAO {
@@ -28,6 +29,22 @@ public class CalculationDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;
+        }
+    }
+    public Calculation getCalculationByEmployeeId(int employeeId) throws SQLException {
+        String sql = "SELECT * FROM CalculatedRates WHERE employeeId = ?";
+        try (Connection con = connectionManager.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setInt(1, employeeId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    int id = rs.getInt("id");
+                    double rate = rs.getDouble("rate");
+                    return new Calculation(id, employeeId, rate);
+                } else {
+                    return null;
+                }
+            }
         }
     }
 }

@@ -101,54 +101,32 @@ public class CreateEmployeeController implements Initializable {
 
     public void createEmployee(ActionEvent actionEvent) {
         String name = nameField.getText();
-        double fixedAmount = Double.parseDouble(fixedAmountField.getText());
         double salary = Double.parseDouble(salaryField.getText());
+        double fixedAmount = Double.parseDouble(fixedAmountField.getText());
         double overhead = Double.parseDouble(overheadField.getText());
         double workHours = Double.parseDouble(workHoursField.getText());
         double utilization = Double.parseDouble(utilizationField.getText());
         String resourceType = resourceTypeField.getText();
-        String note = ""; // Додаткове поле для приміток
-
-        // Додавання можливості написати примітку
-        TextArea textArea = new TextArea();
-        textArea.setPromptText("Write a note here...");
-        textArea.setWrapText(true);
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Add Note");
-        alert.setHeaderText("Please write any special notes here:");
-        alert.getDialogPane().setContent(textArea);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            note = textArea.getText();
-        }
 
         try {
-            // Створення нового працівника з отриманими даними
-            Employee newEmployee = new Employee(name, salary, fixedAmount, overhead, workHours, utilization, resourceType, note, imageData);
+            Employee newEmployee = new Employee(name, salary, overhead, workHours, utilization, resourceType, fixedAmount, imageData);
             employeeModel.createEmployee(newEmployee);
 
-            // Отримання обраних країн для працівника та їх призначення
-            List<Country> selectedCountry = locationBox.getCheckModel().getCheckedItems();
-            for (Country item : selectedCountry) {
-                employeeModel.assignCountryEmployee(item, newEmployee);
+            // Assign countries and teams
+            List<Country> selectedCountries = locationBox.getCheckModel().getCheckedItems();
+            for (Country country : selectedCountries) {
+                employeeModel.assignCountryEmployee(country, newEmployee);
             }
 
-            // Отримання обраних команд для працівника та їх призначення
-            List<Team> selectedTeam = teamBox.getCheckModel().getCheckedItems();
-            System.out.println("Selected teams: " + selectedTeam.size()); // Додано діагностичне повідомлення
-            for (Team item : selectedTeam) {
-                System.out.println("Assigning team: " + item.getTeamName()); // Додано діагностичне повідомлення
-                employeeModel.assignTeamEmployee(item, newEmployee);
+            List<Team> selectedTeams = teamBox.getCheckModel().getCheckedItems();
+            for (Team team : selectedTeams) {
+                employeeModel.assignTeamEmployee(team, newEmployee);
             }
 
-            // Виклик зворотного виклику для оновлення сторінки з працівниками
+            // Refresh and close window
             if (refreshCallback != null) {
                 refreshCallback.run();
             }
-
-            // Закриття вікна створення працівника
             Stage stage = (Stage) createEmployeeAnchorPane.getScene().getWindow();
             BlurEffectUtil.removeBlurEffect(scrollPane);
             stage.close();

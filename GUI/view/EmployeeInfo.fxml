@@ -73,7 +73,7 @@
          </graphic>
       </MFXButton>
       <Label layoutX="22.0" layoutY="360.0" prefHeight="17.0" prefWidth="36.0" text="Rate:" />
-      <Label fx:id="rateTitle" layoutX="56.0" layoutY="360.0" prefHeight="17.0" prefWidth="80.0" text="-" />
+      <Label fx:id="rateTitle" layoutX="56.0" layoutY="360.0" prefHeight="17.0" prefWidth="54.0" text="-" />
       <MFXButton ellipsisString="" layoutX="656.0" layoutY="13.0" onAction="#calculatorButton" prefHeight="20.0" prefWidth="17.0" style="-fx-background-color: #99CC99;">
          <font>
             <Font size="1.0" />
@@ -96,5 +96,7 @@
       <MFXTextField fx:id="changeFixedAnnualAmountField" layoutX="539.0" layoutY="135.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="148.0" promptText="Configurable fixed annual amount " />
       <MFXTextField fx:id="changeSalaryField" layoutX="539.0" layoutY="104.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="148.0" promptText="Annual Salary" />
       <ComboBox fx:id="chengeRate" layoutX="540.0" layoutY="243.0" prefHeight="25.0" prefWidth="148.0" />
+      <MFXButton layoutX="220.0" layoutY="15.0" onAction="#changePhoto" prefHeight="26.0" prefWidth="25.0" />
+      <Label fx:id="calculatedRate" layoutX="119.0" layoutY="360.0" prefHeight="17.0" prefWidth="45.0" text="." />
    </children>
 </AnchorPane>
