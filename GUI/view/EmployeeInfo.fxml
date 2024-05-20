@@ -18,7 +18,7 @@
          </font>
       </Label>
       <ImageView fx:id="workerImage" fitHeight="179.0" fitWidth="194.0" layoutX="22.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="annualSalaryField" layoutX="118.0" layoutY="238.0" prefHeight="17.0" prefWidth="83.0" text="-" />
+      <Label fx:id="annualSalaryField" layoutX="118.0" layoutY="238.0" prefHeight="17.0" prefWidth="63.0" text="-" />
       <Label layoutX="22.0" layoutY="237.0" prefHeight="18.0" prefWidth="97.0" text="Annual Salary :">
          <font>
             <Font name="System Bold Italic" size="14.0" />
@@ -34,12 +34,12 @@
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font></Label>
-      <Label fx:id="configurableFixedAnnualAmountField" layoutX="229.0" layoutY="286.0" prefHeight="17.0" prefWidth="83.0" text="-" />
+      <Label fx:id="configurableFixedAnnualAmountField" layoutX="229.0" layoutY="286.0" prefHeight="17.0" prefWidth="54.0" text="-" />
       <Label layoutX="21.0" layoutY="312.0" prefHeight="18.0" prefWidth="194.0" text="Annual effective working hours :">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font></Label>
-      <Label fx:id="annualEffectiveWorkingHoursField" layoutX="215.0" layoutY="313.0" prefHeight="17.0" prefWidth="74.0" text="-" />
+      <Label fx:id="annualEffectiveWorkingHoursField" layoutX="219.0" layoutY="313.0" prefHeight="17.0" prefWidth="63.0" text="-" />
       <Label layoutX="21.0" layoutY="335.0" prefHeight="18.0" prefWidth="138.0" text="Utilization percentage :">
          <font>
             <Font name="System Bold Italic" size="14.0" />
@@ -105,5 +105,8 @@
          </graphic></MFXButton>
       <Label fx:id="calculatedRate" layoutX="119.0" layoutY="360.0" prefHeight="17.0" prefWidth="45.0" text="." />
       <ComboBox fx:id="changeRate" layoutX="538.0" layoutY="244.0" prefWidth="150.0" promptText="Rate type" />
+      <Label layoutX="164.0" layoutY="360.0" text="DKK" />
+      <Label layoutX="177.0" layoutY="238.0" text="DKK" />
+      <Label layoutX="289.0" layoutY="286.0" text="DKK" />
    </children>
 </AnchorPane>

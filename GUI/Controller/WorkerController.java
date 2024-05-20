@@ -89,7 +89,7 @@ public class WorkerController implements Initializable {
         try {
             List<Rate> rates = rateLogic.getListRatesEmployee(employee.getId());
             if (rates != null && !rates.isEmpty()) {
-                StringBuilder ratesText = new StringBuilder("Rates: ");
+                StringBuilder ratesText = new StringBuilder(" ");
                 for (Rate rate : rates) {
                     ratesText.append(rate.getRate()).append(", ");
                 }
@@ -98,14 +98,14 @@ public class WorkerController implements Initializable {
                 }
                 this.rate.setText(ratesText.toString());
 
-                Country employeeCountry = rates.get(0).getCountry(); // Візьмемо країну з першої ставки
+                Country employeeCountry = rates.getFirst().getCountry(); // Візьмемо країну з першої ставки
                 if (employeeCountry != null) {
                     country.setText(employeeCountry.getCountryName());
                 } else {
                     country.setText("Not available");
                 }
 
-                Team employeeTeam = rates.get(0).getTeam(); // Візьмемо команду з першої ставки
+                Team employeeTeam = rates.getFirst().getTeam(); // Візьмемо команду з першої ставки
                 if (employeeTeam != null) {
                     team.setText(employeeTeam.getTeamName());
                 } else {
