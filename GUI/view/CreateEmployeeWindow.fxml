@@ -1,57 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.CheckComboBox?>
 
-<AnchorPane fx:id="createEmployeeAnchorPane" prefHeight="445.0" prefWidth="342.0" style="-fx-background-color: #7CCD7C;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.Create.CreateEmployeeController">
+<AnchorPane fx:id="createEmployeeAnchorPane" prefHeight="335.0" prefWidth="567.0" style="-fx-background-color: #7CCD7C;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.Create.CreateEmployeeController">
    <children>
-      <MFXButton layoutX="245.0" layoutY="405.0" onAction="#createEmployee" text="Create" />
-      <MFXButton layoutX="45.0" layoutY="405.0" onAction="#cancel" text="Cancel" />
-      <VBox alignment="CENTER" layoutX="75.0" layoutY="41.0" prefHeight="325.0" prefWidth="213.0" spacing="5.0">
-         <children>
-            <MFXTextField fx:id="nameField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Name" />
-            <MFXTextField fx:id="salaryField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Salary " />
-            <MFXTextField fx:id="overheadField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Overhead %">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </MFXTextField>
-            <MFXTextField fx:id="fixedAmountField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Fixed Amount" />
-            <MFXTextField fx:id="workHoursField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Work Hours" />
-            <MFXTextField fx:id="utilizationField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Utilization %" />
-            <MFXTextField fx:id="resourceTypeField" minHeight="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Resource Type" />
-            <CheckComboBox fx:id="locationBox" prefHeight="25.0" prefWidth="208.0" title="Location" />
-            <CheckComboBox fx:id="teamBox" prefHeight="25.0" prefWidth="208.0" title="Team" />
-            <MFXButton onAction="#selectPhotoButton" prefHeight="26.0" prefWidth="95.0" text="Select Photo" />
-            <Label fx:id="namePhoto" alignment="CENTER" prefHeight="17.0" prefWidth="138.0" text="NamePhoto" />
-         </children>
-      </VBox>
-      <MFXButton ellipsisString="" layoutX="290.0" layoutY="257.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#createCountry" prefHeight="26.0" prefWidth="29.0" style="-fx-background-color: #7CCD7C;">
+      <MFXButton layoutX="475.0" layoutY="301.0" onAction="#createEmployee" text="Create" />
+      <MFXButton layoutX="391.0" layoutY="301.0" onAction="#cancel" text="Cancel" />
+      <MFXButton ellipsisString="" layoutX="25.0" layoutY="190.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#createCountry" prefHeight="26.0" prefWidth="29.0" style="-fx-background-color: #7CCD7C;">
          <font>
             <Font size="1.0" />
          </font>
       </MFXButton>
-      <ImageView fitHeight="17.0" fitWidth="21.0" layoutX="294.0" layoutY="262.0" nodeOrientation="INHERIT">
+      <ImageView fitHeight="17.0" fitWidth="21.0" layoutX="29.0" layoutY="194.0" nodeOrientation="INHERIT">
          <image>
             <Image url="@images/img_2.png" />
          </image>
       </ImageView>
-      <MFXButton ellipsisString="" layoutX="290.0" layoutY="289.0" onAction="#createTeam" prefHeight="25.0" prefWidth="29.0" style="-fx-background-color: #7CCD7C;">
+      <MFXButton ellipsisString="" layoutX="25.0" layoutY="223.0" onAction="#createTeam" prefHeight="25.0" prefWidth="29.0" style="-fx-background-color: #7CCD7C;">
          <font>
             <Font size="1.0" />
          </font>
       </MFXButton>
-      <ImageView fitHeight="17.0" fitWidth="21.0" layoutX="295.0" layoutY="295.0">
+      <ImageView fitHeight="17.0" fitWidth="21.0" layoutX="29.0" layoutY="227.0">
          <image>
             <Image url="@images/img_2.png" />
          </image>
       </ImageView>
+      <MFXTextField fx:id="nameField" layoutX="54.0" layoutY="45.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Name" />
+      <MFXTextField fx:id="salaryField" layoutX="323.0" layoutY="45.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Salary " />
+      <MFXTextField fx:id="overheadField" layoutX="54.0" layoutY="81.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Overhead %">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </MFXTextField>
+      <MFXTextField fx:id="fixedAmountField" layoutX="323.0" layoutY="81.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Fixed Amount" />
+      <MFXTextField fx:id="workHoursField" layoutX="54.0" layoutY="117.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Work Hours" />
+      <MFXTextField fx:id="utilizationField" layoutX="323.0" layoutY="117.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Utilization %" />
+      <MFXTextField fx:id="resourceTypeField" layoutX="54.0" layoutY="153.0" minHeight="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Resource Type" />
+      <CheckComboBox fx:id="locationBox" layoutX="54.0" layoutY="190.0" prefHeight="25.0" prefWidth="208.0" title="Location" />
+      <CheckComboBox fx:id="teamBox" layoutX="54.0" layoutY="223.0" prefHeight="25.0" prefWidth="208.0" title="Team" />
+      <MFXButton layoutX="325.0" layoutY="223.0" onAction="#selectPhotoButton" prefHeight="26.0" prefWidth="95.0" text="Select Photo" />
+      <Label fx:id="namePhoto" alignment="CENTER" layoutX="422.0" layoutY="227.0" prefHeight="17.0" prefWidth="145.0" text="NamePhoto" />
+      <MFXTextField fx:id="loginNameField" layoutX="324.0" layoutY="154.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Log-in name" />
+      <MFXPasswordField fx:id="passwordField" layoutX="325.0" layoutY="186.0" minHeight="-Infinity" prefHeight="26.0" prefWidth="208.0" promptText="Password" />
    </children>
 </AnchorPane>

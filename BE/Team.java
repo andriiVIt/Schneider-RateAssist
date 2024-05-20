@@ -40,4 +40,7 @@ public class Team {
     public String toString() {
         return teamName;
     }
+
+    public void setText(String teamName) {
+    }
 }

@@ -72,4 +72,18 @@ public class RateDAO {
         }
         return rates;
     }
+    public void updateRate(Rate rate) throws SQLException {
+        String sql = "UPDATE Rate SET rate = ? WHERE countryId = ? AND teamId = ?";
+        try (Connection connection = connectionManager.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, rate.getRate());
+            pstmt.setInt(2, rate.getCountry().getId());
+            pstmt.setInt(3, rate.getTeam().getId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
 }

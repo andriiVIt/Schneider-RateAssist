@@ -95,8 +95,15 @@
       <MFXTextField fx:id="changeUtilizationPercentageField" layoutX="540.0" layoutY="169.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="148.0" promptText="Utilization percentage " />
       <MFXTextField fx:id="changeFixedAnnualAmountField" layoutX="539.0" layoutY="135.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="148.0" promptText="Configurable fixed annual amount " />
       <MFXTextField fx:id="changeSalaryField" layoutX="539.0" layoutY="104.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="148.0" promptText="Annual Salary" />
-      <ComboBox fx:id="chengeRate" layoutX="540.0" layoutY="243.0" prefHeight="25.0" prefWidth="148.0" />
-      <MFXButton layoutX="220.0" layoutY="15.0" onAction="#changePhoto" prefHeight="26.0" prefWidth="25.0" />
+      <MFXButton ellipsisString="" layoutX="220.0" layoutY="15.0" onAction="#changePhoto" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: #99CC99;">
+         <graphic>
+            <ImageView fitHeight="16.0" fitWidth="18.0">
+               <image>
+                  <Image url="@images/update.png" />
+               </image>
+            </ImageView>
+         </graphic></MFXButton>
       <Label fx:id="calculatedRate" layoutX="119.0" layoutY="360.0" prefHeight="17.0" prefWidth="45.0" text="." />
+      <ComboBox fx:id="changeRate" layoutX="538.0" layoutY="244.0" prefWidth="150.0" promptText="Rate type" />
    </children>
 </AnchorPane>

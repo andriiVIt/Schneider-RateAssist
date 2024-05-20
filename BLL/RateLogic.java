@@ -19,4 +19,7 @@ public class RateLogic {
     public List<Rate> getListRatesEmployee(int employeeId) throws SQLException {
         return rateDAO.getListRatesEmployee(employeeId); // Calls getListRatesEmployee from RateDAO
     }
+    public void updateRate(Rate rate) throws SQLException {
+        rateDAO.updateRate(rate);
+    }
 }

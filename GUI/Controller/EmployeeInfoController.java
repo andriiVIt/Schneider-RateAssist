@@ -4,10 +4,7 @@ import BE.*;
 import BLL.RateLogic;
 import GUI.Controller.Create.CreateCountryController;
 import GUI.Controller.Create.CreateTeamController;
-import GUI.Model.CalculationModel;
-import GUI.Model.CountryModel;
-import GUI.Model.EmployeeModel;
-import GUI.Model.TeamModel;
+import GUI.Model.*;
 import GUI.util.BlurEffectUtil;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.ListChangeListener;
@@ -24,18 +21,25 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+import static GUI.Controller.Create.CreateEmployeeController.readBytesFromFile;
+
 public class EmployeeInfoController implements Initializable {
+    @FXML
+    private ComboBox <Rate>changeRate;
     @FXML
     private Label calculatedRate;
     @FXML
@@ -86,15 +90,17 @@ public class EmployeeInfoController implements Initializable {
     private Runnable refreshCallback;
     private CalculationModel calculationModel = new CalculationModel();
     private Employee selectedEmployee;
-//    private CalculationModel calculationModel;
+    private RateModel rateModel ;
     public void setModel(EmployeeModel employeeModel, ScrollPane scrollPane, TeamModel teamModel, CountryModel countryModel,CalculationModel calculationModel) {
         this.calculationModel = calculationModel;
         this.scrollPane = scrollPane;
         this.employeeModel = employeeModel;
         this.teamModel = teamModel;
         this.countryModel = countryModel;
+        this.rateModel = rateModel;
         setTeamModel(teamModel);
         setCountryModel(countryModel);
+//        setRateModel(rateModel);
 
 
     }
@@ -124,6 +130,7 @@ public class EmployeeInfoController implements Initializable {
             Image image = new Image(inputStream);
             workerImage.setImage(image);
         }
+
         if (rateTitle != null) {
             try {
                 List<Rate> rates = rateLogic.getListRatesEmployee(employee.getId());
@@ -170,6 +177,8 @@ public class EmployeeInfoController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
     }
+
+
 
     public void Cancel(ActionEvent actionEvent) {
         BlurEffectUtil.removeBlurEffect(scrollPane);
@@ -415,6 +424,28 @@ public class EmployeeInfoController implements Initializable {
             calculatedRate.setText(String.format("%.2f", rate));
         }
     }
-    public void changePhoto(ActionEvent actionEvent) {
+    public void changePhoto(ActionEvent actionEvent) { FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Photo");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            try {
+                byte[] imageData = readBytesFromFile(selectedFile);
+                employee.setImageData(imageData); // Оновлення даних зображення у працівника
+                employeeModel.updateEmployee(employee); // Оновлення працівника у базі даних
+
+                // Оновлення відображеного зображення
+                ByteArrayInputStream inputStream = new ByteArrayInputStream(imageData);
+                Image image = new Image(inputStream);
+                workerImage.setImage(image);
+
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Photo updated successfully.");
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Failed to update photo.");
+                e.printStackTrace();
+            }
+        }
     }
 }

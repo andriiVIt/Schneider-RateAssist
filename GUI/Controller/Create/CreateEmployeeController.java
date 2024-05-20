@@ -8,6 +8,7 @@ import GUI.Model.EmployeeModel;
 import GUI.Model.TeamModel;
 import GUI.util.BlurEffectUtil;
 import GUI.util.Message;
+import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
@@ -31,6 +32,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CreateEmployeeController implements Initializable {
+    @FXML
+    private MFXTextField loginNameField;
+    @FXML
+    private MFXPasswordField passwordField;
     @FXML
     private MFXTextField fixedAmountField;
     @FXML
@@ -93,14 +98,16 @@ public class CreateEmployeeController implements Initializable {
 
         if (selectedFile != null) {
             imageData = readBytesFromFile(selectedFile);
-            namePhoto.setText(selectedFile.getName()); // Оновлюємо текст мітки з іменем файлу
+            namePhoto.setText(selectedFile.getName());
         } else {
-            namePhoto.setText("No file selected"); // Показати текст, коли файл не вибрано
+            namePhoto.setText("No file selected");
         }
     }
 
     public void createEmployee(ActionEvent actionEvent) {
         String name = nameField.getText();
+        String loginName = loginNameField.getText();
+        String password = passwordField.getText();
         double salary = Double.parseDouble(salaryField.getText());
         double fixedAmount = Double.parseDouble(fixedAmountField.getText());
         double overhead = Double.parseDouble(overheadField.getText());
@@ -109,7 +116,7 @@ public class CreateEmployeeController implements Initializable {
         String resourceType = resourceTypeField.getText();
 
         try {
-            Employee newEmployee = new Employee(name, salary, overhead, workHours, utilization, resourceType, fixedAmount, imageData);
+            Employee newEmployee = new Employee(name, salary, overhead, workHours, utilization, resourceType, fixedAmount, imageData, loginName, password);
             employeeModel.createEmployee(newEmployee);
 
             // Assign countries and teams
@@ -158,7 +165,7 @@ public class CreateEmployeeController implements Initializable {
         stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(scrollPane));
     }
 
-    private static byte[] readBytesFromFile(File file) throws Exception {
+    public static byte[] readBytesFromFile(File file) throws Exception {
         InputStream is = new FileInputStream(file);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
@@ -182,8 +189,8 @@ public class CreateEmployeeController implements Initializable {
             Parent createCountryParent = fxmlLoader.load();
 
             Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL); // Set window modality
-            stage.setResizable(false); // Window is not resizable
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
             stage.setTitle("Create Country");
             stage.setScene(new Scene(createCountryParent));
 
@@ -192,7 +199,7 @@ public class CreateEmployeeController implements Initializable {
 
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Proper error handling should be implemented
+            e.printStackTrace();
         }
     }
 
@@ -202,8 +209,8 @@ public class CreateEmployeeController implements Initializable {
             Parent createTeamParent = fxmlLoader.load();
 
             Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL); // Set window modality
-            stage.setResizable(false); // Window is not resizable
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
             stage.setTitle("Create Team");
             stage.setScene(new Scene(createTeamParent));
 
@@ -213,7 +220,7 @@ public class CreateEmployeeController implements Initializable {
             createTeamController.setOnCloseRequestHandler(stage);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Proper error handling should be implemented
+            e.printStackTrace();
         }
     }
 }

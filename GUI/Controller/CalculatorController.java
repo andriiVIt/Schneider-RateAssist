@@ -3,15 +3,25 @@ package GUI.Controller;
 import BE.Employee;
 import BE.Calculation;
 import GUI.Model.CalculationModel;
+import GUI.util.BlurEffectUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class CalculatorController {
+public class CalculatorController implements Initializable {
+    @FXML
+    private AnchorPane calculatorPane;
+
 
     @FXML
     private TextField markupField;
@@ -21,7 +31,7 @@ public class CalculatorController {
 
     @FXML
     private Label hourlyRateLabel;
-
+    private ScrollPane scrollPane;
     private Employee selectedEmployee;
     private CalculationModel calculationModel;
     private double calculatedRate;
@@ -106,6 +116,13 @@ public class CalculatorController {
     }
 
     public void cancelButton(ActionEvent actionEvent) {
+
+        Stage stage = (Stage) calculatorPane.getScene().getWindow();
+        stage.close();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
     }
 }

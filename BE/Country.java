@@ -37,4 +37,7 @@ public class Country {
         System.out.println(countryName);
         return countryName;
     }
+
+    public void setText(String countryName) {
+    }
 }

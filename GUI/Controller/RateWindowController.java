@@ -29,7 +29,7 @@ public class RateWindowController implements Initializable {
     public ComboBox<String> rateBox;
     public AnchorPane rateWindow;
     private EmployeeModel employeeModel;
-    private RateModel groupModel;
+    private RateModel rateModel;
     private RateLogic rateLogic;
     private ScrollPane scrollPane;
 
@@ -64,7 +64,7 @@ public class RateWindowController implements Initializable {
     }
 
     public void setModel(RateModel groupModel) {
-        this.groupModel = groupModel;
+        this.rateModel = groupModel;
     }
 
     public void setScrollPane(ScrollPane scrollPane) {

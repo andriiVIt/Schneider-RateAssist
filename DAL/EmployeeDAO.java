@@ -37,8 +37,10 @@ public class EmployeeDAO {
                     String resourceType = resultSet.getString("ResourceType");
                     double fixedAmount = resultSet.getDouble("FixedAmount");
                     byte[] imageData = resultSet.getBytes("ImageData");
+                    String loginName = resultSet.getString("LoginName");
+                    String password = resultSet.getString("Password");
 
-                    Employee employee = new Employee(id, name, salary, overheadPercentage, workHours, utilization, resourceType, fixedAmount, imageData);
+                    Employee employee = new Employee(id, name, salary, overheadPercentage, workHours, utilization, resourceType, fixedAmount, imageData, loginName, password);
                     allEmployees.add(employee);
                 }
             }
@@ -80,7 +82,7 @@ public class EmployeeDAO {
     }
 
     public Employee createEmployee(Employee employee) throws SQLException {
-        String sql = "INSERT INTO Employee (Name, Salary, OverheadPercentage, WorkHours, Utilization, ResourceType, FixedAmount, ImageData) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Employee (Name, Salary, OverheadPercentage, WorkHours, Utilization, ResourceType, FixedAmount, ImageData, LoginName, Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection con = connectionManager.getConnection();
              PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pst.setString(1, employee.getName());
@@ -91,6 +93,8 @@ public class EmployeeDAO {
             pst.setString(6, employee.getResourceType());
             pst.setDouble(7, employee.getFixedAmount());
             pst.setBytes(8, employee.getImageData());
+            pst.setString(9, employee.getLoginName());
+            pst.setString(10, employee.getPassword());
 
             pst.executeUpdate();
 
@@ -103,7 +107,6 @@ public class EmployeeDAO {
             return employee;
         }
     }
-
 
     public List<Employee> getAllEmployeesByFilters(List<Integer> listCountryIds, List<Integer> listTeamIds) throws SQLException {
         List<Employee> allEmployees = new ArrayList<>();
@@ -143,8 +146,10 @@ public class EmployeeDAO {
                 String resourceType = resultSet.getString("ResourceType");
                 double fixedAmount = resultSet.getDouble("FixedAmount");
                 byte[] imageData = resultSet.getBytes("ImageData");
+                String loginName = resultSet.getString("LoginName");
+                String password = resultSet.getString("Password");
 
-                Employee employee = new Employee(id, name, salary, overheadPercentage, workHours, utilization, resourceType, fixedAmount, imageData);
+                Employee employee = new Employee(id, name, salary, overheadPercentage, workHours, utilization, resourceType, fixedAmount, imageData, loginName, password);
                 allEmployees.add(employee);
             }
         } catch (SQLException e) {
@@ -152,7 +157,6 @@ public class EmployeeDAO {
         }
         return allEmployees;
     }
-
 
     public void assignCountryEmployee(Employee employee, Country country) throws SQLException {
         try (Connection con = connectionManager.getConnection()) {
@@ -170,6 +174,7 @@ public class EmployeeDAO {
             throw e;
         }
     }
+
     public void assignTeamEmployee(Employee employee, Team team) throws SQLException {
         try (Connection con = connectionManager.getConnection()) {
             con.setAutoCommit(false);
@@ -186,8 +191,9 @@ public class EmployeeDAO {
             throw e;
         }
     }
+
     public void updateEmployee(Employee employee) throws SQLException {
-        String sql = "UPDATE Employee SET Name = ?, Salary = ?, OverheadPercentage = ?, WorkHours = ?, Utilization = ?, ResourceType = ?, FixedAmount = ? WHERE ID = ?";
+        String sql = "UPDATE Employee SET Name = ?, Salary = ?, OverheadPercentage = ?, WorkHours = ?, Utilization = ?, ResourceType = ?, FixedAmount = ?, ImageData = ?, LoginName = ?, Password = ? WHERE ID = ?";
 
         try (Connection con = connectionManager.getConnection();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -198,10 +204,39 @@ public class EmployeeDAO {
             pstmt.setDouble(5, employee.getUtilization());
             pstmt.setString(6, employee.getResourceType());
             pstmt.setDouble(7, employee.getFixedAmount());
-
-            pstmt.setInt(8, employee.getId());
+            pstmt.setBytes(8, employee.getImageData());
+            pstmt.setString(9, employee.getLoginName());
+            pstmt.setString(10, employee.getPassword());
+            pstmt.setInt(11, employee.getId());
 
             pstmt.executeUpdate();
         }
+    }
+    // Method to fetch a coordinator by their username
+    public Employee getEmployeeByUsername(String username) throws SQLException {
+        Employee employee = null; // Ініціалізація працівника як null
+        try (Connection con = connectionManager.getConnection()) { // Отримання з'єднання з ConnectionManager
+            String sql = "SELECT * FROM Employee WHERE LoginName = ?;"; // SQL-запит для отримання працівника за логіном
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, username); // Встановлення логіну в підготовленому запиті
+
+            ResultSet resultSet = pst.executeQuery(); // Виконання запиту та отримання ResultSet
+            if (resultSet.next()) { // Якщо ResultSet має принаймні один рядок
+                int id = resultSet.getInt("ID"); // Витягнути 'ID' з поточного рядка
+                String name = resultSet.getString("Name"); // Витягнути 'Name' з поточного рядка
+                double salary = resultSet.getDouble("Salary"); // Витягнути 'Salary' з поточного рядка
+                double overheadPercentage = resultSet.getDouble("OverheadPercentage"); // Витягнути 'OverheadPercentage' з поточного рядка
+                double workHours = resultSet.getDouble("WorkHours"); // Витягнути 'WorkHours' з поточного рядка
+                double utilization = resultSet.getDouble("Utilization"); // Витягнути 'Utilization' з поточного рядка
+                String resourceType = resultSet.getString("ResourceType"); // Витягнути 'ResourceType' з поточного рядка
+                double fixedAmount = resultSet.getDouble("FixedAmount"); // Витягнути 'FixedAmount' з поточного рядка
+                byte[] imageData = resultSet.getBytes("ImageData"); // Витягнути 'ImageData' з поточного рядка
+                String loginName = resultSet.getString("LoginName"); // Витягнути 'LoginName' з поточного рядка
+                String password = resultSet.getString("Password"); // Витягнути 'Password' з поточного рядка
+
+                employee = new Employee(id, name, salary, overheadPercentage, workHours, utilization, resourceType, fixedAmount, imageData, loginName, password); // Створити новий об'єкт Employee
+            }
+        }
+        return employee; // Повернути знайденого працівника або null
     }
 }

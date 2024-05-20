@@ -40,4 +40,7 @@ public class EmployeeLogic {
     public void updateEmployee(Employee employee) throws SQLException {
         employeeDAO.updateEmployee(employee);
     }
+    public Employee getEmployeeByUsername(String username) throws SQLException {
+        return employeeDAO.getEmployeeByUsername(username);
+    }
 }
