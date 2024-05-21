@@ -44,12 +44,12 @@ public class CalculatorController implements Initializable {
 
     public void setEmployeeInfoController(EmployeeInfoController employeeInfoController) {
         this.employeeInfoController = employeeInfoController;
+
     }
     public void setCalculationModel(CalculationModel calculationModel) {
         this.calculationModel = calculationModel;
     }
 
-    // Метод для обчислення погодинної ставки
     public void calculateHourlyRate() {
         if (selectedEmployee == null) {
             showError("Employee is not set.");
@@ -69,7 +69,7 @@ public class CalculatorController implements Initializable {
             double cost = salary * (1 + overhead) + fixedAmount;
             double effectiveHours = workHours * utilization;
             double baseRate = cost / effectiveHours;
-            calculatedRate = baseRate * (1 + markup) * (1 + gm);
+            calculatedRate = baseRate * (1 + markup + gm);
 
             hourlyRateLabel.setText(String.format("%.2f", calculatedRate));
         } catch (NumberFormatException e) {
