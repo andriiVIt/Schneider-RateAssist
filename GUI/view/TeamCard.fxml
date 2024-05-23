@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="calculatorPane" onMouseClicked="#setOnSelectTeam" prefHeight="44.0" prefWidth="134.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.TeamCardController">
+   <children>
+      <Label fx:id="idOfLable" layoutX="52.0" layoutY="14.0" text="Label" />
+      <Label fx:id="id" layoutX="14.0" layoutY="14.0" text="Label" />
+   </children>
+</AnchorPane>

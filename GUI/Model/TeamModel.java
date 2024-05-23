@@ -28,6 +28,16 @@ public class TeamModel {
         return teams;
     }
 
+    public List<Team> getTeamsSimple() {
+        List<Team> t;
+        try {
+            t = teamLogic.getAllTeams();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return t;
+    }
+
     public Team createTeam(Team team) throws SQLException {
         Team c = teamLogic.createTeam(team);
         teams.add(c);

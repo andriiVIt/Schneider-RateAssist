@@ -77,7 +77,7 @@ public class EmployeeCardController implements Initializable {
     }
 
     public void viewEmployee(ActionEvent actionEvent) {
-        BlurEffectUtil.applyBlurEffect(scrollPane, 10);
+//        BlurEffectUtil.applyBlurEffect(scrollPane, 10);
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/EmployeeInfo.fxml"));

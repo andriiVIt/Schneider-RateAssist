@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class CountryModel {
 
@@ -36,5 +37,9 @@ public class CountryModel {
     }
     public void updateCountryEmployee(int employeeId, int countryId) throws SQLException {
         countryLogic.updateCountryEmployee(employeeId, countryId);
+    }
+
+    public List<Country> getCountriesForTeamId(int teamId) {
+        return this.countryLogic.getCountriesForTeamId(teamId);
     }
 }

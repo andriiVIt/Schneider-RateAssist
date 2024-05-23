@@ -23,6 +23,17 @@ public class EmployeeModel {
         return employees;
     }
 
+    public List<Employee> getAllEmployeesSimple() {
+        List<Employee> employees = null;
+        try {
+            employees = EmployeeLogic.getAllEmployees();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return employees;
+    }
+
+
     public void assignCountryEmployee(Country country, Employee employee) throws SQLException {
         employeeLogic.assignCountryEmployee(country, employee);
         countries.add(country);

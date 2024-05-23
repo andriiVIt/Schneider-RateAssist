@@ -91,4 +91,26 @@ public class CountryDAO {
         }
     }
 
+    public List<Country> getCountriesForTeamId(int teamId) throws SQLException {
+        List<Country> countries = new ArrayList<>();
+        String query = "SELECT c.id, c.countryName FROM Rate r\n" +
+                "                JOIN Country c ON c.id = r.countryId\n" +
+                "                WHERE r.teamId = ?";
+        try (Connection conn = connectionManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, teamId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String name = rs.getString("countryName");
+                    Country country = new Country(id, name);
+                    countries.add(country);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return countries;
+    }
 }

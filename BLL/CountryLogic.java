@@ -24,4 +24,14 @@ public class CountryLogic {
     public void updateCountryEmployee(int employeeId, int countryId) throws SQLException {
         countryDAO.updateCountryEmployee(employeeId, countryId);
     }
+
+    public List<Country> getCountriesForTeamId(int teamId) {
+        List<Country> l;
+        try {
+            l = countryDAO.getCountriesForTeamId(teamId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return l;
+    }
 }

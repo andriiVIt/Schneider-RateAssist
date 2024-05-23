@@ -258,6 +258,29 @@ public class MainWindowController implements Initializable {
 
         this.refreshEmployeeCards();
     }
+
+    public void openTeams(ActionEvent actionEvent) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/TeamsView.fxml"));
+            Parent teamsParent = fxmlLoader.load();
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // Set the window modality
+            stage.setTitle("Teams");
+            stage.setResizable(false); // Make the window not resizable
+            stage.setScene(new Scene(teamsParent));
+
+            TeamsViewController createEmployeeController = fxmlLoader.getController();
+            createEmployeeController.setTeamModel(new TeamModel());
+            createEmployeeController.setCountryModel(new CountryModel());
+            createEmployeeController.setEmployeeModel(new EmployeeModel());
+            createEmployeeController.setMainController(this);
+            createEmployeeController.setOnCloseRequestHandler(stage);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Proper error handling should be implemented
+        }
+    }
 }
 
 
