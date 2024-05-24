@@ -10,11 +10,11 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.CheckComboBox?>
 
-<AnchorPane fx:id="createEmployeeAnchorPane" prefHeight="335.0" prefWidth="567.0" style="-fx-background-color: #7CCD7C;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.Create.CreateEmployeeController">
+<AnchorPane id="pane" fx:id="createEmployeeAnchorPane" prefHeight="335.0" prefWidth="567.0" stylesheets="/GUI/view/styles/createEmployeeWindowStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.Create.CreateEmployeeController">
    <children>
-      <MFXButton layoutX="475.0" layoutY="301.0" onAction="#createEmployee" text="Create" />
-      <MFXButton layoutX="391.0" layoutY="301.0" onAction="#cancel" text="Cancel" />
-      <MFXButton ellipsisString="" layoutX="25.0" layoutY="190.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#createCountry" prefHeight="26.0" prefWidth="29.0" style="-fx-background-color: #7CCD7C;">
+      <MFXButton layoutX="475.0" layoutY="301.0" onAction="#createEmployee" styleClass="mfx-button1" text="Create" />
+      <MFXButton layoutX="391.0" layoutY="301.0" onAction="#cancel" styleClass="mfx-button1" text="Cancel" />
+      <MFXButton ellipsisString="" layoutX="25.0" layoutY="190.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#createCountry" prefHeight="26.0" prefWidth="29.0" styleClass="mfx-button">
          <font>
             <Font size="1.0" />
          </font>
@@ -24,7 +24,7 @@
             <Image url="@images/img_2.png" />
          </image>
       </ImageView>
-      <MFXButton ellipsisString="" layoutX="25.0" layoutY="223.0" onAction="#createTeam" prefHeight="25.0" prefWidth="29.0" style="-fx-background-color: #7CCD7C;">
+      <MFXButton ellipsisString="" layoutX="25.0" layoutY="223.0" onAction="#createTeam" prefHeight="25.0" prefWidth="29.0" styleClass="mfx-button">
          <font>
             <Font size="1.0" />
          </font>

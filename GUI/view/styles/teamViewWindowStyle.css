@@ -1,0 +1,10 @@
+#anchorPane{
+    -fx-background-color:  #7CCD7C;
+}
+.mfx-scroll-pane{
+    -fx-background-radius: 15;
+}
+.Vbox{
+    -fx-background-color:  #90EE90;
+    -fx-background-radius: 15;
+}

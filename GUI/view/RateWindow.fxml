@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="rateWindow" prefHeight="282.0" prefWidth="198.0" style="-fx-background-color: #CCFFCC;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.RateWindowController">
+<AnchorPane id="anchorPane" fx:id="rateWindow" prefHeight="282.0" prefWidth="211.0" stylesheets="/GUI/view/styles/rateWindowStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.RateWindowController">
    <children>
       <MFXButton layoutX="108.0" layoutY="234.0" onAction="#saveRate" prefHeight="26.0" prefWidth="70.0" text="Save" />
       <ComboBox fx:id="countryBox" layoutX="33.0" layoutY="54.0" prefWidth="150.0" promptText="Country" />

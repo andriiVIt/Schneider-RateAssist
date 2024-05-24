@@ -1,0 +1,18 @@
+#anchorPane{
+    -fx-background-color:  #7CCD7C;
+}
+#gridPane{
+    -fx-background-color: #90EE90 ;
+    -fx-background-radius: 10;
+}
+#anchorPane2{
+    -fx-background-color:  #90EE90;
+    -fx-border-color: white;
+}
+#logOut{
+    -fx-background-color: #7CCD7C ;
+    -fx-border-color: white;
+}
+#set{
+    -fx-background-color:  #7CCD7C;
+}

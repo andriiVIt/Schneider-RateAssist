@@ -7,10 +7,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="calculatorPane" prefHeight="213.0" prefWidth="264.0" style="-fx-background-color: #7CCD7C;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.CalculatorController">
+<AnchorPane id="pane" fx:id="calculatorPane" prefHeight="213.0" prefWidth="264.0" stylesheets="/GUI/view/styles/CalculatorWindowStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.CalculatorController">
     <TextField fx:id="markupField" layoutX="52.0" layoutY="31.0" promptText="Enter Markup Percentage" />
     <TextField fx:id="gmField" layoutX="52.0" layoutY="72.0" promptText="Enter GM Percentage" />
-    <Button ellipsisString="" layoutX="213.0" layoutY="72.0" onAction="#calculateHourlyRate" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #7CCD7C;" text="Calculate">
+    <Button id="button" ellipsisString="" layoutX="213.0" layoutY="72.0" onAction="#calculateHourlyRate" prefHeight="25.0" prefWidth="30.0" text="Calculate">
       <graphic>
          <ImageView fitHeight="17.0" fitWidth="18.0">
             <image>
@@ -19,6 +19,6 @@
          </ImageView>
       </graphic></Button>
     <Label fx:id="hourlyRateLabel" layoutX="14.0" layoutY="138.0" text="Hourly Rate" />
-    <Button layoutX="156.0" layoutY="178.0" onAction="#saveRate" prefHeight="25.0" prefWidth="70.0" text="Save" />
-   <Button layoutX="40.0" layoutY="178.0" mnemonicParsing="false" onAction="#cancelButton" prefHeight="25.0" prefWidth="64.0" text="Cancel" />
+    <Button layoutX="156.0" layoutY="178.0" onAction="#saveRate" prefHeight="25.0" prefWidth="70.0" styleClass="button2" text="Save" />
+   <Button layoutX="40.0" layoutY="178.0" mnemonicParsing="false" onAction="#cancelButton" prefHeight="25.0" prefWidth="64.0" styleClass="button2" text="Cancel" />
 </AnchorPane>

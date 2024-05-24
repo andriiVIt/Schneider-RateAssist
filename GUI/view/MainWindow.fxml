@@ -16,15 +16,15 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.CheckComboBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1055.0" style=": ;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MainWindowController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1055.0" stylesheets="/GUI/view/styles/mainWindowStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MainWindowController">
    <children>
-      <ScrollPane fx:id="scrollPane" layoutX="2.0" prefHeight="762.0" prefWidth="1061.0" style=": ;">
+      <ScrollPane fx:id="scrollPane" layoutX="2.0" prefHeight="762.0" prefWidth="1061.0">
          <content>
-            <VBox id="VBox" prefHeight="760.0" prefWidth="1041.0" style="-fx-background-color: #7CCD7C;">
+            <VBox id="VBox" prefHeight="760.0" prefWidth="1041.0">
                <children>
-                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="1057.0" style="-fx-background-color: #90EE90; -fx-border-color: white;">
+                  <AnchorPane id="pane25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="1057.0">
                      <children>
-                        <MFXButton layoutX="451.0" layoutY="55.0" onAction="#createEmployee" prefHeight="36.0" prefWidth="131.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;" text="Employee">
+                        <MFXButton layoutX="451.0" layoutY="55.0" onAction="#createEmployee" prefHeight="36.0" prefWidth="131.0" styleClass="mfx-button25" text="Employee">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="28.0">
                                  <image>
@@ -36,7 +36,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton fx:id="logOutButton" layoutX="926.0" layoutY="56.0" onAction="#clickLogOut" prefHeight="36.0" prefWidth="122.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;" text="Log out" AnchorPane.rightAnchor="1.0">
+                        <MFXButton fx:id="logOutButton" layoutX="926.0" layoutY="56.0" onAction="#clickLogOut" prefHeight="36.0" prefWidth="122.0" styleClass="mfx-button25" text="Log out" AnchorPane.rightAnchor="1.0">
                            <font>
                               <Font name="System Bold Italic" size="14.0" />
                            </font>
@@ -51,14 +51,14 @@
                               <Image url="@images/LogOut.png" />
                            </image>
                         </ImageView>
-                        <MFXButton ellipsisString="" layoutX="862.0" layoutY="57.0" onAction="#groupWindowButton" prefHeight="34.0" prefWidth="72.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;" text="Rate">
+                        <MFXButton ellipsisString="" layoutX="862.0" layoutY="56.0" onAction="#groupWindowButton" prefHeight="36.0" prefWidth="72.0" styleClass="mfx-button25" text="Rate">
                            <font>
                               <Font name="System Bold Italic" size="14.0" />
                            </font>
                         </MFXButton>
-                        <CheckComboBox fx:id="countryComboBox" layoutX="654.0" layoutY="56.0" prefHeight="34.0" prefWidth="91.0" style="-fx-background-color: black;" title="Country" />
-                        <CheckComboBox fx:id="teamComboBox" layoutX="745.0" layoutY="56.0" prefHeight="35.0" prefWidth="79.0" title="Team" />
-                        <MFXButton ellipsisString="" layoutX="824.0" layoutY="58.0" minWidth="-Infinity" onAction="#SearchButton" prefHeight="32.0" prefWidth="38.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;">
+                        <CheckComboBox fx:id="countryComboBox" layoutX="655.0" layoutY="55.0" prefHeight="36.0" prefWidth="91.0" title="Country" />
+                        <CheckComboBox fx:id="teamComboBox" layoutX="746.0" layoutY="55.0" prefHeight="36.0" prefWidth="79.0" title="Team" />
+                        <MFXButton ellipsisString="" layoutX="824.0" layoutY="56.0" minWidth="-Infinity" onAction="#SearchButton" prefHeight="35.0" prefWidth="38.0" styleClass="mfx-button25">
                            <font>
                               <Font size="1.0" />
                            </font>
@@ -70,7 +70,7 @@
                               </ImageView>
                            </graphic>
                         </MFXButton>
-                        <Button layoutX="582.0" layoutY="55.0" mnemonicParsing="false" onAction="#openTeams" prefHeight="35.0" prefWidth="73.0" style="-fx-background-color: #7CCD7C; -fx-border-color: white;">
+                        <Button layoutX="582.0" layoutY="55.0" mnemonicParsing="false" onAction="#openTeams" prefHeight="36.0" prefWidth="73.0" styleClass="mfx-button25">
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="50.0">
                                  <image>
@@ -84,7 +84,7 @@
                         <Insets top="44.0" />
                      </VBox.margin>
                   </HBox>
-                  <GridPane fx:id="gridPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="998.0" style="-fx-background-color: transparent;" VBox.vgrow="NEVER">
+                  <GridPane fx:id="gridPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="998.0" VBox.vgrow="NEVER">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -110,8 +110,8 @@
             </VBox>
          </content>
       </ScrollPane>
-      <MFXButton fx:id="leftBut" layoutX="1.0" layoutY="276.0" minWidth="-Infinity" onAction="#previousPage" prefHeight="85.0" prefWidth="24.0" style="-fx-background-color: #90EE90;" styleClass="mfx-button" text=" " AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="276.0" />
-      <MFXButton fx:id="rightBut" alignment="CENTER" contentDisplay="CENTER" layoutX="1027.0" layoutY="254.0" minWidth="-Infinity" onAction="#nextPage" prefHeight="85.0" prefWidth="24.0" style="-fx-background-color: #90EE90;" styleClass="mfx-button" text=" " AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="276.0" />
+      <MFXButton fx:id="leftBut" layoutX="1.0" layoutY="276.0" minWidth="-Infinity" onAction="#previousPage" prefHeight="85.0" prefWidth="24.0" styleClass="button15" text=" " AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="276.0" />
+      <MFXButton fx:id="rightBut" alignment="CENTER" contentDisplay="CENTER" layoutX="1027.0" layoutY="254.0" minWidth="-Infinity" onAction="#nextPage" prefHeight="85.0" prefWidth="24.0" styleClass="button15" text=" " AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="276.0" />
       <ImageView fitHeight="19.0" fitWidth="18.0" layoutX="5.0" layoutY="312.0">
          <image>
             <Image url="@images/img.png" />

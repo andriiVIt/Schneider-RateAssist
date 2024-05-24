@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="createTeamPane" prefHeight="137.0" prefWidth="335.0" style="-fx-background-color: #7CCD7C;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.Create.CreateTeamController">
+<AnchorPane id="pane" fx:id="createTeamPane" prefHeight="137.0" prefWidth="335.0" stylesheets="/GUI/view/styles/createTeamWindowStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.Create.CreateTeamController">
    <children>
       <MFXTextField fx:id="newTeamField" layoutX="86.0" layoutY="57.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="180.0" />
-      <MFXButton layoutX="266.0" layoutY="97.0" onAction="#saveNewTeam" style="-fx-background-color: #90EE90;" text="Save" />
-      <MFXButton fx:id="cancelButton" layoutX="192.0" layoutY="97.0" onAction="#cancel" prefHeight="26.0" prefWidth="59.0" style="-fx-background-color: #90EE90;" text="Cancel" />
+      <MFXButton layoutX="266.0" layoutY="97.0" onAction="#saveNewTeam" styleClass="mfx-button" text="Save" />
+      <MFXButton fx:id="cancelButton" layoutX="192.0" layoutY="97.0" onAction="#cancel" prefHeight="26.0" prefWidth="59.0" styleClass="mfx-button" text="Cancel" />
       <Label layoutX="61.0" layoutY="14.0" prefHeight="26.0" prefWidth="245.0" text="Enter the name of the new team" textAlignment="CENTER">
          <font>
             <Font name="System Bold Italic" size="17.0" />
