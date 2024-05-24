@@ -10,9 +10,9 @@
 
 <AnchorPane prefHeight="524.0" prefWidth="972.0" style="-fx-background-color: #7CCD7C;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.TeamsViewController">
    <children>
-      <MFXScrollPane hbarPolicy="NEVER" layoutX="51.0" layoutY="32.0" prefHeight="472.0" prefWidth="199.0" vbarPolicy="NEVER">
+      <MFXScrollPane hbarPolicy="NEVER" layoutX="51.0" layoutY="32.0" prefHeight="472.0" prefWidth="199.0" style="-fx-background-radius: 10;" vbarPolicy="NEVER">
          <content>
-            <VBox fx:id="teamBox" prefHeight="469.0" prefWidth="197.0" spacing="20.0" style="-fx-background-color: #90EE90;">
+            <VBox fx:id="teamBox" prefHeight="469.0" prefWidth="197.0" spacing="20.0" style="-fx-background-color: #90EE90; -fx-background-radius: 10;">
                <padding>
                   <Insets bottom="20.0" top="20.0" />
                </padding>
@@ -20,26 +20,21 @@
          </content>
       </MFXScrollPane>
       <ComboBox fx:id="countryBox" layoutX="270.0" layoutY="32.0" onAction="#selectedCountry" prefWidth="150.0" />
-      <MFXScrollPane hbarPolicy="NEVER" layoutX="444.0" layoutY="32.0" prefHeight="472.0" prefWidth="510.0" vbarPolicy="NEVER">
+      <MFXScrollPane hbarPolicy="NEVER" layoutX="444.0" layoutY="32.0" prefHeight="472.0" prefWidth="510.0" style="-fx-background-radius: 15;" vbarPolicy="NEVER">
          <content>
-            <VBox fx:id="employeeBox" prefHeight="470.0" prefWidth="508.0" spacing="20.0" style="-fx-background-color: #90EE90;">
+            <VBox fx:id="employeeBox" prefHeight="470.0" prefWidth="508.0" spacing="20.0" style="-fx-background-color: #90EE90; -fx-background-radius: 15;">
                <padding>
                   <Insets bottom="10.0" left="10.0" top="10.0" />
                </padding>
             </VBox>
          </content>
       </MFXScrollPane>
-      <Label fx:id="dailyRate" layoutX="270.0" layoutY="103.0" prefHeight="25.0" prefWidth="115.0" text="-" />
       <Label fx:id="hourlyRate" layoutX="270.0" layoutY="175.0" prefHeight="25.0" prefWidth="109.0" text="-" />
-      <Label layoutX="270.0" layoutY="150.0" text="Hoyrly rate">
+      <Label layoutX="270.0" layoutY="150.0" prefHeight="19.0" prefWidth="109.0" text=" Team rate:">
          <font>
-            <Font size="15.0" />
+            <Font name="System Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="270.0" layoutY="86.0" prefHeight="19.0" prefWidth="78.0" text="Daily rate">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
+      <Label layoutX="379.0" layoutY="179.0" text="DKK" />
    </children>
 </AnchorPane>

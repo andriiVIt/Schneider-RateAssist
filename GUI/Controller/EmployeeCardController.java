@@ -4,12 +4,12 @@ import BE.Country;
 import BE.Employee;
 import BE.Rate;
 import BE.Team;
+import BE.Calculation;
 import BLL.RateLogic;
 import GUI.Model.CalculationModel;
 import GUI.Model.CountryModel;
 import GUI.Model.EmployeeModel;
 import GUI.Model.TeamModel;
-import GUI.util.BlurEffectUtil;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,6 +37,8 @@ import java.util.function.Consumer;
 
 public class EmployeeCardController implements Initializable {
     @FXML
+    private Label ratePerHour;
+    @FXML
     private Label rateTitle;
     @FXML
     private Pane gridPane;
@@ -58,6 +60,7 @@ public class EmployeeCardController implements Initializable {
     private final EmployeeModel employeeModel;
     private final MainWindowController adminController;
     private final RateLogic rateLogic = new RateLogic();
+    private final CalculationModel calculationModel = new CalculationModel();
     private Consumer<Employee> onDeleteEmployeeCallback;
 
     public EmployeeCardController(ScrollPane scrollPane, Employee employee, EmployeeModel employeeModel, MainWindowController adminController) {
@@ -77,14 +80,12 @@ public class EmployeeCardController implements Initializable {
     }
 
     public void viewEmployee(ActionEvent actionEvent) {
-//        BlurEffectUtil.applyBlurEffect(scrollPane, 10);
-
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/EmployeeInfo.fxml"));
             Parent createEventParent = fxmlLoader.load();
 
             EmployeeInfoController employeeInfoController = fxmlLoader.getController();
-            employeeInfoController.setModel(new EmployeeModel(), scrollPane, new TeamModel(), new CountryModel(), new CalculationModel());// Передача всіх чотирьох аргументів
+            employeeInfoController.setModel(new EmployeeModel(), scrollPane, new TeamModel(), new CountryModel(), new CalculationModel());
             employeeInfoController.setEmployee(employee);
             employeeInfoController.setOnDeleteEmployeeCallback(deletedEmployee -> {
                 if (onDeleteEmployeeCallback != null)
@@ -133,14 +134,14 @@ public class EmployeeCardController implements Initializable {
                 }
                 rateTitle.setText(ratesText.toString());
 
-                Country country = rates.getFirst().getCountry(); // Візьмемо країну з першої ставки
+                Country country = rates.get(0).getCountry(); // Візьмемо країну з першої ставки
                 if (country != null) {
                     countryTitle.setText(country.getCountryName());
                 } else {
                     countryTitle.setText("Not available");
                 }
 
-                Team team = rates.getFirst().getTeam(); // Візьмемо команду з першої ставки
+                Team team = rates.get(0).getTeam(); // Візьмемо команду з першої ставки
                 if (team != null) {
                     teamTitle.setText(team.getTeamName());
                 } else {
@@ -151,11 +152,20 @@ public class EmployeeCardController implements Initializable {
                 countryTitle.setText("Not available");
                 teamTitle.setText("Not available");
             }
+
+            // Відображення ставки за годину роботи з CalculationModel
+            Calculation calculation = calculationModel.getCalculationByEmployeeId(employee.getId());
+            if (calculation != null) {
+                ratePerHour.setText(String.format("%.2f", calculation.getRate()));
+            } else {
+                ratePerHour.setText("No rate available");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             rateTitle.setText("Failed to load rates.");
             countryTitle.setText("Failed to load country.");
             teamTitle.setText("Failed to load team.");
+            ratePerHour.setText("Failed to load rate");
         }
     }
 
