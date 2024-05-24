@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="Vbox" fx:id="loginVbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="550.0" stylesheets="/GUI/view/styles/loginWindowStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.LoginController">
+<VBox id="Vbox" fx:id="loginVbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="573.0" stylesheets="/GUI/view/styles/loginWindowStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.LoginController">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="594.0">
+      <AnchorPane prefHeight="399.0" prefWidth="575.0">
          <children>
             <MFXTextField id="UserName" fx:id="userNameField" layoutX="169.0" layoutY="158.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="202.0" promptText="Username" />
             <MFXPasswordField id="Password" fx:id="passwordField" layoutX="169.0" layoutY="200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="202.0" promptText="Password" />
