@@ -43,8 +43,9 @@ public class TeamModel {
         teams.add(c);
         return c;
     }
-    public void  deleteTeam(Team team) throws SQLException {
-        TeamLogic.deleteTeam(team);
+    public void deleteTeam(Team team) throws SQLException {
+        teamLogic.deleteTeam(team);
+        teams.remove(team);
     }
     public void updateTeamEmployee(int employeeId, int teamId) throws SQLException {
         teamLogic.updateTeamEmployee(employeeId, teamId);

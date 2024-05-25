@@ -3,6 +3,7 @@ package DAL;
 import BE.Country;
 import BE.Rate;
 import BE.Team;
+import DAL.Interface.ICountryDAO;
 import DAL.db.ConnectionManager;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
@@ -13,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CountryDAO {
+public class CountryDAO implements ICountryDAO {
 
     private static ConnectionManager connectionManager;
 
@@ -73,12 +74,34 @@ public class CountryDAO {
     }
 
     public void deleteCountry(Country country) throws SQLException {
-        String sql = "DELETE FROM Country WHERE ID = ?";
-        try (Connection con = connectionManager.getConnection();
-             PreparedStatement pst = con.prepareStatement(sql)) {
-            deleteRatesByCountryId(country.getId());
-            pst.setInt(1, country.getId());
-            pst.executeUpdate();
+        String sqlDeleteFromEmployeeCountry = "DELETE FROM EmployeeCountry WHERE countryid = ?";
+        String sqlDeleteFromRate = "DELETE FROM Rate WHERE countryId = ?";
+        String sqlDeleteCountry = "DELETE FROM Country WHERE ID = ?";
+
+        try (Connection con = connectionManager.getConnection()) {
+            con.setAutoCommit(false); // початок транзакції
+
+            try (PreparedStatement pstDeleteFromEmployeeCountry = con.prepareStatement(sqlDeleteFromEmployeeCountry);
+                 PreparedStatement pstDeleteFromRate = con.prepareStatement(sqlDeleteFromRate);
+                 PreparedStatement pstDeleteCountry = con.prepareStatement(sqlDeleteCountry)) {
+
+                // Видалення записів з EmployeeCountry
+                pstDeleteFromEmployeeCountry.setInt(1, country.getId());
+                pstDeleteFromEmployeeCountry.executeUpdate();
+
+                // Видалення записів з Rate
+                pstDeleteFromRate.setInt(1, country.getId());
+                pstDeleteFromRate.executeUpdate();
+
+                // Видалення запису з Country
+                pstDeleteCountry.setInt(1, country.getId());
+                pstDeleteCountry.executeUpdate();
+
+                con.commit(); // підтвердження транзакції
+            } catch (SQLException e) {
+                con.rollback(); // відкат транзакції у разі помилки
+                throw e;
+            }
         }
     }
     public void updateCountryEmployee(int employeeId, int countryId) throws SQLException {

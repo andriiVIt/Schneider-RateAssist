@@ -1,6 +1,7 @@
 package BLL;
 
 import BE.Rate;
+import DAL.Interface.IRateDAO;
 import DAL.RateDAO;
 
 import java.sql.SQLException;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class RateLogic {
 
-    private static RateDAO rateDAO = new RateDAO(); // Initialize RateDAO
+    private static IRateDAO rateDAO = new RateDAO(); // Initialize RateDAO
 
     // Method to create a new rate
     public Rate createRate(Rate rate) throws SQLException {

@@ -3,9 +3,7 @@ package GUI.Controller;
 import BE.*;
 import BLL.RateLogic;
 import GUI.Model.CalculationModel;
-import GUI.Model.CountryModel;
 import GUI.Model.EmployeeModel;
-import GUI.Model.TeamModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,6 +55,7 @@ public class WorkerController implements Initializable {
     private EmployeeModel employeeModel;
     private RateLogic rateLogic;
     private CalculationModel calculationModel;
+    private Employee currentEmployee;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -66,6 +65,8 @@ public class WorkerController implements Initializable {
     }
 
     public void setEmployeeData(Employee employee) {
+        this.currentEmployee = employee; // зберегти поточного працівника
+
         if (name != null) {
             name.setText(employee.getName());
         }
@@ -105,14 +106,14 @@ public class WorkerController implements Initializable {
                 }
                 this.rate.setText(ratesText.toString());
 
-                Country employeeCountry = rates.getFirst().getCountry(); // Візьмемо країну з першої ставки
+                Country employeeCountry = rates.get(0).getCountry(); // Візьмемо країну з першої ставки
                 if (employeeCountry != null) {
                     country.setText(employeeCountry.getCountryName());
                 } else {
                     country.setText("Not available");
                 }
 
-                Team employeeTeam = rates.getFirst().getTeam(); // Візьмемо команду з першої ставки
+                Team employeeTeam = rates.get(0).getTeam(); // Візьмемо команду з першої ставки
                 if (employeeTeam != null) {
                     team.setText(employeeTeam.getTeamName());
                 } else {
@@ -158,18 +159,16 @@ public class WorkerController implements Initializable {
     @FXML
     public void changePassword(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/ChangPasswordWindow.fxml"));
-        Parent teamsParent = fxmlLoader.load();
+        Parent parent = fxmlLoader.load();
+
+        ChengPasswordController chengPasswordController = fxmlLoader.getController();
+        chengPasswordController.setEmployee(currentEmployee); // Передати поточного працівника в контролер
 
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL); // Set the window modality
         stage.setTitle("New Password");
         stage.setResizable(false); // Make the window not resizable
-        stage.setScene(new Scene(teamsParent));
-
-
+        stage.setScene(new Scene(parent));
         stage.show();
     }
-    }
-
-
-
+}

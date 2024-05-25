@@ -5,13 +5,14 @@ import BE.Employee;
 import BE.Team;
 import DAL.CountryDAO;
 import DAL.EmployeeDAO;
+import DAL.Interface.IEmployeeDAO;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class EmployeeLogic {
-    static EmployeeDAO employeeDAO = new EmployeeDAO();
+    static IEmployeeDAO employeeDAO = new EmployeeDAO();
 
     public static Employee createEmployee(Employee employee) throws SQLException {
         return employeeDAO.createEmployee(employee);
@@ -43,4 +44,9 @@ public class EmployeeLogic {
     public Employee getEmployeeByUsername(String username) throws SQLException {
         return employeeDAO.getEmployeeByUsername(username);
     }
+    public void updateEmployeeCredentials(int employeeId, String newUsername, String newPassword) throws SQLException {
+        employeeDAO.updateEmployeeCredentials(employeeId, newUsername, newPassword);
+    }
+
+
 }

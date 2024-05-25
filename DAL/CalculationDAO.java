@@ -1,6 +1,7 @@
 package DAL;
 
 import BE.Calculation;
+import DAL.Interface.ICalculationDAO;
 import DAL.db.ConnectionManager;
 
 import java.sql.Connection;
@@ -8,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CalculationDAO {
+public class CalculationDAO implements ICalculationDAO {
 
     private static ConnectionManager connectionManager;
 

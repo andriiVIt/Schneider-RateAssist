@@ -2,13 +2,14 @@ package BLL;
 
 import BE.Country;
 import DAL.CountryDAO;
+import DAL.Interface.ICountryDAO;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class CountryLogic {
 
-    static CountryDAO countryDAO = new CountryDAO();
+    static ICountryDAO countryDAO = new CountryDAO();
 
     public Country createCountry(Country country) throws SQLException {
         return countryDAO.createCountry(country);

@@ -3,6 +3,7 @@ package DAL;
 import BE.Country;
 import BE.Rate;
 import BE.Team;
+import DAL.Interface.IRateDAO;
 import DAL.db.ConnectionManager;
 
 import java.sql.Connection;
@@ -12,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RateDAO {
+public class RateDAO implements IRateDAO {
 
     private static ConnectionManager connectionManager;
 

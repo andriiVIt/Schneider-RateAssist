@@ -1,6 +1,7 @@
 package DAL;
 
 import BE.Admin;
+import DAL.Interface.IAdminDAO;
 import DAL.db.ConnectionManager;
 
 import java.sql.Connection;
@@ -10,7 +11,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminDAO { private ConnectionManager connectionManager;
+public class AdminDAO implements IAdminDAO {
+
+
+    private ConnectionManager connectionManager;
 
     // Constructor to initialize the ConnectionManager
     public AdminDAO() {

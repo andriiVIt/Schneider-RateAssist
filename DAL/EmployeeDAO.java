@@ -3,13 +3,14 @@ package DAL;
 import BE.Country;
 import BE.Employee;
 import BE.Team;
+import DAL.Interface.IEmployeeDAO;
 import DAL.db.ConnectionManager;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDAO {
+public class EmployeeDAO implements IEmployeeDAO {
 
     private ConnectionManager connectionManager;
 
@@ -239,4 +240,15 @@ public class EmployeeDAO {
         }
         return employee; // Повернути знайденого працівника або null
     }
+    public void updateEmployeeCredentials(int employeeId, String newUsername, String newPassword) throws SQLException {
+        String sql = "UPDATE Employee SET LoginName = ?, Password = ? WHERE ID = ?";
+        try (Connection con = connectionManager.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, newUsername);
+            pstmt.setString(2, newPassword);
+            pstmt.setInt(3, employeeId);
+            pstmt.executeUpdate();
+        }
+    }
+
 }

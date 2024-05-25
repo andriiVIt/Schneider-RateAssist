@@ -2,12 +2,13 @@ package BLL;
 
 import BE.Calculation;
 import DAL.CalculationDAO;
+import DAL.Interface.ICalculationDAO;
 
 import java.sql.SQLException;
 
 public class CalculationLogic {
 
-    private static CalculationDAO calculationDAO = new CalculationDAO(); // Initialize CalculationDAO
+    private static ICalculationDAO calculationDAO = new CalculationDAO();
 
     // Method to create a new calculation
     public Calculation createCalculation(Calculation calculation) throws SQLException {

@@ -33,7 +33,6 @@ public class EmployeeModel {
         return employees;
     }
 
-
     public void assignCountryEmployee(Country country, Employee employee) throws SQLException {
         employeeLogic.assignCountryEmployee(country, employee);
         countries.add(country);
@@ -76,5 +75,23 @@ public class EmployeeModel {
     public boolean isValidEmployee(String inputUsername, String inputPassword) throws SQLException {
         Employee employee = getEmployeeByUsername(inputUsername);
         return employee != null && employee.getPassword().equals(inputPassword);
+    }
+
+    public void updateEmployeeCredentials(int employeeId, String newUsername, String newPassword) throws SQLException {
+        employeeLogic.updateEmployeeCredentials(employeeId, newUsername, newPassword);
+        Employee employee = getEmployeeById(employeeId);
+        if (employee != null) {
+            employee.setLoginName(newUsername);
+            employee.setPassword(newPassword);
+        }
+    }
+
+    private Employee getEmployeeById(int employeeId) {
+        for (Employee employee : employees) {
+            if (employee.getId() == employeeId) {
+                return employee;
+            }
+        }
+        return null;
     }
 }
