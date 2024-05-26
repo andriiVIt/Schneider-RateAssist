@@ -64,8 +64,9 @@ public class WorkerController implements Initializable {
         calculationModel = new CalculationModel();
     }
 
+    // Sets the employee data in the UI
     public void setEmployeeData(Employee employee) {
-        this.currentEmployee = employee; // зберегти поточного працівника
+        this.currentEmployee = employee; // Save the current employee
 
         if (name != null) {
             name.setText(employee.getName());
@@ -106,14 +107,14 @@ public class WorkerController implements Initializable {
                 }
                 this.rate.setText(ratesText.toString());
 
-                Country employeeCountry = rates.get(0).getCountry(); // Візьмемо країну з першої ставки
+                Country employeeCountry = rates.get(0).getCountry(); // Get the country from the first rate
                 if (employeeCountry != null) {
                     country.setText(employeeCountry.getCountryName());
                 } else {
                     country.setText("Not available");
                 }
 
-                Team employeeTeam = rates.get(0).getTeam(); // Візьмемо команду з першої ставки
+                Team employeeTeam = rates.get(0).getTeam(); // Get the team from the first rate
                 if (employeeTeam != null) {
                     team.setText(employeeTeam.getTeamName());
                 } else {
@@ -131,7 +132,7 @@ public class WorkerController implements Initializable {
             team.setText("Failed to load team.");
         }
 
-        // Завантаження та відображення розрахованої ставки
+        // Load and display the calculated rate
         if (DayRate != null) {
             try {
                 Calculation calculation = calculationModel.getCalculationByEmployeeId(employee.getId());
@@ -147,22 +148,24 @@ public class WorkerController implements Initializable {
         }
     }
 
+    // Handles the log out action
     @FXML
     public void clickLogOut(ActionEvent actionEvent) {
-        // Логіка виходу з системи
+        // Log out logic
         System.out.println("Log Out clicked");
-        // Наприклад, закриття вікна працівника і повернення до вікна логіну
+        // For example, close the employee window and return to the login window
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }
 
+    // Opens the window to change the password
     @FXML
     public void changePassword(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/ChangPasswordWindow.fxml"));
         Parent parent = fxmlLoader.load();
 
         ChengPasswordController chengPasswordController = fxmlLoader.getController();
-        chengPasswordController.setEmployee(currentEmployee); // Передати поточного працівника в контролер
+        chengPasswordController.setEmployee(currentEmployee); // Pass the current employee to the controller
 
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL); // Set the window modality

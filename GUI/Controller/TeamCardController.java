@@ -22,16 +22,16 @@ public class TeamCardController implements Initializable {
         this.teamsViewController = teamsViewController;
     }
 
-
+    // Initializes the controller and sets the team details in the UI
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         String t = team.getTeamName();
         this.idOfLable.setText(t);
 
         this.id.setText(((Integer) team.getId()).toString());
-
     }
 
+    // Handles the action when a team is selected
     public void setOnSelectTeam() {
         teamsViewController.selectTeam(team.getId());
     }

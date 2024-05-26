@@ -67,6 +67,7 @@ public class CreateEmployeeController implements Initializable {
     private ScrollPane scrollPane;
     private Runnable refreshCallback;
 
+    // Sets the CountryModel instance and updates the location box
     public void setCountryModel(CountryModel countryModel) {
         this.countryModel = countryModel;
         locationBox.setTitle("Country");
@@ -78,6 +79,7 @@ public class CreateEmployeeController implements Initializable {
         });
     }
 
+    // Sets the TeamModel instance and updates the team box
     public void setTeamModel(TeamModel teamModel) {
         this.teamModel = teamModel;
         teamBox.setTitle("Team");
@@ -88,7 +90,7 @@ public class CreateEmployeeController implements Initializable {
             teamBox.getItems().addAll(teamModel.getTeams());
         });
     }
-
+    // Handles the action of selecting a photo file
     public void selectPhotoButton(ActionEvent actionEvent) throws Exception {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Images File");
@@ -104,6 +106,7 @@ public class CreateEmployeeController implements Initializable {
         }
     }
 
+    // Creates a new employee with the provided information
     public void createEmployee(ActionEvent actionEvent) {
         String name = nameField.getText();
         String loginName = loginNameField.getText();
@@ -143,28 +146,33 @@ public class CreateEmployeeController implements Initializable {
         }
     }
 
+    // Cancels the action and closes the window
     public void cancel(ActionEvent actionEvent) {
         Stage stage = (Stage) createEmployeeAnchorPane.getScene().getWindow();
         BlurEffectUtil.removeBlurEffect(scrollPane);
         stage.close();
     }
 
+    // Sets the EmployeeModel instance
     public void setEmployeeModel(EmployeeModel employeeModel) {
         this.employeeModel = employeeModel;
     }
 
+    // Sets the refresh callback function
     public void setRefreshCallback(Runnable refreshCallback) {
         this.refreshCallback = refreshCallback;
     }
 
+    // Sets the scroll pane for blur effect handling
     public void setScrollPane(ScrollPane scrollPane) {
         this.scrollPane = scrollPane;
     }
 
+    // Sets the onClose request handler for the stage
     public void setOnCloseRequestHandler(Stage stage) {
         stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(scrollPane));
     }
-
+    // Reads bytes from the selected file
     public static byte[] readBytesFromFile(File file) throws Exception {
         InputStream is = new FileInputStream(file);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -183,6 +191,7 @@ public class CreateEmployeeController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
     }
 
+    // Opens the window to create a new country
     public void createCountry(ActionEvent actionEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/CreateCountryWindow.fxml"));
@@ -203,6 +212,7 @@ public class CreateEmployeeController implements Initializable {
         }
     }
 
+    // Opens the window to create a new team
     public void createTeam(ActionEvent actionEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/CreateTeamWindow.fxml"));

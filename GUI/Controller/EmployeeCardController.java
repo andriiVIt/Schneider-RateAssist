@@ -70,6 +70,7 @@ public class EmployeeCardController implements Initializable {
         this.adminController = adminController;
     }
 
+    // Deletes the selected employee
     public void deleteEmployee(ActionEvent actionEvent) {
         try {
             employeeModel.deleteEmployee(employee);
@@ -79,6 +80,7 @@ public class EmployeeCardController implements Initializable {
         }
     }
 
+    // Views the detailed information of the selected employee
     public void viewEmployee(ActionEvent actionEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/EmployeeInfo.fxml"));
@@ -107,10 +109,12 @@ public class EmployeeCardController implements Initializable {
         }
     }
 
+    // Sets the callback to be called when an employee is deleted
     public void setOnDeleteEmployeeCallback(Consumer<Employee> onDeleteEmployeeCallback) {
         this.onDeleteEmployeeCallback = onDeleteEmployeeCallback;
     }
 
+    // Initializes the controller with employee data
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         nameTitle.setText(employee.getName());
@@ -134,14 +138,14 @@ public class EmployeeCardController implements Initializable {
                 }
                 rateTitle.setText(ratesText.toString());
 
-                Country country = rates.get(0).getCountry(); // Візьмемо країну з першої ставки
+                Country country = rates.get(0).getCountry(); // Take the country from the first rate
                 if (country != null) {
                     countryTitle.setText(country.getCountryName());
                 } else {
                     countryTitle.setText("Not available");
                 }
 
-                Team team = rates.get(0).getTeam(); // Візьмемо команду з першої ставки
+                Team team = rates.get(0).getTeam(); // Take the team from the first rate
                 if (team != null) {
                     teamTitle.setText(team.getTeamName());
                 } else {
@@ -153,7 +157,7 @@ public class EmployeeCardController implements Initializable {
                 teamTitle.setText("Not available");
             }
 
-            // Відображення ставки за годину роботи з CalculationModel
+            // Display hourly rate from CalculationModel
             Calculation calculation = calculationModel.getCalculationByEmployeeId(employee.getId());
             if (calculation != null) {
                 ratePerHour.setText(String.format("%.2f", calculation.getRate()));

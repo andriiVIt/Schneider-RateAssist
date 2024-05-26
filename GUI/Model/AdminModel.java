@@ -11,6 +11,7 @@ public class AdminModel {
     AdminLogic adminLogic = new AdminLogic();
     private ObservableList<Admin> admins = FXCollections.observableArrayList();
 
+// Constructor that initializes the admin list from the database
 
     public AdminModel(){
         try{
@@ -20,6 +21,8 @@ public class AdminModel {
         }
 
     }
+    // Checks if the provided username and password match any admin in the list
+
     public boolean isValidAdmin(String inputUsername, String inputPassword){
         return admins.stream().anyMatch(admin -> admin.getUsername().equals(inputUsername) && admin.getPassword().equals(inputPassword)) ;
     }

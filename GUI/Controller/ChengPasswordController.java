@@ -25,20 +25,22 @@ public class ChengPasswordController {
         employeeModel = new EmployeeModel();
     }
 
+    // Sets the current employee and fills the username field
     public void setEmployee(Employee employee) {
         this.currentEmployee = employee;
-        userNameField.setText(employee.getLoginName()); // Заповнити поле поточним іменем користувача
+        userNameField.setText(employee.getLoginName()); // Fill the field with the current username
     }
 
+    // Saves the new username and password for the current employee
     @FXML
     public void saveInformation(ActionEvent actionEvent) {
         String newUsername = userNameField.getText();
         String newPassword = newPasswordField.getText();
 
         try {
-            // Оновлюємо облікові дані поточного працівника
+            // Update the credentials of the current employee
             employeeModel.updateEmployeeCredentials(currentEmployee.getId(), newUsername, newPassword);
-            // Закриваємо вікно після успішного оновлення
+            // Close the window after successful update
             Stage stage = (Stage) userNameField.getScene().getWindow();
             stage.close();
         } catch (SQLException e) {
@@ -47,6 +49,7 @@ public class ChengPasswordController {
         }
     }
 
+    // Cancels the action and closes the window
     @FXML
     public void cancel(ActionEvent actionEvent) {
         Stage stage = (Stage) userNameField.getScene().getWindow();

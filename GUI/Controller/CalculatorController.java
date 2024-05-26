@@ -24,32 +24,35 @@ public class CalculatorController implements Initializable {
 
 
     @FXML
-    private TextField markupField;
+    public TextField markupField;
 
     @FXML
-    private TextField gmField;
+    public TextField gmField;
 
     @FXML
-    private Label hourlyRateLabel;
+    public Label hourlyRateLabel;
     private ScrollPane scrollPane;
     private Employee selectedEmployee;
     private CalculationModel calculationModel;
-    private double calculatedRate;
+    public double calculatedRate;
     private EmployeeInfoController employeeInfoController;
 
-    // Метод для налаштування працівника
+    // Sets the selected employee
     public void setEmployee(Employee employee) {
         this.selectedEmployee = employee;
     }
 
+    // Sets the EmployeeInfoController instance
     public void setEmployeeInfoController(EmployeeInfoController employeeInfoController) {
         this.employeeInfoController = employeeInfoController;
 
     }
+    // Sets the CalculationModel instance
     public void setCalculationModel(CalculationModel calculationModel) {
         this.calculationModel = calculationModel;
     }
 
+    // Calculates the hourly rate based on input fields
     public void calculateHourlyRate() {
         if (selectedEmployee == null) {
             showError("Employee is not set.");
@@ -77,7 +80,7 @@ public class CalculatorController implements Initializable {
         }
     }
 
-    // Метод для збереження розрахованої ставки
+    // Saves the calculated rate
     public void saveRate() {
         if (selectedEmployee == null) {
             showError("Employee is not set.");
@@ -98,7 +101,7 @@ public class CalculatorController implements Initializable {
             showError("Failed to save rate.");
         }
     }
-
+    // Shows an error alert with the specified message
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -106,7 +109,7 @@ public class CalculatorController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
+    // Shows an information alert with the specified message
     private void showInfo(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
@@ -114,7 +117,7 @@ public class CalculatorController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
+    // Cancels the action and closes the window
     public void cancelButton(ActionEvent actionEvent) {
 
         Stage stage = (Stage) calculatorPane.getScene().getWindow();

@@ -21,7 +21,7 @@ public class CountryDAO implements ICountryDAO {
     public CountryDAO() {
         connectionManager = new ConnectionManager();
     }
-
+    // Method to retrieve all countries from the database
     public List<Country> getAllCountries() throws SQLException {
         List<Country> countries = new ArrayList<>();
         String query = "SELECT id, countryName FROM Country";
@@ -40,7 +40,7 @@ public class CountryDAO implements ICountryDAO {
         }
         return countries;
     }
-
+    // Method to create a new country
     public Country createCountry(Country country) throws SQLException {
         String query = "INSERT INTO Country (countryName) VALUES (?)";
         try (Connection conn = connectionManager.getConnection();
@@ -63,7 +63,7 @@ public class CountryDAO implements ICountryDAO {
         }
         return country;
     }
-
+    // Method to delete rates by country ID
     public void deleteRatesByCountryId(int countryId) throws SQLException {
         String sql = "DELETE FROM Rate WHERE countryId = ?";
         try (Connection con = connectionManager.getConnection();
@@ -72,7 +72,7 @@ public class CountryDAO implements ICountryDAO {
             pst.executeUpdate();
         }
     }
-
+    // Method to delete a country
     public void deleteCountry(Country country) throws SQLException {
         String sqlDeleteFromEmployeeCountry = "DELETE FROM EmployeeCountry WHERE countryid = ?";
         String sqlDeleteFromRate = "DELETE FROM Rate WHERE countryId = ?";
@@ -104,6 +104,7 @@ public class CountryDAO implements ICountryDAO {
             }
         }
     }
+    // Method to update the country of an employee
     public void updateCountryEmployee(int employeeId, int countryId) throws SQLException {
         String sql = "UPDATE EmployeeCountry SET countryid = ? WHERE employeeid = ?";
         try (Connection con = connectionManager.getConnection();
@@ -113,7 +114,7 @@ public class CountryDAO implements ICountryDAO {
             pst.executeUpdate();
         }
     }
-
+    // Method to retrieve countries for a specific team ID
     public List<Country> getCountriesForTeamId(int teamId) throws SQLException {
         List<Country> countries = new ArrayList<>();
         String query = "SELECT c.id, c.countryName FROM Rate r\n" +

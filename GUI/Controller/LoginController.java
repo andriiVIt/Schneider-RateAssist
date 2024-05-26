@@ -34,6 +34,7 @@ public class LoginController implements Initializable {
         employeeModel = new EmployeeModel();
     }
 
+    // Handles login button action
     public void logIn(ActionEvent actionEvent) {
         String inputUsername = userNameField.getText();
         String inputPassword = passwordField.getText();
@@ -54,6 +55,7 @@ public class LoginController implements Initializable {
         }
     }
 
+    // Opens the admin window after successful admin login
     private void openAdminWindow() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/MainWindow.fxml"));
@@ -70,6 +72,7 @@ public class LoginController implements Initializable {
         }
     }
 
+    // Opens the employee window after successful employee login
     private void openEmployeeWindow(String username) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/WorkerWindow.fxml"));
@@ -90,6 +93,7 @@ public class LoginController implements Initializable {
         }
     }
 
+    // Shows an alert dialog with the specified title and content
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -98,6 +102,7 @@ public class LoginController implements Initializable {
         alert.showAndWait();
     }
 
+    // Closes the current login stage
     private void closeCurrentStage() {
         Stage currentStage = (Stage) loginVbox.getScene().getWindow();
         currentStage.close();

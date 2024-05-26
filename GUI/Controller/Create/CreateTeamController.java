@@ -20,14 +20,17 @@ public class CreateTeamController {
     private TeamModel teamModel;
     private Runnable refreshCallback;
 
+    // Sets the TeamModel instance
     public void setModel(TeamModel teamModel) {
         this.teamModel = teamModel;
     }
 
+    // Sets the refresh callback function
     public void setRefreshCallback(Runnable refreshCallback) {
         this.refreshCallback = refreshCallback;
     }
 
+    // Saves the new team entered by the user
     public void saveNewTeam(ActionEvent actionEvent) {
         String teamName = newTeamField.getText().trim();
         if (!teamName.isEmpty()) {
@@ -50,12 +53,12 @@ public class CreateTeamController {
             showAlert(Alert.AlertType.WARNING, "Input Required", "Please enter a team name.");
         }
     }
-
+    // Cancels the action and closes the window
     public void cancel(ActionEvent actionEvent) {
         Stage stage = (Stage) createTeamPane.getScene().getWindow();
         stage.close();
     }
-
+    // Shows an alert dialog with the specified type, title, and message
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -63,11 +66,12 @@ public class CreateTeamController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
+    // Sets the scroll pane for blur effect handling (empty method)
     public void setScrollPane(ScrollPane scrollPane) {
 
     }
 
+    // Sets the onClose request handler for the stage (empty method)
     public void setOnCloseRequestHandler(Stage stage) {
     }
 }

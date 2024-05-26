@@ -9,6 +9,7 @@ import java.util.List;
 
 public class RateLogic {
 
+    // Create a static instance of the IRateDAO interface using RateDAO implementation
     private static IRateDAO rateDAO = new RateDAO(); // Initialize RateDAO
 
     // Method to create a new rate
@@ -20,6 +21,7 @@ public class RateLogic {
     public List<Rate> getListRatesEmployee(int employeeId) throws SQLException {
         return rateDAO.getListRatesEmployee(employeeId); // Calls getListRatesEmployee from RateDAO
     }
+    // Method to update an existing rate
     public void updateRate(Rate rate) throws SQLException {
         rateDAO.updateRate(rate);
     }

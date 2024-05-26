@@ -20,7 +20,7 @@ public class RateDAO implements IRateDAO {
     public RateDAO() {
         connectionManager = new ConnectionManager();
     }
-
+    // Method to create a new rate record in the database
     public Rate createRate(Rate rate) throws SQLException {
         String sql = "INSERT INTO Rate (countryId, teamId, rate) VALUES (?, ?, ?)";
         try (Connection connection = connectionManager.getConnection();
@@ -35,7 +35,7 @@ public class RateDAO implements IRateDAO {
             throw e;
         }
     }
-
+    // Method to get the list of rates for an employee
     public List<Rate> getListRatesEmployee(int employeeId) throws SQLException {
         List<Rate> rates = new ArrayList<>();
         String sql = "SELECT r.rate, c.countryName, t.teamName, r.countryId, r.teamId " +
@@ -73,6 +73,7 @@ public class RateDAO implements IRateDAO {
         }
         return rates;
     }
+    // Method to update an existing rate
     public void updateRate(Rate rate) throws SQLException {
         String sql = "UPDATE Rate SET rate = ? WHERE countryId = ? AND teamId = ?";
         try (Connection connection = connectionManager.getConnection();

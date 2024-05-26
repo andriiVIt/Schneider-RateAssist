@@ -91,6 +91,8 @@ public class EmployeeInfoController implements Initializable {
     private CalculationModel calculationModel = new CalculationModel();
     private Employee selectedEmployee;
     private RateModel rateModel ;
+
+    // Sets the models and initializes the team and country models
     public void setModel(EmployeeModel employeeModel, ScrollPane scrollPane, TeamModel teamModel, CountryModel countryModel,CalculationModel calculationModel) {
         this.calculationModel = calculationModel;
         this.scrollPane = scrollPane;
@@ -100,11 +102,11 @@ public class EmployeeInfoController implements Initializable {
         this.rateModel = rateModel;
         setTeamModel(teamModel);
         setCountryModel(countryModel);
-//        setRateModel(rateModel);
+
 
 
     }
-
+    // Sets the selected employee and updates the UI with employee details
     public void setEmployee(Employee employee) {
         this.employee = employee;
         if (nameField != null) {
@@ -153,7 +155,7 @@ public class EmployeeInfoController implements Initializable {
             }
         }
 
-        // Завантаження та відображення розрахованої ставки
+        // Loads and displays the calculated rate
         try {
             Calculation calculation = calculationModel.getCalculationByEmployeeId(employee.getId());
             if (calculation != null) {
@@ -166,10 +168,11 @@ public class EmployeeInfoController implements Initializable {
             calculatedRate.setText("Failed to load calculated rate.");
         }
     }
-
+    // Sets the callback to be called when an employee is deleted
     public void setOnDeleteEmployeeCallback(Consumer<Employee> onDeleteEmployeeCallback) {
         this.onDeleteEmployeeCallback = onDeleteEmployeeCallback;
     }
+    // Sets the refresh callback function
     public void setRefreshCallback(Runnable refreshCallback) {
         this.refreshCallback = refreshCallback;
     }
@@ -179,13 +182,13 @@ public class EmployeeInfoController implements Initializable {
     }
 
 
-
+   // Cancels the action and closes the window
     public void Cancel(ActionEvent actionEvent) {
         BlurEffectUtil.removeBlurEffect(scrollPane);
         Stage stage = (Stage) employeeInfoAnchorPane.getScene().getWindow();
         stage.close();
     }
-
+    // Saves the updated information for the employee
     public void saveNewInformation(ActionEvent actionEvent) {
         if (employee != null) {
             if (changeNameField.getText() != null && !changeNameField.getText().isEmpty()) {
@@ -211,30 +214,30 @@ public class EmployeeInfoController implements Initializable {
             }
 
             try {
-                // Оновлення інформації про працівника
+                // Updates the employee information
                 employeeModel.updateEmployee(employee);
 
-                // Оновлення країни, якщо обрано
+                // Updates the country if selected
                 List<Country> selectedCountries = countryBox.getCheckModel().getCheckedItems();
                 if (!selectedCountries.isEmpty()) {
                     Country selectedCountry = selectedCountries.getFirst();
                     countryModel.updateCountryEmployee(employee.getId(), selectedCountry.getId());
                 }
 
-                // Оновлення команди, якщо обрано
+                // Updates the team if selected
                 List<Team> selectedTeams = teamBox.getCheckModel().getCheckedItems();
                 if (!selectedTeams.isEmpty()) {
                     Team selectedTeam = selectedTeams.getFirst();
                     teamModel.updateTeamEmployee(employee.getId(), selectedTeam.getId());
                 }
 
-                // Показуємо повідомлення про успішне оновлення
+                // Shows a success alert
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Employee information updated successfully.");
 
-                // Оновлюємо відображення даних працівника
+                // Updates the employee details display
                 updateEmployeeDetails();
 
-                // Виклик зворотного виклику для оновлення сторінки з працівниками
+                // Calls the refresh callback to update the employee page
                 if (refreshCallback != null) {
                     refreshCallback.run();
                 }
@@ -245,6 +248,7 @@ public class EmployeeInfoController implements Initializable {
             }
         }
     }
+    // Updates the employee details display
     private void updateEmployeeDetails() {
         if (nameField != null) {
             nameField.setText(employee.getName());
@@ -291,6 +295,7 @@ public class EmployeeInfoController implements Initializable {
             }
         }
     }
+    // Opens the window to add a new country
     public void AddCountry(ActionEvent actionEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/CreateCountryWindow.fxml"));
@@ -314,7 +319,7 @@ public class EmployeeInfoController implements Initializable {
             e.printStackTrace(); // Proper error handling should be implemented
         }
     }
-
+    // Opens the window to add a new team
     public void AddTeam(ActionEvent actionEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/CreateTeamWindow.fxml"));
@@ -338,7 +343,7 @@ public class EmployeeInfoController implements Initializable {
             e.printStackTrace(); // Proper error handling should be implemented
         }
     }
-
+    // Deletes the selected country
     public void deleteCountry(ActionEvent actionEvent) {
         Country selectedCountry = countryBox.getCheckModel().getCheckedItems().getFirst();
         if (selectedCountry != null) {
@@ -353,7 +358,7 @@ public class EmployeeInfoController implements Initializable {
             showAlert(Alert.AlertType.WARNING, "Warning", "Please select a country to delete.");
         }
     }
-
+    // Deletes the selected team
     public void deleteTeam(ActionEvent actionEvent) {
         Team selectedTeam = teamBox.getCheckModel().getCheckedItems().getFirst();
         if (selectedTeam != null) {
@@ -368,7 +373,7 @@ public class EmployeeInfoController implements Initializable {
             showAlert(Alert.AlertType.WARNING, "Warning", "Please select a team to delete.");
         }
     }
-
+    // Shows an alert dialog with the specified type, title, and message
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -376,7 +381,7 @@ public class EmployeeInfoController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
+    // Sets the CountryModel instance and updates the country box
     public void setCountryModel(CountryModel countryModel) {
         this.countryModel = countryModel;
         countryBox.setTitle("Country");
@@ -387,7 +392,7 @@ public class EmployeeInfoController implements Initializable {
             countryBox.getItems().addAll(countryModel.getCountries());
         });
     }
-
+    // Sets the TeamModel instance and updates the team box
     public void setTeamModel(TeamModel teamModel) {
         this.teamModel = teamModel;
         teamBox.setTitle("Team");
@@ -398,15 +403,15 @@ public class EmployeeInfoController implements Initializable {
             teamBox.getItems().addAll(teamModel.getTeams());
         });
     }
-
+    // Opens the calculator window to calculate the rate for the employee
     public void calculatorButton(ActionEvent actionEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/CalculatorWindow.fxml"));
             Parent calculatorParent = fxmlLoader.load();
 
             CalculatorController controller = fxmlLoader.getController();
-            controller.setEmployee(this.employee); // Встановлюємо вибраного працівника з поточного об'єкта
-            controller.setCalculationModel(new CalculationModel()); // Встановлюємо модель
+            controller.setEmployee(this.employee);
+            controller.setCalculationModel(new CalculationModel());
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -418,12 +423,13 @@ public class EmployeeInfoController implements Initializable {
             e.printStackTrace(); // Proper error handling should be implemented
         }
     }
-
+    // Updates the calculated rate display
     public void updateCalculatedRate(double rate) {
         if (calculatedRate != null) {
             calculatedRate.setText(String.format("%.2f", rate));
         }
     }
+    // Changes the photo of the employee
     public void changePhoto(ActionEvent actionEvent) { FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Photo");
         fileChooser.getExtensionFilters().addAll(
@@ -433,10 +439,10 @@ public class EmployeeInfoController implements Initializable {
         if (selectedFile != null) {
             try {
                 byte[] imageData = readBytesFromFile(selectedFile);
-                employee.setImageData(imageData); // Оновлення даних зображення у працівника
-                employeeModel.updateEmployee(employee); // Оновлення працівника у базі даних
+                employee.setImageData(imageData);
+                employeeModel.updateEmployee(employee);
 
-                // Оновлення відображеного зображення
+
                 ByteArrayInputStream inputStream = new ByteArrayInputStream(imageData);
                 Image image = new Image(inputStream);
                 workerImage.setImage(image);

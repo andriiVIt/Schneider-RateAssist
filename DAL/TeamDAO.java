@@ -17,7 +17,7 @@ public class TeamDAO implements ITeamDAO {
         connectionManager = new ConnectionManager();
     }
 
-    // Метод для отримання всіх команд з бази даних
+    // Method to retrieve all teams from the database
     @Override
     public List<Team> getAllTeams() throws SQLException {
         List<Team> teams = new ArrayList<>();
@@ -37,8 +37,9 @@ public class TeamDAO implements ITeamDAO {
         }
         return teams;
     }
+
+    // Method to create a new team in the database and return its generated ID
     @Override
-    // Метод для створення нової команди в базі даних і повернення її згенерованого ID
     public Team createTeam(Team team) throws SQLException {
         String sql = "INSERT INTO Team (teamName) VALUES (?)";
         try (Connection conn = connectionManager.getConnection();
@@ -46,15 +47,15 @@ public class TeamDAO implements ITeamDAO {
             pstmt.setString(1, team.getTeamName());
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException("Створення команди не вдалося, жодного рядка не змінено.");
+                throw new SQLException("Failed to create command, no row changed.");
             }
 
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    team.setId(generatedKeys.getInt(1)); // Встановлення ID команди
-                    return team; // Повертаємо обновлений об'єкт команди
+                    team.setId(generatedKeys.getInt(1));
+                    return team;
                 } else {
-                    throw new SQLException("Створення команди не вдалося, ID не отримано.");
+                    throw new SQLException("Team creation failed, ID not received.");
                 }
             }
         } catch (SQLException e) {
@@ -62,38 +63,39 @@ public class TeamDAO implements ITeamDAO {
             throw e;
         }
     }
-
+    // Method to delete a team and related records from the database
     public void deleteTeam(Team team) throws SQLException {
         String sqlDeleteFromEmployeeTeam = "DELETE FROM EmployeeTeam WHERE teamid = ?";
         String sqlDeleteFromRate = "DELETE FROM Rate WHERE teamId = ?";
         String sqlDeleteTeam = "DELETE FROM Team WHERE ID = ?";
 
         try (Connection con = connectionManager.getConnection()) {
-            con.setAutoCommit(false); // початок транзакції
+            con.setAutoCommit(false);
 
             try (PreparedStatement pstDeleteFromEmployeeTeam = con.prepareStatement(sqlDeleteFromEmployeeTeam);
                  PreparedStatement pstDeleteFromRate = con.prepareStatement(sqlDeleteFromRate);
                  PreparedStatement pstDeleteTeam = con.prepareStatement(sqlDeleteTeam)) {
 
-                // Видалення записів з EmployeeTeam
+
                 pstDeleteFromEmployeeTeam.setInt(1, team.getId());
                 pstDeleteFromEmployeeTeam.executeUpdate();
 
-                // Видалення записів з Rate
+
                 pstDeleteFromRate.setInt(1, team.getId());
                 pstDeleteFromRate.executeUpdate();
 
-                // Видалення запису з Team
+
                 pstDeleteTeam.setInt(1, team.getId());
                 pstDeleteTeam.executeUpdate();
 
-                con.commit(); // підтвердження транзакції
+                con.commit();
             } catch (SQLException e) {
-                con.rollback(); // відкат транзакції у разі помилки
+                con.rollback();
                 throw e;
             }
         }
     }
+    // Method to update the team assignment of an employee
     @Override
     public void updateTeamEmployee(int employeeId, int teamId) throws SQLException {
         String sql = "UPDATE EmployeeTeam SET teamid = ? WHERE employeeid = ?";

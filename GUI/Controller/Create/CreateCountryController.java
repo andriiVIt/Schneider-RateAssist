@@ -23,14 +23,17 @@ public class CreateCountryController implements Initializable {
     private CountryModel countryModel;
     private Runnable refreshCallback;
 
+    // Sets the CountryModel instance
     public void setModel(CountryModel countryModel) {
         this.countryModel = countryModel;
     }
 
+    // Sets the refresh callback function
     public void setRefreshCallback(Runnable refreshCallback) {
         this.refreshCallback = refreshCallback;
     }
 
+    // Saves the new country entered by the user
     public void saveNewCountry(ActionEvent actionEvent) {
         String countryName = newCountryField.getText().trim();
         if (!countryName.isEmpty()) {
@@ -53,12 +56,12 @@ public class CreateCountryController implements Initializable {
             showAlert(Alert.AlertType.WARNING, "Input Required", "Please enter a country name.");
         }
     }
-
+    // Cancels the action and closes the window
     public void cancel(ActionEvent actionEvent) {
         Stage stage = (Stage) createCountryPane.getScene().getWindow();
         stage.close();
     }
-
+    // Shows an alert dialog with the specified type, title, and message
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

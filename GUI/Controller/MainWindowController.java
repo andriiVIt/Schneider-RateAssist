@@ -52,20 +52,22 @@ public class MainWindowController implements Initializable {
     List<Team> selectedTeams = null;
 
     private int currentPage, totalPages;
+
+    // Moves to the previous page of employees
     public void previousPage(ActionEvent actionEvent) {
         if (currentPage > 0) {
             currentPage--;
             refreshEmployeeCards();
         }
     }
-
+    // Moves to the next page of employees
     public void nextPage(ActionEvent actionEvent) {
         if (currentPage < totalPages - 1) {
             currentPage++;
             refreshEmployeeCards();
         }
     }
-
+    // Refreshes the employee cards displayed in the grid pane
     void refreshEmployeeCards() {
         try {
             gridPane.getChildren().clear(); // Clear existing content
@@ -75,18 +77,21 @@ public class MainWindowController implements Initializable {
         }
 
     }
-
+    // Maps selected teams to their IDs
     public List<Integer> mapCountriesToIds(List<Country> selectedCountries) {
         List<Integer> listIds = selectedCountries.stream()
                 .map(Country::getId)  // Using method reference to get country IDs
                 .collect(Collectors.toList()); // Collecting the results into a List
         return listIds;
     }
+    // Maps selected teams to their IDs
     public List<Integer> mapTeamsToIds(List<Team> selectedTeams) {
         return selectedTeams.stream()
                 .map(Team::getId)  // Using method reference to get team IDs
                 .collect(Collectors.toList()); // Collecting the results into a List
     }
+
+    // Populates the grid pane with employee cards
     void populateGridPane() throws IOException {
         EmployeeModel employeeModel = new EmployeeModel();
         List<Employee> employees;
@@ -141,7 +146,7 @@ public class MainWindowController implements Initializable {
         }
     }
 
-
+    // Opens the window to create a new employee
     public void createEmployee(ActionEvent actionEvent) {
         BlurEffectUtil.applyBlurEffect(scrollPane, 10); // Apply a blur effect to the scroll pane
 
@@ -168,6 +173,7 @@ public class MainWindowController implements Initializable {
         }
     }
 
+    // Logs out the current user and opens the login window
     public void clickLogOut(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/LoginWindow.fxml"));
@@ -201,7 +207,7 @@ public class MainWindowController implements Initializable {
 
 
 
-
+    // Opens the rate window
     public void groupWindowButton(ActionEvent actionEvent) {
         BlurEffectUtil.applyBlurEffect(scrollPane, 10);
         try {
@@ -222,6 +228,7 @@ public class MainWindowController implements Initializable {
             e.printStackTrace(); // Proper error handling should be implemented
         }
     }
+    // Populates the country combo box with countries
     private void countryComboBox() {
         try {
             List<Country> listCountries = countryLogic.getAllCountries();
@@ -230,6 +237,7 @@ public class MainWindowController implements Initializable {
             e.printStackTrace(); // Proper error handling should be implemented
         }
     }
+    // Populates the team combo box with teams
     private void TeamComboBox() {
         try {
             List<Team> listTeams = teamLogic.getAllTeams();
@@ -238,6 +246,7 @@ public class MainWindowController implements Initializable {
             e.printStackTrace(); // Proper error handling should be implemented
         }
     }
+    // Handles the search button action to filter employees by selected countries and teams
     public void SearchButton(ActionEvent actionEvent) {
         List<Country> listSelectedCountries = new ArrayList<>();
         for (int i = 0; i < countryComboBox.getItems().size(); i++) {
@@ -258,7 +267,7 @@ public class MainWindowController implements Initializable {
 
         this.refreshEmployeeCards();
     }
-
+    // Opens the teams window
     public void openTeams(ActionEvent actionEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/TeamsView.fxml"));
