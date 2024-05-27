@@ -11,7 +11,8 @@
     <orderEntry type="library" name="io.github.palexdev.materialfx" level="project" />
     <orderEntry type="library" name="microsoft.sqlserver.mssql.jdbc" level="project" />
     <orderEntry type="library" name="junit.jupiter" level="project" />
-    <orderEntry type="library" name="mockito.all" level="project" />
-    <orderEntry type="library" name="junit.jupiter.api" level="project" />
+    <orderEntry type="library" name="mockito.core" level="project" />
+    <orderEntry type="library" name="testfx.core" level="project" />
+    <orderEntry type="library" name="testfx.junit5" level="project" />
   </component>
 </module>
