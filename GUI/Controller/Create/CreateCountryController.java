@@ -2,6 +2,7 @@ package GUI.Controller.Create;
 
 import BE.Country;
 import GUI.Model.CountryModel;
+import GUI.Exceptions.CountryCreationException;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,7 +49,7 @@ public class CreateCountryController implements Initializable {
 
                 Stage stage = (Stage) createCountryPane.getScene().getWindow();
                 stage.close();
-            } catch (Exception e) {
+            } catch (CountryCreationException e) {
                 showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while creating the country: " + e.getMessage());
                 e.printStackTrace();
             }
@@ -56,11 +57,13 @@ public class CreateCountryController implements Initializable {
             showAlert(Alert.AlertType.WARNING, "Input Required", "Please enter a country name.");
         }
     }
+
     // Cancels the action and closes the window
     public void cancel(ActionEvent actionEvent) {
         Stage stage = (Stage) createCountryPane.getScene().getWindow();
         stage.close();
     }
+
     // Shows an alert dialog with the specified type, title, and message
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
@@ -72,6 +75,5 @@ public class CreateCountryController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 }

@@ -2,6 +2,7 @@ package GUI.Controller;
 
 import BE.*;
 import BLL.RateLogic;
+import GUI.Exceptions.TeamCreationException;
 import GUI.Controller.Create.CreateCountryController;
 import GUI.Controller.Create.CreateTeamController;
 import GUI.Model.*;
@@ -30,7 +31,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
@@ -85,7 +85,7 @@ public class EmployeeInfoController implements Initializable {
     private Employee employee;
     private Consumer<Employee> onDeleteEmployeeCallback;
     private ScrollPane scrollPane;
-    private EmployeeModel employeeModel;
+    public EmployeeModel employeeModel;
     private RateLogic rateLogic = new RateLogic(); // Initialize RateLogic
     private Runnable refreshCallback;
     private CalculationModel calculationModel = new CalculationModel();
@@ -245,6 +245,8 @@ public class EmployeeInfoController implements Initializable {
             } catch (SQLException e) {
                 e.printStackTrace();
                 showAlert(Alert.AlertType.ERROR, "Error", "Failed to update employee information.");
+            } catch (TeamCreationException e) {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -365,9 +367,8 @@ public class EmployeeInfoController implements Initializable {
             try {
                 teamModel.deleteTeam(selectedTeam);
                 teamBox.getItems().remove(selectedTeam);
-            } catch (SQLException e) {
-                e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Error", "Failed to delete the selected team.");
+            } catch (TeamCreationException e) {
+                throw new RuntimeException(e);
             }
         } else {
             showAlert(Alert.AlertType.WARNING, "Warning", "Please select a team to delete.");

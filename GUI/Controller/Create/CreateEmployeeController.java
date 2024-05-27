@@ -3,6 +3,7 @@ package GUI.Controller.Create;
 import BE.Country;
 import BE.Employee;
 import BE.Team;
+import GUI.Exceptions.CreateEmployeeException;
 import GUI.Model.CountryModel;
 import GUI.Model.EmployeeModel;
 import GUI.Model.TeamModel;
@@ -17,7 +18,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -28,7 +31,6 @@ import java.io.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CreateEmployeeController implements Initializable {
@@ -90,6 +92,7 @@ public class CreateEmployeeController implements Initializable {
             teamBox.getItems().addAll(teamModel.getTeams());
         });
     }
+
     // Handles the action of selecting a photo file
     public void selectPhotoButton(ActionEvent actionEvent) throws Exception {
         FileChooser fileChooser = new FileChooser();
@@ -140,7 +143,7 @@ public class CreateEmployeeController implements Initializable {
             Stage stage = (Stage) createEmployeeAnchorPane.getScene().getWindow();
             BlurEffectUtil.removeBlurEffect(scrollPane);
             stage.close();
-        } catch (SQLException e) {
+        } catch (SQLException | CreateEmployeeException e) {
             e.printStackTrace();
             Message.showAlert("Error", "Failed to create the employee in the database.", Alert.AlertType.ERROR);
         }
@@ -172,6 +175,7 @@ public class CreateEmployeeController implements Initializable {
     public void setOnCloseRequestHandler(Stage stage) {
         stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(scrollPane));
     }
+
     // Reads bytes from the selected file
     public static byte[] readBytesFromFile(File file) throws Exception {
         InputStream is = new FileInputStream(file);

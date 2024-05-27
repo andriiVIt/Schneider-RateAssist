@@ -2,6 +2,7 @@ package GUI.Model;
 
 import BE.Country;
 import BLL.CountryLogic;
+import GUI.Exceptions.CountryCreationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -27,10 +28,14 @@ public class CountryModel {
     }
 
     // Creates a new country and adds it to the list
-    public Country createCountry(Country country) throws SQLException {
-        Country c = countryLogic.createCountry(country);
-        countries.add(c);
-        return c;
+    public Country createCountry(Country country) throws CountryCreationException {
+        try {
+            Country createdCountry = countryLogic.createCountry(country);
+            countries.add(createdCountry);
+            return createdCountry;
+        } catch (SQLException e) {
+            throw new CountryCreationException("Failed to create country", e);
+        }
     }
     // Deletes a country from the list and database
     public void deleteCountry(Country country) throws SQLException {
