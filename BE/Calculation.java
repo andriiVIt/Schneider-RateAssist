@@ -1,7 +1,7 @@
 package BE;
 
 public class Calculation {
-    private int id; // Додано поле id
+    private int id;
     private int employeeId;
     private double rate;
 
@@ -10,7 +10,7 @@ public class Calculation {
         this.rate = rate;
     }
 
-    // Доданий новий конструктор
+
     public Calculation(int id, int employeeId, double rate) {
         this.id = id;
         this.employeeId = employeeId;
